@@ -1,4 +1,4 @@
-## 1 技术栈aaaaaaaaaaaa
+## 1 技术栈
 react springBoot apache mysql mongodb (neo4j)
 
 ## 2 四周大致计划
@@ -7,8 +7,8 @@ react springBoot apache mysql mongodb (neo4j)
 ### 测试
 ### 补上全部功能
 
-## 4 本周详细计划111
+## 4 本周详细计划
 #### 7.7 上午 交流:github(演示)、爬虫(原理，demo，后面的也是)、推荐算法、部署（是什么、怎么做） 下午 设计数据库，设计前端（与后端的接口、页面分工
 #### 7.8 爬数据 写前端 写算法
 #### 7.9 写前端？
-#### 7.10 写前端!222
+#### 7.10 写前端!
