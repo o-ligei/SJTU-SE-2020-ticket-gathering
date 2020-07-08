@@ -13,7 +13,13 @@
   order(order_id,user_id,actitem_id,price,amount)
   
 ### Neo4j for recommendation and classification
+
   Tripartite graph：User,Activity,Property
+  
   Property: city,category(subcategory),actor
+  
   (Activity,Property) for classification and similarity recommendation: easy to achieve in neo4j
-  (User,Activity) for personalized recommendation: Personal Ranks Algorithm https://blog.csdn.net/qq_40006058/article/details/83444131 for more
+  
+  (User,Activity) for personalized recommendation: Personal Ranks Algorithm 
+  
+    https://blog.csdn.net/qq_40006058/article/details/83444131 for more
