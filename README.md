@@ -4,7 +4,7 @@
 
   user(userId,name,gender(Male/Female),email,phone,password,type(admin/user),personicon(MongoDB))
   
-  activity(activityId,title,actor,timescale,venue,img(MongoDB),description(MongoDB))
+  activity(activityId,title,actor,timescale,venue,imgurl,description(MongoDB))
   
   actitem(actitemId,activityId,website,prices(MongoDB))
   
