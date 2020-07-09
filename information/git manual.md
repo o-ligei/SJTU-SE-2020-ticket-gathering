@@ -215,5 +215,7 @@ git merge --ff-only upstream/master
 链接：https://www.jianshu.com/p/811b07b129e8
 
 ## tips
+git push origin develop 把本地develop推送到所有远端branch上
+git push origin/develop develop 把本地develop推送到远端develop上
 git commit 自动打开文本编辑器以修改commit message
 git remote prune origin 清除本地记录的，远端已删除的分支
