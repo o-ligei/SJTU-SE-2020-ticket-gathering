@@ -1,0 +1,26 @@
+/**
+ * @ClassName User
+ * @Description User Service Implementation
+ * @Author ziliuziliu
+ * @Date 2020/7/9
+ */
+
+package com.oligei.ticket_gathering.serviceimpl;
+
+import com.oligei.ticket_gathering.dao.UserDao;
+import com.oligei.ticket_gathering.entity.mysql.User;
+import com.oligei.ticket_gathering.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserDao userDao;
+
+    @Override
+    public User login(String name, String password) {
+        return userDao.login(name, password);
+    }
+}
