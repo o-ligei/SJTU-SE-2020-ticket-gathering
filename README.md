@@ -2,7 +2,7 @@
 ## Database Design: Mysql+MongoDB+Neo4j
 ### Mysql+MongoDB
 
-  user(userId,name,gender(Male/Female),email,phone,password,type(admin/user),personicon(MongoDB))
+  user(userId,name,gender(Male/Female),email,phone,password,type(Admin/User),personicon(MongoDB))
   
   activity(activityId,title,actor,timescale,venue,imgurl,description(MongoDB))
   
