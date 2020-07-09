@@ -28,7 +28,7 @@ export class LoginForm extends React.Component {
         // };
         // checkUser(values,callback);
         // console.log(values);
-        if(values.username==userInfo.username && values.password==userInfo.password){
+        if(values.username===userInfo.username && values.password===userInfo.password){
             this.setState({firstLogin:false,user:userInfo})
         }
         this.setState({firstLogin:false});
@@ -39,7 +39,7 @@ export class LoginForm extends React.Component {
     };
 
     render(){
-        if(this.state.user==null &&this.state.firstLogin==false){
+        if(this.state.user==null &&this.state.firstLogin===false){
             message.error("密码错误")
         }
         if(this.state.user!=null) {
@@ -51,6 +51,7 @@ export class LoginForm extends React.Component {
         }
         return (
             <Form
+                id = "login_form"
                 {...layout}
                 name="basic"
                 initialValues={{remember: true}}
@@ -59,12 +60,12 @@ export class LoginForm extends React.Component {
             >
                 <Form.Item
                     label="Username"
+                    // labelCol={{font-size:20px}}
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
                     <Input/>
                 </Form.Item>
-
                 <Form.Item
                     label="Password"
                     name="password"

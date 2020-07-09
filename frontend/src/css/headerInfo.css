@@ -5,3 +5,21 @@
 .menuItem{
     width:20px
 }
+
+#menuButton{
+    margin: 0 20px 20px 20px; /*up right down left*/
+}
+
+#sortButton{
+    margin: 0 20px 0 0;
+}
+
+#searchInput{
+    /*margin: 0 20px 0 0;*/
+}
+
+#profileOperate{
+    margin: 15px 20px 0 20px;
+    float: right;
+}
+

@@ -17,7 +17,7 @@ export class HomeView extends React.Component{
                 <HeaderInfo/>
 
                 <div>
-                    <Carousel afterChange={this.onChange.bind(this)}>
+                    <Carousel autoplay afterChange={this.onChange.bind(this)}>
                         <div>
                             <h3>1</h3>
                         </div>
@@ -33,7 +33,7 @@ export class HomeView extends React.Component{
                     </Carousel>
                 </div>
                 <Navigate/>
-                    <HomeCategoryPage/>
+                <HomeCategoryPage/>
                 <FooterInfo/>
             </div>
         )
