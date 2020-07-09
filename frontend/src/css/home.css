@@ -9,3 +9,18 @@
 .ant-carousel .slick-slide h3 {
     color: #fff;
 }
+
+.category{
+    border:1px solid #000;
+    margin:10px;
+}
+
+.navigateButton{
+    float:left;
+    text-align:center;
+}
+
+.icon{
+    width:100px;
+    height:120px;
+}

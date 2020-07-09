@@ -3,6 +3,8 @@ import {HeaderInfo} from "../component/Header";
 import {FooterInfo} from "../component/Footer";
 import { Carousel } from 'antd';
 import "../css/home.css"
+import {HomeCategoryPage} from "../component/HomeCategoryPage";
+import {Navigate} from "../component/Navigate";
 
 export class HomeView extends React.Component{
     onChange(a,b,c){
@@ -13,6 +15,7 @@ export class HomeView extends React.Component{
         return(
             <div>
                 <HeaderInfo/>
+
                 <div>
                     <Carousel afterChange={this.onChange.bind(this)}>
                         <div>
@@ -29,7 +32,8 @@ export class HomeView extends React.Component{
                         </div>
                     </Carousel>
                 </div>
-
+                <Navigate/>
+                    <HomeCategoryPage/>
                 <FooterInfo/>
             </div>
         )
