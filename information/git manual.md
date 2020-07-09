@@ -219,3 +219,16 @@ git merge --ff-only upstream/master
 2. git push origin dev:develop 把本地dev推送到远端develop上
 3. git commit 自动打开文本编辑器以修改commit message
 4. git remote prune origin 清除本地记录的，远端已删除的分支
+
+##从零建立本地repository的git bash命令行代码
+1. cd
+2. git init
+3. git remote add origin +repositoryLink
+4. git checkout -b dev
+5. git pull origin develop:dev  
+至此本地repository已建立好
+6. 修改本地文件
+7. git add -A
+8. git commit
+9. 默认进入git bash vim,在首行编辑完注释后，长按esc后输入两个大写Z，推出vim
+10. git push origin dev:develop
