@@ -211,11 +211,11 @@ git merge --ff-only upstream/master
 - release branch 预发布分支,develop branch积累到一定程度后fork出来，只进行一点bug的修补、文档的补充，不新加feature。准备好之后就merge进master branch并打上标签，同时也可以merge回develop branch
 - hotfix branch 为master branch紧急修改bug，完成后merge到master branch和develop branch
 
-## 本地与远程的分支同步
+## 本地与远程的分支同布
 链接：https://www.jianshu.com/p/811b07b129e8
 
 ## tips
 git push origin develop 把本地develop推送到所有远端branch上
-git push origin/develop develop 把本地develop推送到远端develop上
+git push origin dev:develop 把本地dev推送到远端develop上
 git commit 自动打开文本编辑器以修改commit message
 git remote prune origin 清除本地记录的，远端已删除的分支
