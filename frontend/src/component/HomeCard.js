@@ -12,7 +12,7 @@ export class HomeCard extends React.Component{
         style={{ width: 240 }}
         cover={<img alt="example" src={this.props.info.imgurl} />}
     >
-    <Meta title={this.props.info.title} description={'¥'+this.props.info.price} />
+    <Meta title={this.props.info.title} description={'¥'+this.props.info.price} style={{fontFamily:"YouYuan"}}/>
     </Card>
         )
     }

@@ -1,4 +1,4 @@
-# git全知教程
+# git全知基础教程
 链接：https://www.liaoxuefeng.com/wiki/896043488029600
 ### 创建版本库
 ##### git init 将普通目录变成Git可以管理的仓库（仅该命令可以在普通目录下执行）
@@ -81,7 +81,6 @@ Your branch is ahead of 'origin/master' by 1 commit.  Git还会自动提示我�
 ##### git stash list 查看stash内容
 ##### git stash apply stash@{0} 指定恢复内容
 ##### git cherry-pick 4c805e2 复制一个特定的提交到当前分支
-#### Feature分支
 ##### git branch -D feature-vulcan
 在未合并情况下强行删除分支
 #### 多人协作
@@ -220,15 +219,31 @@ git merge --ff-only upstream/master
 3. git commit 自动打开文本编辑器以修改commit message
 4. git remote prune origin 清除本地记录的，远端已删除的分支
 
-##从零建立本地repository的git bash命令行代码
+## 工作流程
+### 如何建立并连接repo
+远端已经有repo，想要建立与本地的连接
+#### 方法一
 1. cd
 2. git init
 3. git remote add origin +repositoryLink
 4. git checkout -b dev
-5. git pull origin develop:dev  
-至此本地repository已建立好
-6. 修改本地文件
-7. git add -A
-8. git commit
-9. 默认进入git bash vim,在首行编辑完注释后，长按esc后输入两个大写Z，推出vim
-10. git push origin dev:develop
+5. git pull origin dev:develop
+至此，origin源即是远端的链接，远端的develop分支已经与本地的dev分支建立关联，develop分支的内容已经保存到本地
+#### 方法二
+1. cd 
+2. git clone repositoryLink
+至此，origin源即是远端的链接，远端的master分支已经与本地的master分支建立关联，master分支的内容已经保存到本地
+### 工作流程
+比如想新加一个功能
+1. git checkout dev  切换到dev分支
+2. git checkout -b feat  创建并切换到dev分支
+3. 进行修改
+4. git status  常常查看仓库状态是个好习惯
+5. git add \<filename\> 将修改过的file加入暂存区
+6. git commit  然后会自动弹出文本框，填写了commit message后保存关闭文本框，commit完成
+7. git checkout dev 回到dev分支
+8. git merge feat 将feat分支合并到dev分支
+9. git branch -d feat 删除feat分支
+10. git push origin dev:develop 将本地dev分支，提交到远端develop分支
+11. 若上一步出错，是因为远端的develop分支被别人修改过，在dev分支执行git pull，再执行上一步即可
+至此，远端的develop分支已经和本地的dev分支同步在最新状态，远端的master分支则没有更新，但会自动提示是否发起PR，大多数情况下不用立即PR
