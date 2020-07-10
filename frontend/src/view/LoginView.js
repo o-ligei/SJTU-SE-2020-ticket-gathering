@@ -12,17 +12,8 @@ export class LoginView extends React.Component{
     render(){
         return(
             <div id="container"style={sectionStyle}>
-                <div id="login_form">
-                    <PageHeader
-                        className="site-page-header"
-                        title="Login"
-                        subTitle="welcome!"
-                    />,
-                    <LoginForm/>
-                </div>
-
+                <LoginForm/>
             </div>
-
         )
     }
 }

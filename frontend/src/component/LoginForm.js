@@ -5,6 +5,7 @@ import {message} from "antd";
 import "../css/Login.css"
 import {checkUser} from "../service/userService";
 import {userInfo} from "../const/userInfo";
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const layout = {
     labelCol: { span: 8 },
@@ -28,7 +29,7 @@ export class LoginForm extends React.Component {
         // };
         // checkUser(values,callback);
         // console.log(values);
-        if(values.username==userInfo.username && values.password==userInfo.password){
+        if(values.username===userInfo.username && values.password===userInfo.password){
             this.setState({firstLogin:false,user:userInfo})
         }
         this.setState({firstLogin:false});
@@ -39,7 +40,7 @@ export class LoginForm extends React.Component {
     };
 
     render(){
-        if(this.state.user==null &&this.state.firstLogin==false){
+        if(this.state.user==null &&this.state.firstLogin===false){
             message.error("密码错误")
         }
         if(this.state.user!=null) {
@@ -51,6 +52,7 @@ export class LoginForm extends React.Component {
         }
         return (
             <Form
+                id = "login_form"
                 {...layout}
                 name="basic"
                 initialValues={{remember: true}}
@@ -58,19 +60,23 @@ export class LoginForm extends React.Component {
                 onFinishFailed={this.onFinishFailed}
             >
                 <Form.Item
-                    label="Username"
+                    // label="Username"
+                    // labelCol={{font-size:20px}}
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input/>
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                 </Form.Item>
-
                 <Form.Item
-                    label="Password"
+                    // label="Password"
                     name="password"
                     rules={[{required: true, message: 'Please input your password!'}]}
                 >
-                    <Input.Password/>
+                    <Input
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="Password"
+                    />
                 </Form.Item>
 
                 <Form.Item {...tailLayout}>

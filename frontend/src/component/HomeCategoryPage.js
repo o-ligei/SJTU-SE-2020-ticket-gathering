@@ -22,9 +22,10 @@ export class HomeCategoryPage extends React.Component{
             <div>
                 <div className="category">
                     <PageHeader className="site-page-header"
-                                title="体育"/>
+                                title="体育"
+                    />
                     <List
-                        grid={{gutter: 10, column: 4}}
+                        grid={{gutter: 4, column: 4}}
                         dataSource={this.state.sports}
                         renderItem={item => (
                             <List.Item>
