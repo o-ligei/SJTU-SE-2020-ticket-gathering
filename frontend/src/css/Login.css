@@ -12,7 +12,7 @@
     width: 500px;
     height: 400px;
     position: absolute;
-    left: 50%;
+    left: 55%;
     top: 50%;
     margin: -200px 0 0 -250px;
     background: white;
@@ -41,4 +41,24 @@
 #login_form{
     background-color: rgba(0,0,0,0);
     /*opacity: 0.5;*/
+}
+
+#buttonDiv{
+    padding-top: 400px;
+    margin-left: -30px;
+}
+
+#regDiv{
+    padding-top: 20px;
+}
+
+#loginBtn{
+    width: 200px;
+    border-radius: 10px;
+    background-color: #6c7ffb;
+}
+
+#regBtn{
+    width: 200px;
+    border-radius: 10px;
 }

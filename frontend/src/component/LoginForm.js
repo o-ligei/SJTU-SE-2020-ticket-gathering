@@ -51,6 +51,7 @@ export class LoginForm extends React.Component {
             return <Redirect to={{pathname: "/"}}/>;
         }
         return (
+            <div>
             <Form
                 id = "login_form"
                 {...layout}
@@ -65,7 +66,7 @@ export class LoginForm extends React.Component {
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large" />
                 </Form.Item>
                 <Form.Item
                     // label="Password"
@@ -76,20 +77,27 @@ export class LoginForm extends React.Component {
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
                         placeholder="Password"
+                        size="large"
                     />
                 </Form.Item>
-
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        登录
-                    </Button>
-                    <Link to={{pathname:"/register"}}>
-                        <Button>
-                            注册
-                        </Button>
-                    </Link>
-                </Form.Item>
             </Form>
+
+                <div id="buttonDiv">
+                    <div id="loginDiv">
+                        <Button type="primary" htmlType="submit" size="large" id="loginBtn">
+                            登   录
+                        </Button>
+                    </div>
+                    <div id="regDiv">
+                        <Link to={{pathname: "/register"}}>
+                            <Button size="large" id="regBtn">
+                                注册
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+
+            </div>
         );
     }
 }

@@ -11,8 +11,11 @@
 }
 
 .category{
-    border:1px solid #000;
-    margin:10px;
+    width: 80%;
+    margin: auto;
+    padding-top: 50px;
+    border-radius: 25px;
+    border: 2px solid #fb9c29;
 }
 
 .navigateButton{

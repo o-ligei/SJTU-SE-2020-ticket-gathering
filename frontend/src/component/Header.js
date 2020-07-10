@@ -35,14 +35,19 @@ export class HeaderInfo extends React.Component {
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
                 <div id="header-content">
-                    <Button id="menuButton" href="/">首页</Button>
-                    <Button id="sortButton" href="/sortPage">分类</Button>
-                    <Search
-                        id="searchInput"
-                        placeholder="搜索明星、演出、体育赛事"
-                        onSearch={value => this.toggleSearch(value)}
-                        style={{ width: 200 }}
-                    />
+                    <div id="menusortDiv">
+                        <Button id="menuButton" href="/" type={"primary"}>首页</Button>
+                        <Button id="sortButton" href="/sortPage" type={"primary"}>分类</Button>
+                    </div>
+                    <div id="searchDiv">
+                        <Search
+                            id="searchInput"
+                            placeholder="搜索明星、演出、体育赛事"
+                            onSearch={value => this.toggleSearch(value)}
+                            style={{width: 400}}
+                            enterButton="搜索"
+                        />
+                    </div>
                     <Avatar id="profileOperate" icon={<UserOutlined />} />
                     <Dropdown
                         overlay={(
