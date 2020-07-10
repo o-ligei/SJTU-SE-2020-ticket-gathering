@@ -8,11 +8,14 @@ const { Meta } = Card;
 export class SortPageCard extends React.Component{
     render(){
         return(
-            <div>
+            <div style={{paddingBottom:30}}>
                 <div>
                     <img className='image' alt="example" src={this.props.info.imgurl} />
-                    <p>{this.props.info.title}</p>
-                    <p>{'¥'+this.props.info.price}</p>
+                    <p id="title">{this.props.info.title}</p>
+                    <p id="info">地点： {this.props.info.city} | {this.props.info.venue}</p>
+                    <p style={{paddingLeft:200}}>{this.props.info.category}</p>
+                    <p id="price">{'¥'+this.props.info.price_str}</p>
+
                 </div>
                 <div>
                     <Collapse accordion>

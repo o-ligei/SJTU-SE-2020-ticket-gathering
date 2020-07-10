@@ -19,7 +19,7 @@ export class HomeCategoryPage extends React.Component{
 
     render(){
         return(
-            <div>
+            <div style={{paddingTop:30}}>
                 <div className="category">
                     <PageHeader className="site-page-header"
                                 title="体育"

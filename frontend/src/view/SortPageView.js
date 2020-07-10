@@ -4,6 +4,7 @@ import {FooterInfo} from "../component/Footer";
 import { sports} from "../const/activity";
 import {List} from "antd";
 import {SortPageCard} from "../component/SortPageCard";
+import "../css/sortPage.css"
 
 export class SortPageView extends React.Component{
     constructor(props) {
@@ -19,8 +20,9 @@ export class SortPageView extends React.Component{
 
     render(){
         return(
-            <div>
+            <div >
                 <HeaderInfo/>
+                <div id="sortPageDiv">
                 <List
                     grid={{gutter: 10, column: 1}}
                     dataSource={this.state.activity}
@@ -30,6 +32,7 @@ export class SortPageView extends React.Component{
                         </List.Item>
                     )}
                 />
+                </div>
                 <FooterInfo/>
             </div>
         )
