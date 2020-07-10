@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Input, Dropdown, Menu,Avatar} from 'antd';
+import {Layout, Input, Dropdown, Menu,Avatar,Button} from 'antd';
 import {Redirect,Link}  from 'react-router-dom';
 import "../css/headerInfo.css"
 import { UserOutlined } from '@ant-design/icons';
@@ -35,15 +35,22 @@ export class HeaderInfo extends React.Component {
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
                 <div id="header-content">
-                    <a href="/">首页</a>
-                    <a href="/sortPage">分类</a>
-                    <Search
-                        placeholder="搜索明星、演出、体育赛事"
-                        onSearch={value => this.toggleSearch(value)}
-                        style={{ width: 200 }}
-                    />
-                    <Avatar icon={<UserOutlined />} />
-                    <Dropdown overlay={(
+                    <div id="menusortDiv">
+                        <Button id="menuButton" href="/" type={"primary"}>首页</Button>
+                        <Button id="sortButton" href="/sortPage" type={"primary"}>分类</Button>
+                    </div>
+                    <div id="searchDiv">
+                        <Search
+                            id="searchInput"
+                            placeholder="搜索明星、演出、体育赛事"
+                            onSearch={value => this.toggleSearch(value)}
+                            style={{width: 400}}
+                            enterButton="搜索"
+                        />
+                    </div>
+                    <Avatar id="profileOperate" icon={<UserOutlined />} />
+                    <Dropdown
+                        overlay={(
                         <Menu>
                             <Menu.Item>
                                 <a href={this.state.login?"/profile":"/login"}>个人信息</a>
@@ -57,9 +64,9 @@ export class HeaderInfo extends React.Component {
                         </Menu>
                     )}>
                                 {!this.state.login?(
-                                    <a href="/login">登录</a>
+                                    <Button id="profileOperate" href="/login">登录</Button>
                                 ):(
-                                    <a href="/profile">{this.state.username}</a>
+                                    <Button id="profileOperate" href="/profile">{this.state.username}</Button>
                                 )}
                     </Dropdown>
                 </div>

@@ -9,3 +9,26 @@
 .ant-carousel .slick-slide h3 {
     color: #fff;
 }
+
+.category{
+    width: 80%;
+    margin: auto;
+    padding-top: 50px;
+    border-radius: 25px;
+    border: 2px solid #fb9c29;
+}
+
+.navigateButton{
+    float:left;
+    text-align:center;
+}
+
+.icon{
+    width:100px;
+    height:120px;
+}
+
+#moreHerf{
+    font-size: 15px;
+    float: right;
+}

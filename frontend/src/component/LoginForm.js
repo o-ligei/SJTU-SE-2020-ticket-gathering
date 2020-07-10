@@ -5,6 +5,7 @@ import {message} from "antd";
 import "../css/Login.css"
 import {checkUser} from "../service/userService";
 import {userInfo} from "../const/userInfo";
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const layout = {
     labelCol: { span: 8 },
@@ -28,7 +29,7 @@ export class LoginForm extends React.Component {
         // };
         // checkUser(values,callback);
         // console.log(values);
-        if(values.username==userInfo.username && values.password==userInfo.password){
+        if(values.username===userInfo.username && values.password===userInfo.password){
             this.setState({firstLogin:false,user:userInfo})
         }
         this.setState({firstLogin:false});
@@ -39,7 +40,7 @@ export class LoginForm extends React.Component {
     };
 
     render(){
-        if(this.state.user==null &&this.state.firstLogin==false){
+        if(this.state.user==null &&this.state.firstLogin===false){
             message.error("密码错误")
         }
         if(this.state.user!=null) {
@@ -50,7 +51,9 @@ export class LoginForm extends React.Component {
             return <Redirect to={{pathname: "/"}}/>;
         }
         return (
+            <div>
             <Form
+                id = "login_form"
                 {...layout}
                 name="basic"
                 initialValues={{remember: true}}
@@ -58,32 +61,43 @@ export class LoginForm extends React.Component {
                 onFinishFailed={this.onFinishFailed}
             >
                 <Form.Item
-                    label="Username"
+                    // label="Username"
+                    // labelCol={{font-size:20px}}
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input/>
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large" />
                 </Form.Item>
-
                 <Form.Item
-                    label="Password"
+                    // label="Password"
                     name="password"
                     rules={[{required: true, message: 'Please input your password!'}]}
                 >
-                    <Input.Password/>
-                </Form.Item>
-
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        登录
-                    </Button>
-                    <Link to={{pathname:"/register"}}>
-                        <Button>
-                            注册
-                        </Button>
-                    </Link>
+                    <Input
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="Password"
+                        size="large"
+                    />
                 </Form.Item>
             </Form>
+
+                <div id="buttonDiv">
+                    <div id="loginDiv">
+                        <Button type="primary" htmlType="submit" size="large" id="loginBtn">
+                            登   录
+                        </Button>
+                    </div>
+                    <div id="regDiv">
+                        <Link to={{pathname: "/register"}}>
+                            <Button size="large" id="regBtn">
+                                注册
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
+
+            </div>
         );
     }
 }
