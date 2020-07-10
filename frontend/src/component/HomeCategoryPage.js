@@ -34,6 +34,7 @@ export class HomeCategoryPage extends React.Component{
                         )}
                     />
                 </div>
+                <p>.</p>
                 <div className="category">
                     <PageHeader className="site-page-header"
                                 title="音乐会"/>

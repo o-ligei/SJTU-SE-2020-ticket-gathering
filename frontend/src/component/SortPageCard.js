@@ -39,7 +39,8 @@ export class SortPageCard extends React.Component{
                      <img className='image' alt="example" src={this.props.info.imgurl} />
                      <p id="title">{this.props.info.title}</p>
                      <p id="info">地点： {this.props.info.city} | {this.props.info.venue}</p>
-                     <p style={{paddingLeft:200}}>{this.props.info.category}</p>
+                     <p style={{paddingLeft:200,fontSize:12}}>{this.props.info.category}</p>
+                     <p id="info">{this.props.info.time}</p>
                      <p id="price">{'¥'+this.props.info.price_str}</p>
                  </div>
                  <div>

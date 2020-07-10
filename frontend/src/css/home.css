@@ -1,8 +1,8 @@
 .ant-carousel .slick-slide {
     text-align: center;
-    height: 160px;
-    line-height: 160px;
-    background: #364d79;
+    /*height: 160px;*/
+    /*line-height: 160px;*/
+    background:white;
     overflow: hidden;
 }
 
@@ -32,3 +32,17 @@
     font-size: 15px;
     float: right;
 }
+
+#carousel{
+    padding-top: 10px;
+    padding-bottom: 50px;
+    width: 80%;
+    margin: auto;
+}
+
+#carouselImg{
+    height: 300px;
+    width: 1250px;
+}
+
+

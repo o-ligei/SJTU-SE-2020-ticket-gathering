@@ -117,6 +117,8 @@ export class RegisterView extends React.Component{
     render(){
         if(this.state.registered){
             return(
+                <div id="bg">
+                <div id="regDiv">
                 <Result
                     status="success"
                     title="注册成功"
@@ -132,10 +134,13 @@ export class RegisterView extends React.Component{
                         </Link>
                     ]}
                 />
+                </div>
+                </div>
             )
         }
         return(
-            <div>
+            <div id="bg">
+            <div id="regDiv">
                 <p>请输入用户名:</p>
                 <Input
                     placeholder="Enter your username"
@@ -204,7 +209,7 @@ export class RegisterView extends React.Component{
                     )}
                 </div>
             </div>
-
+            </div>
         )
     }
 }
