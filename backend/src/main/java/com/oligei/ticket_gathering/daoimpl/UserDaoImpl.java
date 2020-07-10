@@ -27,8 +27,8 @@ public class UserDaoImpl implements UserDao {
     private UserMongoDBRepository userMongoDBRepository;
 
     @Override
-    public User login(String name, String password) {
-        User user = userRepository.checkUser(name, password);
+    public User login(String username, String password) {
+        User user = userRepository.checkUser(username, password);
         if (user != null){
             Integer userId = user.getUserId();
             Optional<UserMongoDB> user_mongodb = userMongoDBRepository.findById(userId);

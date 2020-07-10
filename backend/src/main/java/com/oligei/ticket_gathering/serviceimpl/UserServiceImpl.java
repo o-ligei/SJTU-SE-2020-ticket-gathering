@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User login(String name, String password) {
-        return userDao.login(name, password);
+    public User login(String username, String password) {
+        return userDao.login(username, password);
     }
 }

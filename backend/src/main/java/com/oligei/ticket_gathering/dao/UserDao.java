@@ -10,5 +10,5 @@ package com.oligei.ticket_gathering.dao;
 import com.oligei.ticket_gathering.entity.mysql.User;
 
 public interface UserDao {
-    User login(String name, String password);
+    User login(String username, String password);
 }

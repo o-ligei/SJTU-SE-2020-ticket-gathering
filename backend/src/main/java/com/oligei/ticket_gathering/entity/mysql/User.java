@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Table(name = "USERS")
 public class User {
     private Integer userId;
-    private String name;
+    private String username;
     private String gender;
     private String email;
     private String phone;
@@ -28,9 +28,9 @@ public class User {
     public Integer getUserId() {return userId;}
     public void setUserId(Integer userId) {this.userId=userId;}
 
-    @Column(name = "NAME")
-    public String getName() {return name;}
-    public void setName(String name) {this.name=name;}
+    @Column(name = "USERNAME")
+    public String getUsername() {return username;}
+    public void setUsername(String username) {this.username=username;}
 
     @Column(name = "GENDER")
     public String getGender() {return gender;}
