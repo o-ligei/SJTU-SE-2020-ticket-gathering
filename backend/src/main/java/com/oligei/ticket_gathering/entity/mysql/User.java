@@ -11,7 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USERS")
+@Table(name = "TG_USERS")
 public class User {
     private Integer userId;
     private String username;

@@ -2,7 +2,7 @@
  * @ClassName User
  * @Description User Dao Implementation
  * @Author ziliuziliu
- * @Date 2020/7/9
+ * @Date 2020/7/10
  */
 
 package com.oligei.ticket_gathering.daoimpl;
@@ -35,5 +35,22 @@ public class UserDaoImpl implements UserDao {
             user_mongodb.ifPresent(userMongoDB -> user.setPersonIcon(userMongoDB.getPersonIcon()));
         }
         return user;
+    }
+
+    @Override
+    public boolean register(User user) {
+        int userId = user.getUserId();
+        String personIcon = user.getPersonIcon();
+        UserMongoDB userMongoDB = new UserMongoDB(userId, personIcon);
+        user.setPersonIcon("");
+        userRepository.save(user);
+        userMongoDBRepository.save(userMongoDB);
+        return true;
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        return user != null;
     }
 }
