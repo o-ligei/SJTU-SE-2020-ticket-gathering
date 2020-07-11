@@ -32,8 +32,6 @@ export class SortPageCard extends React.Component{
 
     render(){
         return(
-
-
              <div style={{paddingBottom:30}}>
                  <div>
                      <img className='image' alt="example" src={this.props.info.imgurl} />
@@ -44,9 +42,9 @@ export class SortPageCard extends React.Component{
                  </div>
                  <div>
                      <Collapse accordion>
-                         <Panel header="选择时间">
-                             <p>2020.07.07-07.12</p>
-                             <p>2020.07.08</p>
+                         <Panel header="票源">
+                             <p>大麦网</p>
+                             <p>小麦网</p>
                          </Panel>
                      </Collapse>
                  </div>
