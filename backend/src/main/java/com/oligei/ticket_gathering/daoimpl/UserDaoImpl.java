@@ -13,6 +13,7 @@ import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.repository.UserMongoDBRepository;
 import com.oligei.ticket_gathering.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -26,15 +27,19 @@ public class UserDaoImpl implements UserDao {
     @Autowired
     private UserMongoDBRepository userMongoDBRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     @Override
     public User login(String username, String password) {
         User user = userRepository.checkUser(username, password);
-        if (user != null){
+        if (user != null && encoder.matches(password, user.getPassword())){
             Integer userId = user.getUserId();
             Optional<UserMongoDB> user_mongodb = userMongoDBRepository.findById(userId);
             user_mongodb.ifPresent(userMongoDB -> user.setPersonIcon(userMongoDB.getPersonIcon()));
+            return user;
         }
-        return user;
+        return null;
     }
 
     @Override
@@ -43,6 +48,8 @@ public class UserDaoImpl implements UserDao {
         String personIcon = user.getPersonIcon();
         UserMongoDB userMongoDB = new UserMongoDB(userId, personIcon);
         user.setPersonIcon("");
+        String rawPassword = user.getPassword();
+        user.setPassword(encoder.encode(rawPassword));
         userRepository.save(user);
         userMongoDBRepository.save(userMongoDB);
         return true;
