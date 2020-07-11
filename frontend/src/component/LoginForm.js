@@ -66,7 +66,8 @@ export class LoginForm extends React.Component {
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large" />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large"
+                           style={{fontFamily:"BookMan Old Style",borderRadius: 10,width:400}}/>
                 </Form.Item>
                 <Form.Item
                     // label="Password"
@@ -78,23 +79,21 @@ export class LoginForm extends React.Component {
                         type="password"
                         placeholder="Password"
                         size="large"
+                        style={{fontFamily:"BookMan Old Style",borderRadius: 10,width:400}}
                     />
                 </Form.Item>
             </Form>
 
                 <div id="buttonDiv">
-                    <div id="loginDiv">
-                        <Button type="primary" htmlType="submit" size="large" id="loginBtn">
-                            登   录
+                    <Button type="primary" htmlType="submit" size="large" id="loginBtn">
+                        登 录
+                    </Button>
+                    <p> </p>
+                    <Link to={{pathname: "/register"}}>
+                        <Button size="large" id="regBtn">
+                            注册
                         </Button>
-                    </div>
-                    <div id="regDiv">
-                        <Link to={{pathname: "/register"}}>
-                            <Button size="large" id="regBtn">
-                                注册
-                            </Button>
-                        </Link>
-                    </div>
+                    </Link>
                 </div>
 
             </div>

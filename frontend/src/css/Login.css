@@ -45,20 +45,18 @@
 
 #buttonDiv{
     padding-top: 400px;
-    margin-left: -30px;
+    margin-left: 40px;
 }
 
-#regDiv{
-    padding-top: 20px;
-}
+
 
 #loginBtn{
-    width: 200px;
+    width: 300px;
     border-radius: 10px;
     background-color: #6c7ffb;
 }
 
 #regBtn{
-    width: 200px;
+    width: 300px;
     border-radius: 10px;
 }
