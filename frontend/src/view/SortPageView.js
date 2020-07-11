@@ -25,15 +25,15 @@ export class SortPageView extends React.Component{
                 <HeaderInfo/>
                 <Divider plain className="divider"> </Divider>
                 <div id="sortPageDiv">
-                <List
-                    grid={{gutter: 10, column: 1}}
-                    dataSource={this.state.activity}
-                    renderItem={item => (
-                        <List.Item>
-                            <SortPageCard info={item} />
-                        </List.Item>
-                    )}
-                />
+                    <List
+                        grid={{gutter: 10, column: 1}}
+                        dataSource={this.state.activity}
+                        renderItem={item => (
+                            <List.Item>
+                                <SortPageCard info={item}/>
+                            </List.Item>
+                        )}
+                    />
                 </div>
                 <RecommendList/>
                 <div style={{paddingTop:2600}}>

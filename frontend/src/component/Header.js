@@ -35,6 +35,9 @@ export class HeaderInfo extends React.Component {
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
                 <div id="header-content">
+                    <div id="oligei">
+                        <img src={require('../resources/oligei.png')} width="200px" height="80px"/>
+                    </div>
                     <div id="menusortDiv">
                         <Button id="menuButton" href="/" type={"primary"}>首页</Button>
                         <Button id="sortButton" href="/sortPage" type={"primary"}>分类</Button>

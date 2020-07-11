@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Col, Divider, List, Row} from 'antd';
+import {Card} from 'antd';
 import "../css/recommendList.css"
 import { sports} from "../const/activity";
 
@@ -8,32 +8,6 @@ export class RecommendList extends React.Component{
     render(){
         return(
             <div className="site-card-wrapper" id="recommendList">
-                {/*<Row gutter={[16, 24]}>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*    <Col className="gutter-row" span={6}>*/}
-                {/*        <div style={style}>col-6</div>*/}
-                {/*    </Col>*/}
-                {/*</Row>*/}
                     <p id="recommendp">猜你喜欢</p>
                 <Card className="recommendCard"  hoverable={true}>
                     <img alt="example" src={sports[0].imgurl} className="img"/>

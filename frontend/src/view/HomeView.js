@@ -5,6 +5,7 @@ import { Carousel,Divider } from 'antd';
 import "../css/home.css"
 import {HomeCategoryPage} from "../component/HomeCategoryPage";
 import {Navigate} from "../component/Navigate";
+import {RecommendList} from "../component/RecommendList";
 
 export class HomeView extends React.Component{
     onChange(a,b,c){
@@ -27,8 +28,13 @@ export class HomeView extends React.Component{
                     </Carousel>
                 </div>
                 <Navigate/>
-                <HomeCategoryPage/>
-                <FooterInfo/>
+                <div id="homeCategoryPageDiv">
+                    <HomeCategoryPage/>
+                </div>
+                <RecommendList/>
+                <div style={{paddingTop:1500}}>
+                    <FooterInfo/>
+                </div>
             </div>
         )
     }

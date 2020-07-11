@@ -11,8 +11,9 @@
 }
 
 .category{
-    width: 80%;
-    margin: auto;
+    /*width: 50%;*/
+    /*padding-left: 50px;*/
+    /*margin: auto;*/
     padding-top: 50px;
     border-radius: 25px;
     border: 2px solid #fb9c29;
@@ -43,6 +44,12 @@
 #carouselImg{
     height: 300px;
     width: 1250px;
+}
+
+#homeCategoryPageDiv{
+    padding-left: 60px;
+    width: 78%;
+    float: left;
 }
 
 
