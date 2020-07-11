@@ -10,9 +10,11 @@
 
 
 #sortPageDiv{
-    width: 80%;
-    margin: auto;
+    width: 70%;
+    padding-left: 150px;
+    /*margin: auto;*/
     padding-top: 50px;
+    float: left;
 }
 
 #title{

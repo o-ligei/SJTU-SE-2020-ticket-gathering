@@ -5,6 +5,7 @@ import { sports} from "../const/activity";
 import {Divider, List} from "antd";
 import {SortPageCard} from "../component/SortPageCard";
 import "../css/sortPage.css"
+import {RecommendList} from "../component/RecommendList";
 
 export class SortPageView extends React.Component{
     constructor(props) {
@@ -34,7 +35,10 @@ export class SortPageView extends React.Component{
                     )}
                 />
                 </div>
-                <FooterInfo/>
+                <RecommendList/>
+                <div style={{paddingTop:2600}}>
+                    <FooterInfo/>
+                </div>
             </div>
         )
     }

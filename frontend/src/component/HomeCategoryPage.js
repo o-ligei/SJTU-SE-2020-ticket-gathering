@@ -4,6 +4,7 @@ import {sports,concerts} from "../const/activity";
 import {HomeCard} from "./HomeCard";
 import "../css/home.css"
 
+
 export class HomeCategoryPage extends React.Component{
     constructor(props) {
         super(props);
@@ -20,6 +21,7 @@ export class HomeCategoryPage extends React.Component{
     render(){
         return(
             <div style={{paddingTop:30}}>
+
                 <div className="category">
                     <PageHeader className="site-page-header"
                                 title="体育"
@@ -34,7 +36,9 @@ export class HomeCategoryPage extends React.Component{
                         )}
                     />
                 </div>
+
                 <p>.</p>
+
                 <div className="category">
                     <PageHeader className="site-page-header"
                                 title="音乐会"/>
