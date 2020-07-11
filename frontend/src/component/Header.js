@@ -44,8 +44,8 @@ export class HeaderInfo extends React.Component {
                             id="searchInput"
                             placeholder="搜索明星、演出、体育赛事"
                             onSearch={value => this.toggleSearch(value)}
-                            style={{width: 400}}
                             enterButton="搜索"
+                            size="large"
                         />
                     </div>
                     <Avatar id="profileOperate" icon={<UserOutlined />} />

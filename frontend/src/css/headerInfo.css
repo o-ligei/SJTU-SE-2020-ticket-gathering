@@ -22,7 +22,8 @@
 }
 
 #searchInput{
-    /*margin: 0 20px 0 0;*/
+    border-radius: 25px;
+    width: 400px;
 }
 
 #profileOperate{
@@ -34,10 +35,19 @@
     padding-top: 15px;
     float: left;
     height: 60px;
+    padding-left: 250px;
 }
 
 #menusortDiv{
     float: left;
     height: 60px;
+}
+
+#header-content{
+    padding-left: 150px;
+}
+
+#carouselDiv{
+    height: 300px;
 }
 

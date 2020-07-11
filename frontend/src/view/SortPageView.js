@@ -2,7 +2,7 @@ import React from 'react';
 import {HeaderInfo} from "../component/Header";
 import {FooterInfo} from "../component/Footer";
 import { sports} from "../const/activity";
-import {List} from "antd";
+import {Divider, List} from "antd";
 import {SortPageCard} from "../component/SortPageCard";
 import "../css/sortPage.css"
 
@@ -22,6 +22,7 @@ export class SortPageView extends React.Component{
         return(
             <div >
                 <HeaderInfo/>
+                <Divider plain className="divider"> </Divider>
                 <div id="sortPageDiv">
                 <List
                     grid={{gutter: 10, column: 1}}
