@@ -5,30 +5,27 @@ import "../css/sortPage.css"
 const { Panel } = Collapse;
 const { Meta } = Card;
 
-const menu = (
-    <Menu>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-                大麦网 ¥ 666
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-                小麦网 ¥ 777
-            </a>
-        </Menu.Item>
-        <Menu.Item>
-            <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-                小米网 ¥ 888
-            </a>
-        </Menu.Item>
-    </Menu>
-);
-
 export class SortPageCard extends React.Component{
-    constructor(props) {
-        super(props);
+
+    requestData = {
+        "image": this.props.info.imaurl,
+    };
+
+    handleDetail = website =>{
+        console.log(website);
+        let request = {
+            "imgurl":this.props.info.imgurl,
+            "title":this.props.info.title,
+            "city":this.props.info.city,
+            "venue":this.props.info.venue,
+            "category":this.props.info.category,
+            "time":this.props.info.time,
+            "price":this.props.info.price,
+            "website":website,
+        };
+        window.localStorage.setItem("detail",JSON.stringify(request))
     }
+
 
     render(){
         return(
@@ -39,13 +36,13 @@ export class SortPageCard extends React.Component{
                      <p id="info">地点： {this.props.info.city} | {this.props.info.venue}</p>
                      <p style={{paddingLeft:200,fontSize:12}}>{this.props.info.category}</p>
                      <p id="info">{this.props.info.time}</p>
-                     <p id="price">{'¥'+this.props.info.price_str}</p>
+                     <p id="price">{'¥'+this.props.info.price}</p>
                  </div>
                  <div>
                      <Collapse accordion>
                          <Panel header="票源">
-                             <p>大麦网</p>
-                             <p>小麦网</p>
+                             <a href="/detail" onClick={this.handleDetail("大麦网")}>大麦网 ¥ 777</a>
+                             <a href="/detail" onClick={this.handleDetail("小麦网")}>小麦网 ¥ 888</a>
                          </Panel>
                      </Collapse>
                  </div>
