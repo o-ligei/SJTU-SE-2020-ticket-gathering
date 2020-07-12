@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 
-@Document(collection = "user")
+@Document(collection = "tg_user")
 public class UserMongoDB {
     @Id
     @Field("userId")
