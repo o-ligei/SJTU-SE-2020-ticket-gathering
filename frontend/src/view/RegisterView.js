@@ -3,7 +3,7 @@ import '../App.css'
 import '../css/register.css'
 import {Button, Input, Layout, message, Alert, Result, Card,Radio} from 'antd';
 import {  UserOutlined } from '@ant-design/icons';
-import {findUser,addUser} from "../service/userService";
+import {findUser, addUser, register} from "../service/userService";
 import {UploadImage} from "../component/UploadImage";
 import {Link}  from 'react-router-dom';
 
@@ -104,7 +104,8 @@ export class RegisterView extends React.Component{
         // }
 
         /**frontend only*/
-        this.setState({registered:true});
+        // this.setState({registered:true});
+        register(this.state.username,this.state.password,this.state.address,self);
     }
 
     handleCommitImage(data){
