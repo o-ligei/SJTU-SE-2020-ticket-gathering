@@ -6,6 +6,7 @@ import "../css/Login.css"
 import {checkUser} from "../service/userService";
 import {userInfo} from "../const/userInfo";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {login} from "../service/userService";
 
 const layout = {
     labelCol: { span: 8 },
@@ -30,7 +31,8 @@ export class LoginForm extends React.Component {
         // checkUser(values,callback);
         // console.log(values);
         if(values.username===userInfo.username && values.password===userInfo.password){
-            this.setState({firstLogin:false,user:userInfo})
+            // this.setState({firstLogin:false,user:userInfo});
+            login(values,self);
         }
         this.setState({firstLogin:false});
     };
