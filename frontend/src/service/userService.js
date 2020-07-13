@@ -29,7 +29,7 @@ export const login = (data,self) => {
     fetchPost1(url, data, callback);
 };
 
-export const register = (name,password,address,self) => {
+export const register = (self) => {
     const url = 'http://localhost:8080/User/Register';
     const callback = (data) => {
         if(data.status >= 0) {
@@ -49,6 +49,16 @@ export const register = (name,password,address,self) => {
             });
         }
     };
-    let user={username:name,password:password,type:"User",gender: "Male",email:"123@456.cn",phone:"123456"};
+    let user={username:self.username,password:self.password,type:"User",gender: "Male",email:self.email,phone:self.phone,personIcon:image2Base64(self.personicon)};
     postRequest(url, user, callback);
 };
+
+function image2Base64(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL;
+}

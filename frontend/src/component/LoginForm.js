@@ -32,7 +32,7 @@ export class LoginForm extends React.Component {
         // console.log(values);
         if(values.username===userInfo.username && values.password===userInfo.password){
             // this.setState({firstLogin:false,user:userInfo});
-            login(values,self);
+            login(values,this);
         }
         this.setState({firstLogin:false});
     };

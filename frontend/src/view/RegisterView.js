@@ -105,7 +105,7 @@ export class RegisterView extends React.Component{
 
         /**frontend only*/
         // this.setState({registered:true});
-        register(this.state.username,this.state.password,this.state.address,self);
+        register(this);
     }
 
     handleCommitImage(data){
