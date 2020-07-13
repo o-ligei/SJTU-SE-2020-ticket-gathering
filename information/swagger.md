@@ -15,10 +15,6 @@ springboot可以十分方便的整合swagger，具体操作如下：
     <artifactId>springfox-swagger-ui</artifactId>
     <version>2.9.2</version>
 </dependency>
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
 ```
 不要忘记maven的import提示
         
