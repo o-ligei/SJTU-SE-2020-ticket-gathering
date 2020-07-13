@@ -48,7 +48,8 @@ export class DetailView extends React.Component{
         const Noting = this.Noting;
         return(
             <div>
-                <div id="Detail">
+                <HeaderInfo/>
+                <div id="Detail" style={{paddingTop:100,float:"left",marginLeft:-300}}>
                     <DetailCard info={this.state.info}/>
                     <Menu onClick={this.handleClick} mode="horizontal">
                         <Menu.Item onClick={this.handleClickNotice1}>
@@ -61,6 +62,9 @@ export class DetailView extends React.Component{
                     <Noting />
                 </div>
                 <RecommendList/>
+                <div style={{paddingTop:1500}}>
+                    <FooterInfo />
+                </div>
             </div>
         )
     }
