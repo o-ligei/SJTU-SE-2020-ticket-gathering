@@ -21,6 +21,23 @@ public class User {
     private String password;
     private String type;
 
+    public User() {
+
+    }
+
+    public User(Integer userId, String username, String gender, String email, String phone, String password,
+                      String type, String personIcon)
+    {
+        this.userId = userId;
+        this.username = username;
+        this.gender = gender;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.type = type;
+        this.personIcon = personIcon;
+    }
+
     @Id
     @Column(name = "USER_ID")
     @GeneratedValue(generator = "increment")

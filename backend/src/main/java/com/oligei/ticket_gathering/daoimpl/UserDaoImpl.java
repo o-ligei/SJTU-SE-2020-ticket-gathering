@@ -32,7 +32,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User login(String username, String password) {
-        User user = userRepository.checkUser(username, password);
+        User user = userRepository.checkUser(username);
         if (user != null && encoder.matches(password, user.getPassword())){
             Integer userId = user.getUserId();
             Optional<UserMongoDB> user_mongodb = userMongoDBRepository.findById(userId);
@@ -44,13 +44,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean register(User user) {
-        int userId = user.getUserId();
         String personIcon = user.getPersonIcon();
-        UserMongoDB userMongoDB = new UserMongoDB(userId, personIcon);
         user.setPersonIcon("");
         String rawPassword = user.getPassword();
         user.setPassword(encoder.encode(rawPassword));
-        userRepository.save(user);
+        User saved_user = userRepository.save(user);
+        int userId = saved_user.getUserId();
+        UserMongoDB userMongoDB = new UserMongoDB(userId, personIcon);
         userMongoDBRepository.save(userMongoDB);
         return true;
     }

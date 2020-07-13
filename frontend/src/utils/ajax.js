@@ -8,8 +8,9 @@ let postRequest = (url, data, callback) => {
     let opts = {
         method: "POST",
         body: formData,
-        // credentials: "omit"
+        credentials: "omit"
     };
+
 
     fetch(url,opts)
         .then((response) => {
@@ -19,7 +20,7 @@ let postRequest = (url, data, callback) => {
             callback(data);
         })
         .catch((error) => {
-            console.log("fetch failed")
+            console.log(error);
         });
 };
 
@@ -30,7 +31,6 @@ let fetchPost1=(url, json,callback) =>{
         headers: {
             'Content-Type': 'application/json'
         },
-        credentials: "include"
     };
 
     fetch(url,opts)

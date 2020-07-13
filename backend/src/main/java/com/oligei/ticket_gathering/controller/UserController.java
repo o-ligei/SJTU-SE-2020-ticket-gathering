@@ -23,7 +23,9 @@ public class UserController {
     @CrossOrigin(origins = "*", maxAge = 3600)
     @RequestMapping("/Login")
     public User login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password) {
-        return userService.login(username, password);
+        User new_user = userService.login(username, password);
+        System.out.println(new_user);
+        return new_user;
     }
 
     @CrossOrigin(origins = "*", maxAge = 3600)

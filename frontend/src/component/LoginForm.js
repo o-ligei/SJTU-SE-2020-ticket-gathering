@@ -26,8 +26,10 @@ export class LoginForm extends React.Component {
     }
     onFinish = values => {
         const callback =  (data) => {
+            console.log(data);
             this.setState({user:data,firstLogin:false});
         };
+        console.log(values);
         login(values,callback);
         // console.log(values);
         // if(values.username===userInfo.username && values.password===userInfo.password){
@@ -83,9 +85,7 @@ export class LoginForm extends React.Component {
                         style={{fontFamily:"BookMan Old Style",borderRadius: 10,width:400}}
                     />
                 </Form.Item>
-            </Form>
-
-                <div id="buttonDiv">
+                <Form.Item>
                     <Button type="primary" htmlType="submit" size="large" id="loginBtn">
                         登 录
                     </Button>
@@ -95,6 +95,10 @@ export class LoginForm extends React.Component {
                             注册
                         </Button>
                     </Link>
+                </Form.Item>
+            </Form>
+
+                <div id="buttonDiv">
                 </div>
 
             </div>
