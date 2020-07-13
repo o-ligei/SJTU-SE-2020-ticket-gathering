@@ -5,11 +5,10 @@ let postRequest = (url, data, callback) => {
         if(data.hasOwnProperty(p))
             formData.append(p, data[p]);
     }
-
     let opts = {
         method: "POST",
         body: formData,
-        credentials: "include"
+        // credentials: "omit"
     };
 
     fetch(url,opts)

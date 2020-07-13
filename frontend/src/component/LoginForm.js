@@ -5,8 +5,8 @@ import {message} from "antd";
 import "../css/Login.css"
 import {checkUser} from "../service/userService";
 import {userInfo} from "../const/userInfo";
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import {login} from "../service/userService";
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const layout = {
     labelCol: { span: 8 },
@@ -25,16 +25,15 @@ export class LoginForm extends React.Component {
         };
     }
     onFinish = values => {
-        // const callback =  (data) => {
-        //     this.setState({user:data,firstLogin:false});
-        // };
-        // checkUser(values,callback);
+        const callback =  (data) => {
+            this.setState({user:data,firstLogin:false});
+        };
+        login(values,callback);
         // console.log(values);
-        if(values.username===userInfo.username && values.password===userInfo.password){
-            // this.setState({firstLogin:false,user:userInfo});
-            login(values,this);
-        }
-        this.setState({firstLogin:false});
+        // if(values.username===userInfo.username && values.password===userInfo.password){
+        //      this.setState({firstLogin:false,user:userInfo});
+        // }
+        // this.setState({firstLogin:false});
     };
 
     onFinishFailed = errorInfo => {
