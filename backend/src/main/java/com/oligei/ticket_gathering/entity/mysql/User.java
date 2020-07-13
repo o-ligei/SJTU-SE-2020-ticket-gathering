@@ -39,7 +39,7 @@ public class User {
     }
 
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = "USERID")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getUserId() {return userId;}
