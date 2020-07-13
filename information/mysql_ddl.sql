@@ -5,7 +5,7 @@ DROP TABLE if EXISTS tg_activities;
 
 create table tg_users
 (
-    user_id INT NOT NULL AUTO_INCREMENT,
+    userid INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(255),
     gender VARCHAR(255),
     email VARCHAR(255),
@@ -13,40 +13,40 @@ create table tg_users
     password VARCHAR(255),
     type VARCHAR(255),
 
-    PRIMARY KEY(user_id)
+    PRIMARY KEY(userid)
 );
 
 create table tg_activities
 (
-    activity_id INT NOT NULL AUTO_INCREMENT,
+    activityid INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(255),
     actor VARCHAR(255),
     timescale VARCHAR(255),
     venue VARCHAR(255),
 
-    PRIMARY KEY(activity_id)
+    PRIMARY KEY(activityid)
 );
 
 create table tg_actitems
 (
-    actitem_id INT NOT NULL AUTO_INCREMENT,
-    activity_id INT,
+    actitemid INT NOT NULL AUTO_INCREMENT,
+    activityid INT,
     website VARCHAR(255),
 
-    PRIMARY KEY(actitem_id),
-    FOREIGN KEY(activity_id) REFERENCES tg_activities(activity_id)
+    PRIMARY KEY(actitemid),
+    FOREIGN KEY(activityid) REFERENCES tg_activities(activityid)
 );
 
 create table tg_orders
 (
-    order_id INT NOT NULL AUTO_INCREMENT,
-    user_id INT,
-    actitem_id INT,
+    orderid INT NOT NULL AUTO_INCREMENT,
+    userid INT,
+    actitemid INT,
     price INT,
     amount INT,
 
-    PRIMARY KEY(order_id),
-    FOREIGN KEY(user_id) REFERENCES tg_users(user_id),
-    FOREIGN KEY(actitem_id) REFERENCES tg_actitems(actitem_id)
+    PRIMARY KEY(orderid),
+    FOREIGN KEY(userid) REFERENCES tg_users(userid),
+    FOREIGN KEY(actitemid) REFERENCES tg_actitems(actitemid)
 );
 

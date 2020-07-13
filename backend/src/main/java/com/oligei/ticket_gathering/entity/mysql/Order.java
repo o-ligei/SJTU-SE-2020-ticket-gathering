@@ -14,17 +14,17 @@ public class Order {
     private Integer amount;
 
     @Id
-    @Column(name = "USER_ID")
+    @Column(name = "ORDERID")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getOrderId(){return orderId;}
     public void setOrderId(Integer orderId){this.orderId = orderId;}
 
-    @Column(name = "USER_ID")
+    @Column(name = "USERID")
     public Integer getUserId(){return userId;}
     public void setUserId(Integer userId){this.userId = userId;}
 
-    @Column(name = "ACTITEM_ID")
+    @Column(name = "ACTITEMID")
     public Integer getActitemId(){return actitemId;}
     public void setActitemId(Integer actitemId){this.actitemId =actitemId;}
 

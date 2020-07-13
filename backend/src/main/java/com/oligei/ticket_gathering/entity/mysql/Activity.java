@@ -14,7 +14,7 @@ public class Activity {
     private String venue;
 
     @Id
-    @Column(name = "ACTIVITY_ID")
+    @Column(name = "ACTIVITYID")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment",strategy = "increment")
     public Integer getActivityId(){return activityId;}

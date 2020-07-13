@@ -14,13 +14,13 @@ public class Actitem {
     private String website;
 
     @Id
-    @Column(name = "ACTITEM_ID")
+    @Column(name = "ACTITEMID")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getActitemId(){return actitemId;}
     public void setActitemId(Integer actitemId){this.actitemId = actitemId;}
 
-    @Column(name = "ACTIVITY_ID")
+    @Column(name = "ACTIVITYID")
     public Integer getActivityId(){return activityId;}
     public void setActivityId(Integer activityId){this.activityId = activityId;}
 
