@@ -22,7 +22,7 @@ public class User {
     private String type;
 
     @Id
-    @Column(name = "USERID")
+    @Column(name = "USER_ID")
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
     public Integer getUserId() {return userId;}
