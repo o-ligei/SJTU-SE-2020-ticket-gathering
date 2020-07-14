@@ -1850,7 +1850,7 @@ insert into tg_activities values(463,'正版授权大型实景舞台剧 《奥�
 insert into tg_actitems values(1387,463,'大麦网');
 insert into tg_actitems values(1388,463,'聚橙网');
 insert into tg_actitems values(1389,463,'永乐票务');
-insert into tg_activities values(464,'2020星巢音乐节-成都站','艺人：刺猬乐队、九连真人、房东的猫、Higher brothers、王以太、沈以诚、橘子海、TY.、棱镜乐队、A.T.M顶级玩家、霓虹花园、散人乐队、落日飞车、康姆士COM'Z','2020.03.21-12.31','成都蔚然花海','https://img.alicdn.com/bao/uploaded/https://img.alicdn.com/imgextra/i3/2251059038/O1CN018n44NE2GdSE74LHgu_!!2251059038.jpg');
+insert into tg_activities values(464,'2020星巢音乐节-成都站','艺人：刺猬乐队、九连真人、房东的猫、Higher brothers、王以太、沈以诚、橘子海、TY.、棱镜乐队、A.T.M顶级玩家、霓虹花园、散人乐队、落日飞车、康姆士COMZ','2020.03.21-12.31','成都蔚然花海','https://img.alicdn.com/bao/uploaded/https://img.alicdn.com/imgextra/i3/2251059038/O1CN018n44NE2GdSE74LHgu_!!2251059038.jpg');
 insert into tg_actitems values(1390,464,'大麦网');
 insert into tg_actitems values(1391,464,'聚橙网');
 insert into tg_actitems values(1392,464,'永乐票务');
