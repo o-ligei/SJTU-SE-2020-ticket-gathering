@@ -4,13 +4,13 @@
 
   tg_users(userid,username,gender,email,phone,password,type,usericon(MongoDB))
   
-  tg_activities(activityid,title,actor,timescale,venue,activityicon,description(MongoDB))
+  tg_activities(activityid,title,actor,timescale,venue,imgurl,description(MongoDB))
   
   tg_actitems(actitemid,activityid,website,prices(MongoDB))
   
     prices: { timecnt: 3, tickets: [ {time:’2020-07-08’, classcnt: 3, class: [{price: 300, num: 100} , {} , {} ] } , {} , {} ] }
     
-  tg_orders(orderid,userid,actitemid,price,amount)
+  tg_orders(orderid,userid,actitemid,price,amount,showtime,ordertime)
   
 ### Neo4j for recommendation and classification
 
