@@ -15,6 +15,8 @@ public class ActitemMongoDB {
 
     @Field("prices")
     private JSONObject price;
+    public JSONObject getPrice() {return price;}
+    public void setPrice(JSONObject price){this.price = price;}
 
     public ActitemMongoDB(Integer actitemId,JSONObject price){
         this.actitemId = actitemId;
@@ -24,6 +26,5 @@ public class ActitemMongoDB {
     public Integer getActitemId(){return actitemId;}
     public void setActitemId(Integer actitemId){this.actitemId = actitemId;}
 
-    public JSONObject getPrice() {return price;}
-    public void setPrice(JSONObject price){this.price = price;}
+
 }

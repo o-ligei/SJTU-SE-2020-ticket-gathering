@@ -40,4 +40,9 @@ public class Activity {
     @Column(name = "ACTIVITYICON")
     public String getActivityIcon(){return activityIcon;}
     public void setActivityIcon(String activityIcon){this.activityIcon=activityIcon;}
+
+    private String description;
+    @Transient
+    public String getDescription(){return description;}
+    public void setDescription(String description){this.description=description;}
 }
