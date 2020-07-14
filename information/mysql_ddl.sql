@@ -23,6 +23,7 @@ create table tg_activities
     actor VARCHAR(255),
     timescale VARCHAR(255),
     venue VARCHAR(255),
+    activityicon VARCHAR(255),
 
     PRIMARY KEY(activityid)
 );

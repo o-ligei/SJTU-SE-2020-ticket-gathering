@@ -11,23 +11,16 @@ public class ActivityMongoDB {
     @Field("activityid")
     private Integer activityId;
 
-    @Field("activityicon")
-    private String activityIcon;
-
     @Field("description")
     private String description;
 
-    public ActivityMongoDB(Integer activityId,String activityIcon,String description){
+    public ActivityMongoDB(Integer activityId,String description){
         this.activityId = activityId;
-        this.activityIcon = activityIcon;
         this.description = description;
     }
 
     public Integer getActivityId(){return activityId;}
-    public void setActivityId(Integer activityId){this.activityIcon = activityIcon;}
-
-    public String getActivityIcon(){return activityIcon;}
-    public void setActivityIcon(String activityIcon){this.activityIcon = activityIcon;}
+    public void setActivityId(Integer activityId){this.activityId = activityId;}
 
     public String getDescription(){return description;}
     public void setDescription(String description){this.description = description;}

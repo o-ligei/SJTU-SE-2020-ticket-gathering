@@ -12,6 +12,7 @@ public class Activity {
     private String actor;
     private String timescale;
     private String venue;
+    private String activityIcon;
 
     @Id
     @Column(name = "ACTIVITYID")
@@ -35,4 +36,8 @@ public class Activity {
     @Column(name = "VENUE")
     public String getVenue(){return venue;}
     public void setVenue(String venue){this.venue=venue;}
+
+    @Column(name = "ACTIVITYICON")
+    public String getActivityIcon(){return activityIcon;}
+    public void setActivityIcon(String activityIcon){this.activityIcon=activityIcon;}
 }
