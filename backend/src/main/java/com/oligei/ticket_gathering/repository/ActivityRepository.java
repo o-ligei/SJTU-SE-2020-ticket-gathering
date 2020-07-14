@@ -7,6 +7,4 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface ActivityRepository extends JpaRepository<Activity,Integer> {
-    @Query("select a from Activity a where u.username = :username")
-    User checkUser(@Param("username") String username);
 }
