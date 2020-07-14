@@ -12,7 +12,7 @@ public class Actitem {
     private Integer actitemId;
     private Integer activityId;
     private String website;
-
+//
     @Id
     @Column(name = "ACTITEMID")
     @GeneratedValue(generator = "increment")
