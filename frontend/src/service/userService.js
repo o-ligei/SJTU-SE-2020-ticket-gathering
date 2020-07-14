@@ -1,20 +1,25 @@
 import {postRequest,fetchPost1} from "../utils/ajax";
+/**用于服务器跨域*/
+const server_url='http://54.83.132.136:8080';
+
+/**用于本地跨域，平时用这个*/
+const local_url='http://localhost:8080';
 
 export const checkUser = (value,callback) => {
     const data={username:value};
-    const url = `http://54.83.132.136:8080/User/ExistsByUsername`;
+    const url =local_url+ `/User/ExistsByUsername`;
     postRequest(url, data, callback);
 };
 
 
 export const login = (value,callback) => {
     const data={username:value.username,password:value.password};
-    const url = 'http://54.83.132.136:8080/User/Login';
+    const url = local_url+'User/Login';
     postRequest(url, data, callback);
 };
 
 export const register = (username,password,email,personicon,phone,gender,callback) => {
-    const url = 'http://54.83.132.136:8080/User/Register';
+    const url = local_url+'/User/Register';
     const data={
         'username':username,
         'password':password,
