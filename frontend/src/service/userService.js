@@ -16,15 +16,15 @@ export const login = (value,callback) => {
 export const register = (username,password,email,personicon,phone,gender,callback) => {
     const url = 'http://localhost:8080/User/Register';
     const data={
-        username:username,
-        password:password,
-        type:"User",
-        gender: gender,
-        email:email,
-        phone:phone,
-        personIcon:personicon
+        'username':username,
+        'password':password,
+        'type':"User",
+        'gender': gender,
+        'email':email,
+        'phone':phone,
+        'personIcon':personicon
     };
-    postRequest(url, data, callback);
+    fetchPost1(url, data, callback);
 };
 
 // export const register = (self) => {

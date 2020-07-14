@@ -14,13 +14,20 @@ let postRequest = (url, data, callback) => {
 
     fetch(url,opts)
         .then((response) => {
-            return response.json()
+            if(response.status===201){
+                console.log("empty response");
+                callback(null);
+            }
+            else {
+                return response.json()
+            }
         })
         .then((data) => {
             callback(data);
         })
         .catch((error) => {
-            console.log(error);
+            callback(null);
+            // console.log(error);
         });
 };
 
@@ -35,13 +42,20 @@ let fetchPost1=(url, json,callback) =>{
 
     fetch(url,opts)
         .then((response) => {
-            return response.json()
+            if(response.status===201){
+                console.log("empty response");
+                callback(null);
+            }
+            else {
+                return response.json()
+            }
         })
         .then((data) => {
             callback(data);
         })
         .catch((error) => {
-            console.log(error);
+            callback(null);
+            // console.log(error);
         });
 }
 
