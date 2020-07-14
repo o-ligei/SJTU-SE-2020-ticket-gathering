@@ -2,9 +2,9 @@
 ## Database Design: Mysql+MongoDB+Neo4j
 ### Mysql+MongoDB
 
-  tg_users(userid,username,gender,email,phone,password,personicon(MongoDB))
+  tg_users(userid,username,gender,email,phone,password,type,usericon(MongoDB))
   
-  tg_activities(activityid,title,actor,timescale,venue,img(MongoDB),description(MongoDB))
+  tg_activities(activityid,title,actor,timescale,venue,activityicon(MongoDB),description(MongoDB))
   
   tg_actitems(actitemid,activityid,website,prices(MongoDB))
   

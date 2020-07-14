@@ -15,10 +15,10 @@ import javax.persistence.Id;
 @Document(collection = "tg_users")
 public class UserMongoDB {
     @Id
-    @Field("userId")
+    @Field("userid")
     private Integer userId;
 
-    @Field("personIcon")
+    @Field("usericon")
     private String personIcon; /* base 64 */
 
     public UserMongoDB(Integer userId, String personIcon) {
