@@ -2,19 +2,19 @@ import {postRequest,fetchPost1} from "../utils/ajax";
 
 export const checkUser = (value,callback) => {
     const data={username:value};
-    const url = `54.83.132.136:8080/User/ExistsByUsername`;
+    const url = `http://54.83.132.136:8080/User/ExistsByUsername`;
     postRequest(url, data, callback);
 };
 
 
 export const login = (value,callback) => {
     const data={username:value.username,password:value.password};
-    const url = '54.83.132.136:8080/User/Login';
+    const url = 'http://54.83.132.136:8080/User/Login';
     postRequest(url, data, callback);
 };
 
 export const register = (username,password,email,personicon,phone,gender,callback) => {
-    const url = '54.83.132.136:8080/User/Register';
+    const url = 'http://54.83.132.136:8080/User/Register';
     const data={
         'username':username,
         'password':password,
