@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
 
-@Document(collection = "tg_activity")
+@Document(collection = "tg_activities")
 public class ActivityMongoDB {
     @Id
     @Field("activityid")

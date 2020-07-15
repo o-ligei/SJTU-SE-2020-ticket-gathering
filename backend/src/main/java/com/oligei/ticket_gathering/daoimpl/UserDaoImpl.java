@@ -35,8 +35,9 @@ public class UserDaoImpl implements UserDao {
         User user = userRepository.checkUser(username);
         if (user != null && encoder.matches(password, user.getPassword())){
             Integer userId = user.getUserId();
-            Optional<UserMongoDB> user_mongodb = userMongoDBRepository.findById(userId);
-            user_mongodb.ifPresent(userMongoDB -> user.setPersonIcon(userMongoDB.getPersonIcon()));
+            UserMongoDB user_mongodb = userMongoDBRepository.findByUserId(userId);
+            if (user_mongodb != null && user_mongodb.getPersonIcon() != null)
+                user.setPersonIcon(user_mongodb.getPersonIcon());
             return user;
         }
         return null;
