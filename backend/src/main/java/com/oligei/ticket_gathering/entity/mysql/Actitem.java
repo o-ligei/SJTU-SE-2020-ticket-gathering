@@ -6,7 +6,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
-import java.util.List;
 
 
 @Entity
@@ -31,9 +30,9 @@ public class Actitem {
     public String getWebsite(){return website;}
     public void setWebsite(String website){this.website = website;}
 
-    private List<JSONObject> price;
+    private JSONObject price;
     @Transient
-    public List<JSONObject> getPrice(){return price;}
-    public void setPrice(List<JSONObject> price){this.price=price;}
+    public JSONObject getPrice(){return price;}
+    public void setPrice(JSONObject price){this.price=price;}
 
 }
