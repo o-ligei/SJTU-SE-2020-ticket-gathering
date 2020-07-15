@@ -13,27 +13,9 @@ https://www.runoob.com/docker/docker-install-mongodb.html
 ### 使用Docker部署springboot后端
 有关代码参见https://www.jb51.net/article/178001.htm
 #### 从0开始
-1. 在pom.xml的properties中添加 `<docker.image.prefix>springboot</docker.image.prefix>`
-2. 在pom.xml的plugins中添加插件  `<plugin>
-  <groupId>com.spotify</groupId>
-  <artifactId>docker-maven-plugin</artifactId>
-  <version>1.0.0</version>
-  <configuration>
-  <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-  <dockerDirectory>src/main/docker</dockerDirectory>
-  <resources>
-   <resource>
-   <targetPath>/</targetPath>
-   <directory>${project.build.directory}</directory>
-   <include>${project.build.finalName}.jar</include>
-   </resource>
-  </resources>
-  </configuration>
- </plugin>`
- 3. 在src/main/docker下创建Dockerfile文件，说明如何构建镜像 `FROM openjdk:8-jdk-alpine 
-VOLUME /tmp
-ADD spring-boot-docker-1.0.jar app.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]`
+1. 在pom.xml的properties中添加
+2. 在pom.xml的plugins中添加插件 
+3. 在src/main/docker下创建Dockerfile文件，说明如何构建镜像 
 (注：四行，开头分别是FROM, VOLUME, ADD, ENTRYPOINT。jar包的文件名注意改成自己target文件夹下的文件名。)
 4. 安装docker
 5. 安装java和maven环境
