@@ -17,6 +17,10 @@
     float: left;
 }
 
+#classify{
+    padding-left: 150px;
+}
+
 #title{
     font-size: 20px;
     font-weight: bold;
