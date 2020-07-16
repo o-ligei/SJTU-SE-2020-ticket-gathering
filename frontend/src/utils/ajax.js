@@ -1,4 +1,13 @@
-let postRequest = (url, data, callback) => {
+/**用于服务器跨域
+ * url:'http://54.83.132.136:8080'
+ * 用于跑本地
+ * url:'http://localhost:8080'
+ * */
+
+const baseUrl='http://localhost:8080';
+
+let postRequest = (apiUrl, data, callback) => {
+    const url=baseUrl+apiUrl;
     let formData = new FormData();
 
     for (let p in data){
@@ -10,7 +19,6 @@ let postRequest = (url, data, callback) => {
         body: formData,
         credentials: "omit"
     };
-
 
     fetch(url,opts)
         .then((response) => {
@@ -31,7 +39,8 @@ let postRequest = (url, data, callback) => {
         });
 };
 
-let fetchPost1=(url, json,callback) =>{
+let fetchPost1=(apiUrl, json,callback) =>{
+    const url=baseUrl+apiUrl;
     let opts = {
         method: "POST",
         body: JSON.stringify(json),
@@ -57,6 +66,6 @@ let fetchPost1=(url, json,callback) =>{
             callback(null);
             // console.log(error);
         });
-}
+};
 
 export {postRequest,fetchPost1};
