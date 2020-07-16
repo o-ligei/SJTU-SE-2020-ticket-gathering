@@ -23,10 +23,8 @@ public class ActitemDaoImpl implements ActitemDao {
     @Override
     public Actitem findOneById(Integer id) {
         Actitem actitem = actitemRepository.getOne(id);
-        Optional<ActitemMongoDB> actitemMongoDB = actitemMongoDBRepository.findById(id);
-        if(actitemMongoDB.isPresent()){
-            actitem.setPrice(actitemMongoDB.get().getPrice());
-        }
+        ActitemMongoDB actitemMongoDB = actitemMongoDBRepository.findByActitemId(id);
+        actitem.setPrice(actitemMongoDB.getPrice());
         return actitem;
     }
 }

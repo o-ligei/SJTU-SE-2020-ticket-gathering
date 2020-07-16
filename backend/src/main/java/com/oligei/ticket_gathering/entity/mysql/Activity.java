@@ -14,6 +14,21 @@ public class Activity {
     private String venue;
     private String activityIcon;
 
+    public Activity(){
+
+    }
+
+    public Activity(Integer activityId,String title,String actor,String timescale,
+                    String venue,String activityIcon)
+    {
+        this.activityId = activityId;
+        this.title = title;
+        this.actor = actor;
+        this.timescale = timescale;
+        this.venue = venue;
+        this.activityIcon = activityIcon;
+    }
+
     @Id
     @Column(name = "ACTIVITYID")
     @GeneratedValue(generator = "increment")
