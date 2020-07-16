@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping("/Order")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class OrderController {
-
     @Autowired
     private OrderService orderService;
 
@@ -23,4 +23,10 @@ public class OrderController {
         return orderService.getOrderInfoByUser(userId);
     }
 
+    @RequestMapping("/addOrder")
+    public boolean addOrder(@RequestParam("userId")int userId, @RequestParam("actitemId")int actitemId,
+                            @RequestParam("price")int price, @RequestParam("amount")int amount,
+                            @RequestParam("showtime")String showtime,@RequestParam("orderTime")String orderTime){
+        return orderService.addOrder(userId,actitemId,price,amount,showtime,orderTime);
+    }
 }
