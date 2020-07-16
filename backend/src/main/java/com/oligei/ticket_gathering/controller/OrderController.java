@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/Order")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class OrderController {
-
     @Autowired
     private OrderService orderService;
 
