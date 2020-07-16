@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ActitemDao {
     Actitem findOneById(Integer id);
-    List<Actitem> findAllByActivityId(Integer id);
+    public List<Actitem> findAllByActivityId(Integer id);
 }

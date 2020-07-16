@@ -10,4 +10,5 @@ public interface ActitemMongoDBRepository extends MongoRepository<ActitemMongoDB
 
     ActitemMongoDB findActitemMongoDBByActitemId(Integer id);
     ActitemMongoDB findByActitemId(Integer id);
+
 }

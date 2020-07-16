@@ -38,5 +38,4 @@ public class ActitemDaoImpl implements ActitemDao {
         }
         return actitems;
     }
-
 }
