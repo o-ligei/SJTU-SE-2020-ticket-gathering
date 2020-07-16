@@ -9,9 +9,10 @@
  *
  */
 
-import { Card,Collapse,Menu, Dropdown, Button,Radio } from 'antd';
+import { Card,Collapse,Menu, Dropdown, Button,Radio, notification, Space } from 'antd';
 import React from "react";
 import "../css/sortPage.css";
+import "../css/Detail.css"
 import {getDetail} from "../service/ActitemService";
 
 export class DetailCard extends React.Component{
@@ -98,15 +99,29 @@ export class DetailCard extends React.Component{
         console.log(i);
     }
 
+    openNotificationWithIcon = type => {
+        notification[type]({
+            message: 'Notification Title',
+            description:
+                'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+        });
+    };
+
+    handlePurchase = () =>{
+        this.openNotificationWithIcon('success')
+    }
+
     render() {
         return(
             <div>
-                <img className='image' alt="example" src={this.state.info.activityicon} />
+                <img id='Dimg' alt="example" src={this.state.info.activityicon} />
                 <p id="title">{this.state.info.title}</p>
                 <p id="info">地点：{this.state.info.venue}</p>
                 <p id="info">表演者：{this.state.info.actor}</p>
                 <p id="info">票源：{this.state.info.website}</p>
                 <p id="info">时间范围：{this.state.info.timescale}</p>
+                <p id="Dnote">时间选择：</p>
+                <div id="Radio">
                 <Radio.Group
                     options={this.state.times}
                     onChange={this.onChangeTime}
@@ -114,7 +129,10 @@ export class DetailCard extends React.Component{
                     optionType="button"
                     buttonStyle="solid"
                 />
+                </div>
                 <br/>
+                <p id="Dnote">票价选择：</p>
+                <div id="Radio">
                 <Radio.Group
                     options={this.state.prices}
                     onChange={this.onChangePrice}
@@ -122,8 +140,11 @@ export class DetailCard extends React.Component{
                     optionType="button"
                     buttonStyle="solid"
                 />
+                </div>
                 <br/>
-                <Button type="primary" shape="round" id="PurchaseButton">立即购买</Button>
+                <div id="Dnote">
+                    <Button type="primary" shape="round" id="PurchaseButton" onClick={this.handlePurchase}>立即购买</Button>
+                </div>
             </div>
         )
     }

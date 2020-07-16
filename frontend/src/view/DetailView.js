@@ -62,7 +62,7 @@ export class DetailView extends React.Component{
                     <Noting />
                 </div>
                 <RecommendList/>
-                <div style={{paddingTop:1500}}>
+                <div style={{paddingTop:2000}}>
                     <FooterInfo />
                 </div>
             </div>
