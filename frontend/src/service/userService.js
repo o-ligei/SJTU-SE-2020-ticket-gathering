@@ -7,19 +7,22 @@ const local_url='http://localhost:8080';
 
 export const checkUser = (value,callback) => {
     const data={username:value};
-    const url =local_url+ '/User/ExistsByUsername';
+    // const url =local_url+ '/User/ExistsByUsername';
+    const url = '/User/ExistsByUsername';
     postRequest(url, data, callback);
 };
 
 
 export const login = (value,callback) => {
     const data={username:value.username,password:value.password};
-    const url = local_url+'/User/Login';
+    // const url = local_url+'/User/Login';
+    const url = '/User/Login';
     postRequest(url, data, callback);
 };
 
 export const register = (username,password,email,personicon,phone,gender,callback) => {
-    const url = local_url+'/User/Register';
+    // const url = local_url+'/User/Register';
+    const url = '/User/Register';
     const data={
         'username':username,
         'password':password,

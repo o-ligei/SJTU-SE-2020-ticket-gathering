@@ -29,12 +29,24 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public Activity findOneById(Integer id) {
-        Activity activity = activityRepository.getOne(id);
-        Optional<ActivityMongoDB> activityMongoDB = activityMongoDBRepository.findById(id);
-        if(activityMongoDB.isPresent()){
-            activity.setDescription(activityMongoDB.get().getDescription());
+//        Activity activity = activityRepository.getOne(id);
+//        Optional<ActivityMongoDB> activityMongoDB = activityMongoDBRepository.findById(id);
+//        if(activityMongoDB.isPresent()){
+//            activity.setDescription(activityMongoDB.get().getDescription());
+//        }
+//        return activity;
+        Activity activity;
+        try {
+            activity = activityRepository.getOne(id);
+            Optional<ActivityMongoDB> activityMongoDB = activityMongoDBRepository.findById(id);
+            if (activityMongoDB.isPresent()) {
+                activity.setDescription(activityMongoDB.get().getDescription());
+            }
+            return activity;
+        } catch (javax.persistence.EntityNotFoundException e) {
+            System.out.println("Wrong activityId!");
+            return null;
         }
-        return activity;
     }
 
     @Override
@@ -57,5 +69,10 @@ public class ActivityDaoImpl implements ActivityDao {
             activities.add(findOneById(now_activityNeo4j.getActivityId()));
         }
         return activities;
+    }
+
+    @Override
+    public List<Activity> findAllByTitleOrVenueOrActor(String title, String venue, String actor) {
+        return activityRepository.findAllByTitleLikeOrVenueLikeOrActorLike(title, venue, actor);
     }
 }

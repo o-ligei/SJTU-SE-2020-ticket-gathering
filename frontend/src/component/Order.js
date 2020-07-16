@@ -24,7 +24,7 @@ for (let i = 0; i < 5; i++) {
         venue:
             sports[i].venue,
         url:
-            sports[i].imgurl,
+            sports[i].activityIcon,
         cnt:
             2,
         totPrice:
