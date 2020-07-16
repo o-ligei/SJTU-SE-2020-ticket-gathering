@@ -16,7 +16,7 @@ public class ActitemController {
     @Autowired
     private ActitemService actitemService;
 
-    @RequestMapping("detail")
+    @RequestMapping("/detail")
     public JSONObject getDetail(@RequestParam(name = "actitemid") Integer actitemid)
     {return actitemService.findActivityAndActitemDetail(actitemid);}
 }

@@ -23,6 +23,7 @@ export class HeaderInfo extends React.Component {
         if(username!=null){
             this.setState({username:username,login:true});
         }
+        console.log(username);
     }
 
     toggleSearch=(value)=>{

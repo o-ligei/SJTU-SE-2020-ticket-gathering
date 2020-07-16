@@ -29,7 +29,7 @@ export class SortPageCard extends React.Component{
             "price":this.props.info.price,
             "website":website,
         };
-        window.localStorage.setItem("detail",JSON.stringify(request))
+        window.localStorage.setItem("actitemid","1");
     }
 
 

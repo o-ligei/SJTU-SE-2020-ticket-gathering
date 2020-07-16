@@ -9,10 +9,13 @@
  *
  */
 
-import { Card,Collapse,Menu, Dropdown, Button,Radio } from 'antd';
+import { Card,Collapse,Menu, Dropdown, Button,Radio, notification, Space,InputNumber } from 'antd';
 import React from "react";
 import "../css/sortPage.css";
+import "../css/Detail.css"
 import {getDetail} from "../service/ActitemService";
+import {addOrder} from "../service/orderServcie";
+import {Redirect} from "react-router-dom";
 
 export class DetailCard extends React.Component{
     constructor(props) {
@@ -26,10 +29,12 @@ export class DetailCard extends React.Component{
             price:"",
             numbers:[],
             number:"",
+            success:false,
+            chosenNum:0,
         }
     }
 
-    componentDidMount() {
+    renderDetail = () =>{
         const callback = data =>{
             this.setState({
                 info:data,
@@ -59,6 +64,11 @@ export class DetailCard extends React.Component{
         getDetail(id,callback);
     }
 
+
+    componentDidMount() {
+        this.renderDetail();
+    }
+
     onChangeTime = e => {
         console.log(e);
         console.log('radio4 checked', e.target.value);
@@ -71,8 +81,6 @@ export class DetailCard extends React.Component{
         let numbers=[];
         this.state.tickets[i].class.map(function (value,key) {
             prices.push(value.price.toString());
-            console.log(value.price);
-            console.log(value.price.toString());
             numbers.push(value.num);
         })
         this.setState({
@@ -82,7 +90,6 @@ export class DetailCard extends React.Component{
             price:prices[0],
             number:numbers[0],
         });
-        console.log(this.state);
     };
 
     onChangePrice = e =>{
@@ -95,18 +102,47 @@ export class DetailCard extends React.Component{
             price:e.target.value,
             number:this.state.numbers[i],
         });
-        console.log(i);
+    }
+
+    openNotificationWithIcon = type => {
+        notification[type]({
+            message: 'Notification Title',
+            description:
+                '余票不足，请减少购票量',
+        });
+    };
+
+    handleNumberChange = value =>{
+        this.setState({chosenNum:value});
+    }
+
+    handlePurchase = () =>{
+        if(this.state.chosenNum > this.state.number)
+            this.openNotificationWithIcon('warning')
+        else{
+            const callback = data => {
+                this.setState({success:true});
+            }
+            addOrder(localStorage.getItem("userId"),localStorage.getItem("actitemId"),parseInt(this.state.price),
+                parseInt(this.state.number),this.state.time,new Date(),callback);
+        }
     }
 
     render() {
+        if(this.state.success===true) {
+
+            return <Redirect to={{pathname: "/success"}}/>;
+        }
         return(
             <div>
-                <img className='image' alt="example" src={this.state.info.activityicon} />
+                <img id='Dimg' alt="example" src={this.state.info.activityicon} />
                 <p id="title">{this.state.info.title}</p>
                 <p id="info">地点：{this.state.info.venue}</p>
                 <p id="info">表演者：{this.state.info.actor}</p>
                 <p id="info">票源：{this.state.info.website}</p>
                 <p id="info">时间范围：{this.state.info.timescale}</p>
+                <p id="Dnote">时间选择：</p>
+                <div id="Radio">
                 <Radio.Group
                     options={this.state.times}
                     onChange={this.onChangeTime}
@@ -114,7 +150,10 @@ export class DetailCard extends React.Component{
                     optionType="button"
                     buttonStyle="solid"
                 />
+                </div>
                 <br/>
+                <p id="Dnote">票价选择：</p>
+                <div id="Radio">
                 <Radio.Group
                     options={this.state.prices}
                     onChange={this.onChangePrice}
@@ -122,8 +161,15 @@ export class DetailCard extends React.Component{
                     optionType="button"
                     buttonStyle="solid"
                 />
+                </div>
                 <br/>
-                <Button type="primary" shape="round" id="PurchaseButton">立即购买</Button>
+                <div id="Radio">
+                <InputNumber min={1} max={10} defaultValue={3} onChange={this.handleNumberChange} />
+                </div>
+                <br/>
+                <div id="Dnote">
+                    <Button type="primary" shape="round" id="PurchaseButton" onClick={this.handlePurchase}>立即购买</Button>
+                </div>
             </div>
         )
     }

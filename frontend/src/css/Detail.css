@@ -9,3 +9,20 @@
     /*margin-left: auto;*/
     /*margin-right: auto;*/
 }
+
+#Dimg{
+    height:500px;
+    width:400px;
+    float:left;
+}
+
+#Dnote{
+    font-size: 14px;
+    padding-left: 200px;
+    font-style: italic;
+    color: darkgray;
+}
+
+#Radio{
+    padding-bottom: 3px;
+}
