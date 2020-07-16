@@ -34,6 +34,8 @@ public class ActitemDaoImpl implements ActitemDao {
         List<Actitem> actitems=actitemRepository.findAllByActivityId(id);
         for(int i=0;i<actitems.size();++i){
             ActitemMongoDB actitemMongoDB = actitemMongoDBRepository.findByActitemId(actitems.get(i).getActitemId());
+            if(actitems.get(i)==null)System.out.println("actitems null");
+            if(actitemMongoDB==null) System.out.println("mongo null");
             actitems.get(i).setPrice(actitemMongoDB.getPrice());
         }
         return actitems;

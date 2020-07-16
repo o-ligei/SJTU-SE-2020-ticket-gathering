@@ -26,7 +26,6 @@ public class ActivityController {
     private ActivityService activityService;
 
 
-
     @RequestMapping("/search")
     public List<JSONObject> search(@RequestParam(name = "search") String value){
         System.out.println("value:"+value);

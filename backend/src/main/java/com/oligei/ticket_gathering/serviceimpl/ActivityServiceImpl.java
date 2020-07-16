@@ -30,7 +30,13 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<JSONObject> search(String value) {
-        if(value==null)return null;
+        if(value==null || value.equals("")){
+            List<JSONObject> activities=new LinkedList<>();
+            for(int i=2;i<=50;++i){
+                activities.add(findActivityAndActitem(i));
+            }
+            return activities;
+        }
         List<Word> words= WordSegmenter.seg(value);
         System.out.println("words:"+words+words.size());
         int n=words.size();
