@@ -7,62 +7,65 @@ export class ClassCard extends React.Component{
     }
 
     render() {
+        function handleMenuClick(e) {
+            console.log(e);
+        }
         const menu1 = (
-            <Menu>
-                <Menu.Item key="1">展会</Menu.Item>
-                <Menu.Item key="2">特色体验</Menu.Item>
-                <Menu.Item key="3">其他展览休闲</Menu.Item>
+            <Menu onClick={handleMenuClick}>
+                <Menu.Item key="展会">展会</Menu.Item>
+                <Menu.Item key="特色体验">特色体验</Menu.Item>
+                <Menu.Item key="其他展览休闲">其他展览休闲</Menu.Item>
             </Menu>
         );
         const menu2 = (
             <Menu>
-                <Menu.Item key="1">话剧</Menu.Item>
-                <Menu.Item key="2">音乐剧</Menu.Item>
-                <Menu.Item key="3">其他话剧歌剧</Menu.Item>
+                <Menu.Item key="话剧">话剧</Menu.Item>
+                <Menu.Item key="音乐剧">音乐剧</Menu.Item>
+                <Menu.Item key="其他话剧歌剧">其他话剧歌剧</Menu.Item>
             </Menu>
         );
         const menu3 = (
             <Menu>
-                <Menu.Item key="1">摇滚</Menu.Item>
-                <Menu.Item key="2">流行</Menu.Item>
-                <Menu.Item key="3">音乐节</Menu.Item>
-                <Menu.Item key="4">其他演唱会</Menu.Item>
+                <Menu.Item key="摇滚">摇滚</Menu.Item>
+                <Menu.Item key="流行">流行</Menu.Item>
+                <Menu.Item key="音乐节">音乐节</Menu.Item>
+                <Menu.Item key="其他演唱会">其他演唱会</Menu.Item>
             </Menu>
         );
         const menu4 = (
             <Menu>
-                <Menu.Item key="1">室内乐及古乐</Menu.Item>
-                <Menu.Item key="2">独奏</Menu.Item>
-                <Menu.Item key="3">管弦乐</Menu.Item>
-                <Menu.Item key="4">其他音乐会</Menu.Item>
+                <Menu.Item key="室内乐及古乐">室内乐及古乐</Menu.Item>
+                <Menu.Item key="独奏">独奏</Menu.Item>
+                <Menu.Item key="管弦乐">管弦乐</Menu.Item>
+                <Menu.Item key="其他音乐会">其他音乐会</Menu.Item>
             </Menu>
         );
         const menu5 = (
             <Menu>
-                <Menu.Item key="1">戏曲</Menu.Item>
-                <Menu.Item key="2">相声</Menu.Item>
-                <Menu.Item key="3">魔术</Menu.Item>
-                <Menu.Item key="4">其他曲苑杂坛</Menu.Item>
+                <Menu.Item key="戏曲">戏曲</Menu.Item>
+                <Menu.Item key="相声">相声</Menu.Item>
+                <Menu.Item key="魔术">魔术</Menu.Item>
+                <Menu.Item key="其他曲苑杂坛">其他曲苑杂坛</Menu.Item>
             </Menu>
         );
         const menu6 = (
             <Menu>
-                <Menu.Item key="1">球类运动</Menu.Item>
-                <Menu.Item key="2">田径</Menu.Item>
-                <Menu.Item key="3">篮球</Menu.Item>
-                <Menu.Item key="4">足球</Menu.Item>
-                <Menu.Item key="5">其他体育</Menu.Item>
+                <Menu.Item key="球类运动">球类运动</Menu.Item>
+                <Menu.Item key="田径">田径</Menu.Item>
+                <Menu.Item key="篮球">篮球</Menu.Item>
+                <Menu.Item key="足球">足球</Menu.Item>
+                <Menu.Item key="其他体育">其他体育</Menu.Item>
             </Menu>
         );
         const menu7 = (
             <Menu>
-                <Menu.Item key="1">舞蹈</Menu.Item>
-                <Menu.Item key="2">其他舞蹈芭蕾</Menu.Item>
+                <Menu.Item key="舞蹈">舞蹈</Menu.Item>
+                <Menu.Item key="其他舞蹈芭蕾">其他舞蹈芭蕾</Menu.Item>
             </Menu>
         );
         const menu8 = (
             <Menu>
-                <Menu.Item key="1">其他儿童亲子</Menu.Item>
+                <Menu.Item key="其他儿童亲子">其他儿童亲子</Menu.Item>
             </Menu>
         );
         return(
