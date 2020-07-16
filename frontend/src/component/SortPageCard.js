@@ -1,9 +1,15 @@
+/**
+ * @param actitemid {int}
+ *
+ */
 import { Card,Collapse,Menu, Dropdown, Button } from 'antd';
 import React from "react";
 import "../css/HomeCard.css"
 import "../css/sortPage.css"
+import {history} from "../utils/history";
 const { Panel } = Collapse;
 const { Meta } = Card;
+
 
 export class SortPageCard extends React.Component{
 
@@ -11,19 +17,11 @@ export class SortPageCard extends React.Component{
         "image": this.props.info.imaurl,
     };
 
-    handleDetail = website =>{
-        console.log(website);
-        let request = {
-            "imgurl":this.props.info.imgurl,
-            "title":this.props.info.title,
-            "city":this.props.info.city,
-            "venue":this.props.info.venue,
-            "category":this.props.info.category,
-            "time":this.props.info.time,
-            "price":this.props.info.price,
-            "website":website,
-        };
-        window.localStorage.setItem("detail",JSON.stringify(request))
+    handleDetail = actitemid =>{
+        window.localStorage.setItem("actitemid",actitemid);
+        console.log("jumping..");
+
+        // history.push("/detail");
     }
 
 
@@ -41,8 +39,8 @@ export class SortPageCard extends React.Component{
                  <div>
                      <Collapse accordion>
                          <Panel header="票源">
-                             <a href="/detail" onClick={this.handleDetail("大麦网")}>大麦网 ¥ 777</a>
-                             <a href="/detail" onClick={this.handleDetail("小麦网")}>小麦网 ¥ 888</a>
+                             <Button onClick={this.handleDetail(1)}>大麦网</Button>
+                             <Button href="/detail">小麦网</Button>
                          </Panel>
                      </Collapse>
                  </div>
