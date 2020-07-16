@@ -1,10 +1,13 @@
 import React from 'react';
 import {Layout, Input, Dropdown, Menu,Avatar,Button} from 'antd';
-import {Redirect,Link}  from 'react-router-dom';
 import "../css/headerInfo.css"
 import { UserOutlined } from '@ant-design/icons';
+import {history} from "../utils/history";
+import Redirect from "react-router-dom/es/Redirect";
 const {Header} = Layout;
 const { Search } = Input;
+// import { Redirect } from 'react-router-dom'
+// import {withRouter} from "react-router-dom";
 
 export class HeaderInfo extends React.Component {
     constructor(props) {
@@ -22,8 +25,11 @@ export class HeaderInfo extends React.Component {
         }
     }
 
-    toggleSearch(value){
-        console.log("搜索内容："+value);
+    toggleSearch=(value)=>{
+        console.log("搜索内容："+value+"!!!");
+        localStorage.setItem("search",value);
+        // history.push('/sortPage')
+        return <Redirect to="/sortPage"/>;
     }
 
     logOut(){

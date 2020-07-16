@@ -9,6 +9,7 @@ import com.oligei.ticket_gathering.repository.ActitemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -27,4 +28,15 @@ public class ActitemDaoImpl implements ActitemDao {
         actitem.setPrice(actitemMongoDB.getPrice());
         return actitem;
     }
+
+    @Override
+    public List<Actitem> findAllByActivityId(Integer id) {
+        List<Actitem> actitems=actitemRepository.findAllByActivityId(id);
+        for(int i=0;i<actitems.size();++i){
+            ActitemMongoDB actitemMongoDB = actitemMongoDBRepository.findByActitemId(actitems.get(i).getActitemId());
+            actitems.get(i).setPrice(actitemMongoDB.getPrice());
+        }
+        return actitems;
+    }
+
 }
