@@ -1,3 +1,10 @@
+/**
+ * @ClassName User
+ * @Description User Controller Test
+ * @Author ziliuziliu
+ * @Date 2020/7/15
+ */
+
 package com.oligei.ticket_gathering.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
