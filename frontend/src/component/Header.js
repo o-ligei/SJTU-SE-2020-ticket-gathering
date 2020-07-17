@@ -1,8 +1,7 @@
 import React from 'react';
-import {Layout, Input, Dropdown, Menu,Avatar,Button} from 'antd';
+import {Layout, Input, Dropdown, Menu, Avatar, Button, message} from 'antd';
 import "../css/headerInfo.css"
 import { UserOutlined } from '@ant-design/icons';
-import {history} from "../utils/history";
 import Redirect from "react-router-dom/es/Redirect";
 const {Header} = Layout;
 const { Search } = Input;
@@ -15,6 +14,7 @@ export class HeaderInfo extends React.Component {
         this.state={
             login:false,
             username:null,
+            ifsearch:false
         }
     }
 
@@ -23,14 +23,17 @@ export class HeaderInfo extends React.Component {
         if(username!=null){
             this.setState({username:username,login:true});
         }
+        console.log(username);
     }
 
     toggleSearch=(value)=>{
         console.log("搜索内容："+value+"!!!");
         localStorage.setItem("search",value);
-        // history.push('/sortPage')
-        return <Redirect to="/sortPage"/>;
-    };
+        this.setState({
+            ifsearch:true
+        })
+    }
+
 
     logOut(){
         localStorage.clear();
@@ -40,6 +43,10 @@ export class HeaderInfo extends React.Component {
 
 
     render() {
+        if(this.state.ifsearch){
+            console.log("jumping...");
+            return <Redirect to={{pathname: "/sortPage"}}/>;
+        }
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
                 <div id="header-content">

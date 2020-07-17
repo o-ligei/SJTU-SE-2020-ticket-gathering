@@ -16,6 +16,16 @@ public class Actitem {
     private Integer activityId;
     private String website;
 
+    public Actitem(){
+
+    }
+    public Actitem(Integer actitemId,Integer activityId,String website)
+    {
+        this.actitemId = actitemId;
+        this.activityId = activityId;
+        this.website = website;
+    }
+
     @Id
     @Column(name = "ACTITEMID")
     @GeneratedValue(generator = "increment")

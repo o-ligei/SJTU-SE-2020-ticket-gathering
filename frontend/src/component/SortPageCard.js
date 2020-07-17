@@ -1,9 +1,15 @@
+/**
+ * @param actitemid {int}
+ *
+ */
 import { Card,Collapse,Menu, Dropdown, Button } from 'antd';
 import React from "react";
 import "../css/HomeCard.css"
 import "../css/sortPage.css"
+import {history} from "../utils/history";
 const { Panel } = Collapse;
 const { Meta } = Card;
+
 
 export class SortPageCard extends React.Component{
 
@@ -23,7 +29,7 @@ export class SortPageCard extends React.Component{
             "price":this.props.info.price,
             "website":website,
         };
-        window.localStorage.setItem("detail",JSON.stringify(request))
+        window.localStorage.setItem("actitemid","1");
     }
 
 
@@ -41,7 +47,7 @@ export class SortPageCard extends React.Component{
                  <div style={{paddingTop:20}}>
                      <Collapse accordion>
                          <Panel header="票源">
-                             <a href="/detail" onClick={this.handleDetail( this.props.info.actitems[0].website)} >
+                             <a href="/detail" onClick={this.handleDetail( this.props.info.actitems[0].website)} target="_blank">
                                  {this.props.info.actitems[0].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[0].price[0].time}
@@ -54,7 +60,7 @@ export class SortPageCard extends React.Component{
                              ￥{this.props.info.actitems[0].price[1].class[2].price}
                              </p>
                              <p> </p>
-                             <a href="/detail" onClick={this.handleDetail( this.props.info.actitems[1].website)}>
+                             <a href="/detail" onClick={this.handleDetail( this.props.info.actitems[1].website)} target="_blank">
                                  {this.props.info.actitems[1].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[1].price[0].time}

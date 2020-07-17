@@ -30,7 +30,7 @@ class ActivityServiceTest {
     @Rollback
     void search(){
         System.out.println("Null Value");
-        assertNull(activityService.search(null));
+        assertTrue(activityService.search(null).size()>0);
         System.out.println("Preparation");
         activityService.search("周杰伦演唱会");
         System.out.println("Reasonable Value");

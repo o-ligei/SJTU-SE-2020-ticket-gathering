@@ -27,5 +27,4 @@ public class ActitemMongoDB {
     public Integer getActitemId(){return actitemId;}
     public void setActitemId(Integer actitemId){this.actitemId = actitemId;}
 
-
 }

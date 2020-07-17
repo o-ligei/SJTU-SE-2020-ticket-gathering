@@ -1,5 +1,6 @@
 package com.oligei.ticket_gathering.dao;
 
+import com.oligei.ticket_gathering.entity.mysql.Activity;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -38,7 +38,6 @@ public class ActitemDaoImpl implements ActitemDao {
         }
         return actitems;
     }
-
     @Override
     public void deleteMongoDBByActitemId(Integer actitemId){
         actitemMongoDBRepository.deleteByActitemId(actitemId);

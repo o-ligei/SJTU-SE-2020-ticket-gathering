@@ -1,3 +1,4 @@
+
 /**用于服务器跨域
  * url:'http://54.83.132.136:8080'
  * 用于跑本地
@@ -31,6 +32,7 @@ let postRequest = (apiUrl, data, callback) => {
             }
         })
         .then((data) => {
+            console.log(data);
             callback(data);
         })
         .catch((error) => {

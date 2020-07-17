@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/Order")
 @CrossOrigin(origins = "*",maxAge = 3600)
 public class OrderController {
-
     @Autowired
     private OrderService orderService;
 
@@ -28,6 +27,7 @@ public class OrderController {
     public boolean addOrder(@RequestParam("userId")int userId, @RequestParam("actitemId")int actitemId,
                             @RequestParam("price")int price, @RequestParam("amount")int amount,
                             @RequestParam("showtime")String showtime,@RequestParam("orderTime")String orderTime){
+        System.out.println(userId);
         return orderService.addOrder(userId,actitemId,price,amount,showtime,orderTime);
     }
 }

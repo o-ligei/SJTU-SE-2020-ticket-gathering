@@ -7,6 +7,7 @@ import com.oligei.ticket_gathering.dao.ActivityDao;
 import com.oligei.ticket_gathering.entity.mysql.Actitem;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
 import com.oligei.ticket_gathering.service.ActivityService;
+import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.apdplat.word.segmentation.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,13 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<JSONObject> search(String value) {
-        if(value==null)return null;
+        if(value==null || value.equals("")){
+            List<JSONObject> activities=new LinkedList<>();
+            for(int i=2;i<=50;++i){
+                activities.add(findActivityAndActitem(i));
+            }
+            return activities;
+        }
         List<Word> words= WordSegmenter.seg(value);
         System.out.println("words:"+words+words.size());
         int n=words.size();
@@ -113,6 +120,16 @@ public class ActivityServiceImpl implements ActivityService {
         }
 
         return jsonObject;
+    }
+
+
+    @Override
+    public List<Activity> findActivityByCategory(CategoryQuery categoryQuery) {
+        if (categoryQuery.getType().equals("category"))
+            return activityDao.findActivityByCategory(categoryQuery.getName());
+        else if (categoryQuery.getType().equals("subcategory"))
+            return activityDao.findActivityBySubcategory(categoryQuery.getName());
+        else return null;
     }
 
 }
