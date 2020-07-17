@@ -15,5 +15,6 @@ export const addOrder=(userId,actitemId,price,amount,showtime,orderTime,callback
 {
     const apiUrl='/Order/addOrder';
     const data={userId:userId,actitemId:actitemId,price:price,amount:amount,showtime:showtime,orderTime:orderTime};
+    console.log(data);
     postRequest(apiUrl,data,callback);
 }

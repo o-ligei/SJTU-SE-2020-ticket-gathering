@@ -15,6 +15,7 @@ import "../css/sortPage.css";
 import "../css/Detail.css"
 import {getDetail} from "../service/ActitemService";
 import {addOrder} from "../service/orderServcie";
+import moment from 'moment'
 import {Redirect} from "react-router-dom";
 
 export class DetailCard extends React.Component{
@@ -121,10 +122,11 @@ export class DetailCard extends React.Component{
             this.openNotificationWithIcon('warning')
         else{
             const callback = data => {
+                console.log("result:"+data);
                 this.setState({success:true});
             }
-            addOrder(localStorage.getItem("userId"),localStorage.getItem("actitemId"),parseInt(this.state.price),
-                parseInt(this.state.number),this.state.time,new Date(),callback);
+            addOrder(parseInt(localStorage.getItem("userId")),parseInt(localStorage.getItem("actitemid")),parseInt(this.state.price),
+                parseInt(this.state.chosenNum),this.state.time,moment().format('YYYY-MM-DD HH:mm:ss'),callback);
         }
     }
 
