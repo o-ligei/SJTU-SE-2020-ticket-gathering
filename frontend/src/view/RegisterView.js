@@ -105,6 +105,12 @@ export class RegisterView extends React.Component{
                 register(this.state.username,this.state.password,
                     this.state.email,this.state.personicon,this.state.phone,this.state.gender,callback);
             }
+            else{
+                message.error("注册信息存在错误");
+            }
+        }
+        else{
+            message.error("请填写将信息填写完整");
         }
 
         /**frontend only*/
@@ -172,16 +178,16 @@ export class RegisterView extends React.Component{
                 >
                 </Input.Password>
                 <div>
+                    {this.state.passwordErrorVisible?(
+                        <Alert message="请输入相同的密码" type="error"/>
+                    ):null}
+                </div>
+                <div>
                     <p>性别：</p>
                     <Radio.Group onChange={this.handleGender} value={this.state.gender}>
                         <Radio value="Male">男</Radio>
                         <Radio value="Female">女</Radio>
                     </Radio.Group>
-                </div>
-                <div>
-                    {this.state.passwordErrorVisible?(
-                        <Alert message="请输入相同的密码" type="error"/>
-                    ):null}
                 </div>
                 <p>请输入手机号:</p>
                 <Input

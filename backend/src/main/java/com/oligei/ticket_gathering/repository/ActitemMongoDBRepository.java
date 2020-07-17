@@ -8,7 +8,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 public interface ActitemMongoDBRepository extends MongoRepository<ActitemMongoDB,Integer> {
 
-    ActitemMongoDB findActitemMongoDBByActitemId(Integer id);
-    ActitemMongoDB findByActitemId(Integer id);
+    ActitemMongoDB findByActitemId(Integer actitemId);
 
+    void deleteByActitemId(Integer actitemId);
+
+    ActitemMongoDB findActitemMongoDBByActitemId(Integer id);
 }

@@ -9,7 +9,7 @@ import {RecommendList} from "../component/RecommendList";
 
 export class HomeView extends React.Component{
     onChange(a,b,c){
-        console.log(a,b,c)
+        // console.log(a,b,c)
     }
 
     render(){

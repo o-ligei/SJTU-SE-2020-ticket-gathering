@@ -32,14 +32,15 @@ export class HeaderInfo extends React.Component {
         this.setState({
             ifsearch:true
         })
-        // history.push('/sortPage')
-        // return <Redirect to="/sortPage"/>;
     }
+
 
     logOut(){
         localStorage.clear();
         this.setState({login:false,username:null});
+
     }
+
 
     render() {
         if(this.state.ifsearch){
@@ -76,7 +77,10 @@ export class HeaderInfo extends React.Component {
                                 <a href={this.state.login?"/order":"/login"}>订单管理</a>
                             </Menu.Item>
                             <Menu.Item>
-                                <p className="menuItem" onClick={this.logOut.bind(this)}>登出</p>
+                                <div onClick={this.logOut.bind(this)}>
+                                    <p className="menuItem" >登出</p>
+                                </div>
+
                             </Menu.Item>
                         </Menu>
                     )}>
