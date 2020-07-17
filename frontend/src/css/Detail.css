@@ -18,11 +18,24 @@
 
 #Dnote{
     font-size: 14px;
-    padding-left: 200px;
+    padding-left: 500px;
     font-style: italic;
     color: darkgray;
 }
 
 #Radio{
+    padding-left: 500px;
     padding-bottom: 3px;
+}
+
+#Dtitle{
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 500px;
+    font-family: "HeiTi";
+}
+
+#Dinfo{
+    font-size: 16px;
+    padding-left: 500px;
 }

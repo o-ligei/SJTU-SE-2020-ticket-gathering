@@ -1,6 +1,6 @@
 /**
- * @param actitemid {int}
- *
+ * @param actitemid {number}
+ * @param this.props.info.activityId {String}
  */
 import { Card,Collapse,Menu, Dropdown, Button } from 'antd';
 import React from "react";
@@ -14,22 +14,23 @@ const { Meta } = Card;
 export class SortPageCard extends React.Component{
 
     requestData = {
-        "image": this.props.info.imaurl,
+        "image": this.props.info.imgurl,
     };
 
-    handleDetail = website =>{
+    handleDetail = id =>{
         // console.log(website);
-        let request = {
-            "imgurl":this.props.info.activityIcon,
-            "title":this.props.info.title,
-            "city":this.props.info.city,
-            "venue":this.props.info.venue,
-            "category":this.props.info.category,
-            "timescale":this.props.info.timescale,
-            "price":this.props.info.price,
-            "website":website,
-        };
-        window.localStorage.setItem("actitemid","1");
+        // let request = {
+        //     "imgurl":this.props.info.activityIcon,
+        //     "title":this.props.info.title,
+        //     "city":this.props.info.city,
+        //     "venue":this.props.info.venue,
+        //     "category":this.props.info.category,
+        //     "timescale":this.props.info.timescale,
+        //     "price":this.props.info.price,
+        //     "website":website,
+        // };
+        window.localStorage.setItem("actitemid",id);
+        console.log(this.props);
     }
 
 
@@ -47,7 +48,7 @@ export class SortPageCard extends React.Component{
                  <div style={{paddingTop:20}}>
                      <Collapse accordion>
                          <Panel header="票源">
-                             <a href="/detail" onClick={this.handleDetail( this.props.info.actitems[0].website)} target="_blank">
+                             <a href="/detail" onClick={this.handleDetail(parseInt(this.props.info.activityId)*3-2)} target="_blank">
                                  {this.props.info.actitems[0].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[0].price[0].time}
@@ -60,7 +61,7 @@ export class SortPageCard extends React.Component{
                              ￥{this.props.info.actitems[0].price[1].class[2].price}
                              </p>
                              <p> </p>
-                             <a href="/detail" onClick={this.handleDetail( this.props.info.actitems[1].website)} target="_blank">
+                             <a href="/detail" onClick={this.handleDetail(parseInt(this.props.info.activityId)*3-1)} target="_blank">
                                  {this.props.info.actitems[1].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[1].price[0].time}
@@ -73,7 +74,7 @@ export class SortPageCard extends React.Component{
                              ￥{this.props.info.actitems[1].price[1].class[2].price}
                              </p>
                              <p> </p>
-                             <a href="/detail" onClick={this.handleDetail(this.props.info.actitems[2].website)} target="_blank">
+                             <a href="/detail" onClick={this.handleDetail(parseInt(this.props.info.activityId)*3)} target="_blank">
                                  {this.props.info.actitems[2].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[2].price[0].time}

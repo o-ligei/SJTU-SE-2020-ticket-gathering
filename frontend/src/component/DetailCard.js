@@ -11,7 +11,7 @@
 
 import { Card,Collapse,Menu, Dropdown, Button,Radio, notification, Space,InputNumber } from 'antd';
 import React from "react";
-import "../css/sortPage.css";
+// import "../css/sortPage.css";
 import "../css/Detail.css"
 import {getDetail} from "../service/ActitemService";
 import {addOrder} from "../service/orderServcie";
@@ -31,7 +31,7 @@ export class DetailCard extends React.Component{
             numbers:[],
             number:"",
             success:false,
-            chosenNum:0,
+            chosenNum:1,
         }
     }
 
@@ -138,11 +138,11 @@ export class DetailCard extends React.Component{
         return(
             <div>
                 <img id='Dimg' alt="example" src={this.state.info.activityicon} />
-                <p id="title">{this.state.info.title}</p>
-                <p id="info">地点：{this.state.info.venue}</p>
-                <p id="info">表演者：{this.state.info.actor}</p>
-                <p id="info">票源：{this.state.info.website}</p>
-                <p id="info">时间范围：{this.state.info.timescale}</p>
+                <p id="Dtitle">{this.state.info.title}</p>
+                <p id="Dinfo">地点：{this.state.info.venue}</p>
+                <p id="Dinfo">表演者：{this.state.info.actor}</p>
+                <p id="Dinfo">票源：{this.state.info.website}</p>
+                <p id="Dinfo">时间范围：{this.state.info.timescale}</p>
                 <p id="Dnote">时间选择：</p>
                 <div id="Radio">
                 <Radio.Group
@@ -166,7 +166,7 @@ export class DetailCard extends React.Component{
                 </div>
                 <br/>
                 <div id="Radio">
-                <InputNumber min={1} max={10} defaultValue={3} onChange={this.handleNumberChange} />
+                <InputNumber min={1} max={10} defaultValue={1} onChange={this.handleNumberChange} />
                 </div>
                 <br/>
                 <div id="Dnote">
