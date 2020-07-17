@@ -52,7 +52,7 @@ public class Activity {
     public String getVenue(){return venue;}
     public void setVenue(String venue){this.venue=venue;}
 
-        @Column(name = "ACTIVITYICON")
+    @Column(name = "ACTIVITYICON")
     public String getActivityIcon(){return activityIcon;}
     public void setActivityIcon(String activityIcon){this.activityIcon=activityIcon;}
 

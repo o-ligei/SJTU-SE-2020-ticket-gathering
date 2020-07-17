@@ -101,6 +101,7 @@ public class ActivityServiceImpl implements ActivityService {
         List<JSONObject> objects=new LinkedList<>();
         for(int i=0;i<actitems.size();++i){
             JSONObject tmp=new JSONObject();
+            tmp.put("actitemid",actitems.get(i).getActitemId());
             tmp.put("website",actitems.get(i).getWebsite());
             tmp.put("price",actitems.get(i).getPrice());
             objects.add(tmp);

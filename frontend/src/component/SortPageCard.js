@@ -7,11 +7,21 @@ import React from "react";
 import "../css/HomeCard.css"
 import "../css/sortPage.css"
 import {history} from "../utils/history";
+import Redirect from "react-router-dom/es/Redirect";
+import {Link} from "react-router-dom";
+// import Link from "react-router-dom/modules/Link";
 const { Panel } = Collapse;
 const { Meta } = Card;
 
 
 export class SortPageCard extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.state={
+            ifdetail:false
+        }
+    }
 
     requestData = {
         "image": this.props.info.imgurl,
@@ -30,11 +40,19 @@ export class SortPageCard extends React.Component{
         //     "website":website,
         // };
         window.localStorage.setItem("actitemid",id);
-        console.log(this.props);
+        console.log("detail:"+id);
+        console.log("???");
+        // this.setState({
+        //     ifdetail:true
+        // })
     }
 
 
     render(){
+        // if(this.state.ifdetail){
+        //     console.log("jumping...");
+        //     return <Redirect to={{pathname: "/detail"}}/>;
+        // }
         return(
              <div style={{paddingBottom:30}}>
                  <div>
@@ -48,7 +66,8 @@ export class SortPageCard extends React.Component{
                  <div style={{paddingTop:20}}>
                      <Collapse accordion>
                          <Panel header="票源">
-                             <a href="/detail" onClick={this.handleDetail(parseInt(this.props.info.activityId)*3-2)} target="_blank">
+                             {/*onClick={this.handleDetail(parseInt(this.props.info.actitems[0].actitemid))}*/}
+                             <a  href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[0].actitemid)).bind(this)} >
                                  {this.props.info.actitems[0].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[0].price[0].time}
@@ -61,7 +80,7 @@ export class SortPageCard extends React.Component{
                              ￥{this.props.info.actitems[0].price[1].class[2].price}
                              </p>
                              <p> </p>
-                             <a href="/detail" onClick={this.handleDetail(parseInt(this.props.info.activityId)*3-1)} target="_blank">
+                             <a href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[1].actitemid)).bind(this)} >
                                  {this.props.info.actitems[1].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[1].price[0].time}
@@ -74,7 +93,7 @@ export class SortPageCard extends React.Component{
                              ￥{this.props.info.actitems[1].price[1].class[2].price}
                              </p>
                              <p> </p>
-                             <a href="/detail" onClick={this.handleDetail(parseInt(this.props.info.activityId)*3)} target="_blank">
+                             <a href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[2].actitemid)).bind(this)} >
                                  {this.props.info.actitems[2].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[2].price[0].time}
