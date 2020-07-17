@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.Id;
+import java.util.List;
 
 @Document(collection = "tg_actitems")
 public class ActitemMongoDB {
@@ -14,11 +15,11 @@ public class ActitemMongoDB {
     private Integer actitemId;
 
     @Field("prices")
-    private JSONObject price;
-    public JSONObject getPrice() {return price;}
-    public void setPrice(JSONObject price){this.price = price;}
+    private List<JSONObject> price;
+    public List<JSONObject> getPrice() {return price;}
+    public void setPrice(List<JSONObject> price){this.price = price;}
 
-    public ActitemMongoDB(Integer actitemId,JSONObject price){
+    public ActitemMongoDB(Integer actitemId,List<JSONObject> price){
         this.actitemId = actitemId;
         this.price = price;
     }

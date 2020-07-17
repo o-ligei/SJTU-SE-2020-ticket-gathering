@@ -6,4 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface ActitemMongoDBRepository extends MongoRepository<ActitemMongoDB,Integer> {
 
     ActitemMongoDB findByActitemId(Integer actitemId);
+
+    void deleteByActitemId(Integer actitemId);
 }

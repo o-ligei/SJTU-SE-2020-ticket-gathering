@@ -39,4 +39,15 @@ public class ActitemDaoImpl implements ActitemDao {
         return actitems;
     }
 
+    @Override
+    public void deleteMongoDBByActitemId(Integer actitemId){
+        actitemMongoDBRepository.deleteByActitemId(actitemId);
+    }
+
+    @Override
+    public ActitemMongoDB insertActitemInMongo(int actitemId,List<JSONObject> price){
+        ActitemMongoDB actitemMongoDB = new ActitemMongoDB(actitemId,price);
+        return actitemMongoDBRepository.save(actitemMongoDB);
+    }
+
 }
