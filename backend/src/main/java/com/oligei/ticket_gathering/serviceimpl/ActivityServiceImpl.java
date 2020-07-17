@@ -4,6 +4,7 @@ package com.oligei.ticket_gathering.serviceimpl;
 import com.alibaba.fastjson.JSONObject;
 import com.oligei.ticket_gathering.dao.ActitemDao;
 import com.oligei.ticket_gathering.dao.ActivityDao;
+import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.mysql.Actitem;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
 import com.oligei.ticket_gathering.service.ActivityService;
@@ -30,9 +31,9 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-    public List<JSONObject> search(String value) {
+    public List<ActivitySortpage> search(String value) {
         if(value==null || value.equals("")){
-            List<JSONObject> activities=new LinkedList<>();
+            List<ActivitySortpage> activities=new LinkedList<>();
             for(int i=2;i<=50;++i){
                 activities.add(findActivityAndActitem(i));
             }
@@ -70,7 +71,7 @@ public class ActivityServiceImpl implements ActivityService {
                 cntArray[index]++;
             }
 
-        List<JSONObject> activities=new LinkedList<>();
+        List<ActivitySortpage> activities=new LinkedList<>();
         int basic=0;
         if(n>2)basic=1;
         if(n>5)basic=2;
@@ -78,8 +79,8 @@ public class ActivityServiceImpl implements ActivityService {
         for(int i=idSet.size();i>basic;--i){
             for(int j=0;j<idSet.size();++j){
                 if(cntArray[j]==i) {
-                        JSONObject tmp = findActivityAndActitem(idArray[j]);
-                        activities.add(tmp);
+                        ActivitySortpage activitySortpage = findActivityAndActitem(idArray[j]);
+                        activities.add(activitySortpage);
                 }
             }
         }
@@ -87,7 +88,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public JSONObject findActivityAndActitem(Integer id) {
+    public ActivitySortpage findActivityAndActitem(Integer id) {
 
         Activity activity;
         try{
@@ -98,29 +99,15 @@ public class ActivityServiceImpl implements ActivityService {
         if(activity==null) return null;
         List<Actitem> actitems=actitemDao.findAllByActivityId(id);
 
-        List<JSONObject> objects=new LinkedList<>();
-        for(int i=0;i<actitems.size();++i){
-            JSONObject tmp=new JSONObject();
-            tmp.put("actitemid",actitems.get(i).getActitemId());
-            tmp.put("website",actitems.get(i).getWebsite());
-            tmp.put("price",actitems.get(i).getPrice());
-            objects.add(tmp);
-        }
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("activityId", activity.getActivityId());
-            jsonObject.put("title", activity.getTitle());
-            jsonObject.put("actor", activity.getActor());
-            jsonObject.put("timescale", activity.getTimescale());
-            jsonObject.put("venue", activity.getVenue());
-            jsonObject.put("activityIcon", activity.getActivityIcon());
-            jsonObject.put("actitems", objects);
-        }catch (javax.persistence.EntityNotFoundException e){
-            return null;
-        }
-
-        return jsonObject;
+        return  new ActivitySortpage (
+                activity.getActivityId(),
+                activity.getTitle(),
+                activity.getActor(),
+                activity.getTimescale(),
+                activity.getVenue(),
+                activity.getActivityIcon(),
+                actitems
+        );
     }
 
 

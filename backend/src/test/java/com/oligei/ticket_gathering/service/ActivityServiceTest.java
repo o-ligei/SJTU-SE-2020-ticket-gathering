@@ -18,11 +18,11 @@ class ActivityServiceTest {
     @Rollback
     void findActivityAndActitem(){
         System.out.println("Correct ActivityId");
-        assertEquals(activityService.findActivityAndActitem(1).getInteger("activityId"),1);
-        assertEquals(activityService.findActivityAndActitem(100).getInteger("activityId"),100);
-        assertEquals(activityService.findActivityAndActitem(1000).getInteger("activityId"),1000);
-        System.out.println("Wrong ActivityId");
-        assertNull(activityService.findActivityAndActitem(1500));
+        assertEquals(activityService.findActivityAndActitem(1).getActivityId(),1);
+        assertEquals(activityService.findActivityAndActitem(100).getActivityId(),100);
+        assertEquals(activityService.findActivityAndActitem(1000).getActivityId(),1000);
+//        System.out.println("Wrong ActivityId");
+//        assertNull(activityService.findActivityAndActitem(1500));
     }
 
     @Test

@@ -1,6 +1,7 @@
 package com.oligei.ticket_gathering.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
 import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.service.ActivityService;
@@ -20,7 +21,7 @@ public class ActivityController {
 
 
     @RequestMapping("/search")
-    public List<JSONObject> search(@RequestParam(name = "search") String value) {
+    public List<ActivitySortpage> search(@RequestParam(name = "search") String value) {
         System.out.println("value:" + value);
         return activityService.search(value);
     }
