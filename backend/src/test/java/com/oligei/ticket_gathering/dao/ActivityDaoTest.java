@@ -1,6 +1,7 @@
 package com.oligei.ticket_gathering.dao;
 
 import com.oligei.ticket_gathering.entity.mysql.Activity;
+import com.oligei.ticket_gathering.entity.neo4j.ActivityNeo4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,12 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ActivityDaoTest {
 
-    
+
     @Autowired
     private ActivityDao activityDao;
 
@@ -52,5 +55,30 @@ class ActivityDaoTest {
         System.out.println("Reasonable and Unreasonable");
         assertTrue(activityDao.findAllByTitleOrVenueOrActor(searchvalue1, searchvalue2, searchvalue3).size()>0);
         assertTrue(activityDao.findAllByTitleOrVenueOrActor(searchvalue1, searchvalue3, searchvalue3).size()>0);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    void findActivityByCategory() {
+        List<Integer> activityNeo4js;
+        System.out.println("Correct Category Name");
+        activityNeo4js = activityDao.findActivityByCategory("展览休闲");
+        assertNotEquals(0,activityNeo4js.size());
+        activityNeo4js = activityDao.findActivityByCategory("你好");
+        assertEquals(0,activityNeo4js.size());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    void findActivityBySubcategory() {
+        List<Integer> activityNeo4js;
+        System.out.println("Correct Subcategory Name");
+        activityNeo4js = activityDao.findActivityBySubcategory("足球");
+        assertNotEquals(0,activityNeo4js.size());
+        System.out.println("Wrong Subcategory Name");
+        activityNeo4js = activityDao.findActivityBySubcategory("棒球");
+        assertEquals(0,activityNeo4js.size());
     }
 }

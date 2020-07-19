@@ -1,12 +1,16 @@
 package com.oligei.ticket_gathering.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.service.ActivityService;
+import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.web.client.match.ContentRequestMatchers;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -75,4 +79,37 @@ class ActivityControllerTest {
         assertTrue(resultLength3 > -1);
     }
 
+    @Test
+    @Rollback
+    void findActivityByCategory() throws Exception{
+        ObjectMapper mapper1 = new ObjectMapper();
+        String category = "{\"type\":\"category\",\"name\":\"演唱会\"}";
+        CategoryQuery categoryQuery1 = mapper1.readValue(category, CategoryQuery.class);
+        MvcResult result1 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(mapper1.writeValueAsString(categoryQuery1)))
+                .andExpect(status().isOk())
+                .andReturn();
+        String resultContent = result1.getResponse().getContentAsString();
+        assertNotNull(resultContent);
+
+        ObjectMapper mapper2 = new ObjectMapper();
+        String category2 = "{\"type\":\"subcategory\",\"name\":\"流行\"}";
+        CategoryQuery categoryQuery2 = mapper2.readValue(category, CategoryQuery.class);
+        MvcResult result2 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(mapper2.writeValueAsString(categoryQuery2)))
+                .andExpect(status().isOk())
+                .andReturn();
+        String resultContent2 = result2.getResponse().getContentAsString();
+        assertNotNull(resultContent2);
+
+        ObjectMapper mapper3 = new ObjectMapper();
+        String category3 = "{\"type\":\"2345\",\"name\":\"6789\"}";
+        CategoryQuery categoryQuery3 = mapper3.readValue(category, CategoryQuery.class);
+        MvcResult result3 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(mapper3.writeValueAsString(categoryQuery3)))
+                .andExpect(status().isOk())
+                .andReturn();
+        String resultContent3 = result3.getResponse().getContentAsString();
+        assertNotNull(resultContent3);
+    }
 }

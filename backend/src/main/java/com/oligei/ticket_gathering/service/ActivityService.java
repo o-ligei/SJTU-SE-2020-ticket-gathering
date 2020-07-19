@@ -8,7 +8,7 @@ import com.oligei.ticket_gathering.util.CategoryQuery;
 import java.util.List;
 
 public interface ActivityService {
-    List<Activity> findActivityByCategory(CategoryQuery categoryQuery);
+    List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery);
     List<ActivitySortpage> search(String value);
     ActivitySortpage findActivityAndActitem(Integer id);
 }
