@@ -83,18 +83,18 @@ class ActivityControllerTest {
     @Rollback
     void findActivityByCategory() throws Exception{
         ObjectMapper mapper1 = new ObjectMapper();
-        String category = "{\"type\":\"category\",\"name\":\"演唱会\"}";
-        CategoryQuery categoryQuery1 = mapper1.readValue(category, CategoryQuery.class);
+        String category1 = "{\"type\":\"category\",\"name\":\"演唱会\"}";
+        CategoryQuery categoryQuery1 = mapper1.readValue(category1, CategoryQuery.class);
         MvcResult result1 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper1.writeValueAsString(categoryQuery1)))
                 .andExpect(status().isOk())
                 .andReturn();
-        String resultContent = result1.getResponse().getContentAsString();
-        assertNotNull(resultContent);
+        String resultContent1 = result1.getResponse().getContentAsString();
+        assertNotNull(resultContent1);
 
         ObjectMapper mapper2 = new ObjectMapper();
         String category2 = "{\"type\":\"subcategory\",\"name\":\"流行\"}";
-        CategoryQuery categoryQuery2 = mapper2.readValue(category, CategoryQuery.class);
+        CategoryQuery categoryQuery2 = mapper2.readValue(category2, CategoryQuery.class);
         MvcResult result2 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper2.writeValueAsString(categoryQuery2)))
                 .andExpect(status().isOk())
@@ -104,12 +104,12 @@ class ActivityControllerTest {
 
         ObjectMapper mapper3 = new ObjectMapper();
         String category3 = "{\"type\":\"2345\",\"name\":\"6789\"}";
-        CategoryQuery categoryQuery3 = mapper3.readValue(category, CategoryQuery.class);
+        CategoryQuery categoryQuery3 = mapper3.readValue(category3, CategoryQuery.class);
         MvcResult result3 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper3.writeValueAsString(categoryQuery3)))
                 .andExpect(status().isOk())
                 .andReturn();
         String resultContent3 = result3.getResponse().getContentAsString();
-        assertNotNull(resultContent3);
+        assertEquals("",resultContent3);
     }
 }
