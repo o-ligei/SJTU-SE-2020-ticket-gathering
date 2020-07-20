@@ -8,6 +8,7 @@ import {OrderView} from "./view/OrderView";
 import {ProfileView} from "./view/ProfileView";
 import {DetailView} from "./view/DetailView";
 import {SuccessView} from "./view/SuccessView";
+import {AdminView} from "./view/AdminView";
 
 class BasicRoute extends React.Component{
 
@@ -16,6 +17,7 @@ class BasicRoute extends React.Component{
         return(
             <Router>
                 <Switch>
+                    <Route path="/admin" component={AdminView}/>
                     <Route path="/success" component={SuccessView}/>
                     <Route path="/detail" component={DetailView}/>
                     <Route path="/order" component={OrderView}/>
