@@ -61,4 +61,12 @@ public class UserDaoImpl implements UserDao {
         User user = userRepository.findUserByUsername(username);
         return user != null;
     }
+
+    @Override
+    public User findUserByUserId(Integer userId){
+        User user=userRepository.findUserByUserId(userId);
+        UserMongoDB userIcon=userMongoDBRepository.findByUserId(userId);
+        user.setPersonIcon(userIcon.getPersonIcon());
+        return user;
+    }
 }

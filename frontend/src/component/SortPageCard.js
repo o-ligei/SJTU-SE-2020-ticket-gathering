@@ -67,7 +67,7 @@ export class SortPageCard extends React.Component{
                      <Collapse accordion>
                          <Panel header="票源">
                              {/*onClick={this.handleDetail(parseInt(this.props.info.actitems[0].actitemid))}*/}
-                             <a  href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[0].actitemid)).bind(this)} >
+                             <a  href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[0].actitemId)).bind(this)} >
                                  {this.props.info.actitems[0].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[0].price[0].time}
@@ -80,7 +80,7 @@ export class SortPageCard extends React.Component{
                              ￥{this.props.info.actitems[0].price[1].class[2].price}
                              </p>
                              <p> </p>
-                             <a href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[1].actitemid)).bind(this)} >
+                             <a href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[1].actitemId)).bind(this)} >
                                  {this.props.info.actitems[1].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[1].price[0].time}
@@ -93,7 +93,7 @@ export class SortPageCard extends React.Component{
                              ￥{this.props.info.actitems[1].price[1].class[2].price}
                              </p>
                              <p> </p>
-                             <a href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[2].actitemid)).bind(this)} >
+                             <a href="/detail" onClick={()=>this.handleDetail(parseInt(this.props.info.actitems[2].actitemId)).bind(this)} >
                                  {this.props.info.actitems[2].website}:
                              </a>
                              <p style={{fontFamily:'HeiTi'}}>时间1：{this.props.info.actitems[2].price[0].time}

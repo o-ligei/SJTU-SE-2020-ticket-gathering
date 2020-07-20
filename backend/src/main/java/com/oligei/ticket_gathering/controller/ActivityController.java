@@ -42,7 +42,7 @@ public class ActivityController {
 
 
     @RequestMapping("/FindActivityByCategory")
-    public List<Activity> findActivityByCategory(@RequestBody CategoryQuery categoryQuery) {
+    public List<ActivitySortpage> findActivityByCategory(@RequestBody CategoryQuery categoryQuery) {
         return activityService.findActivityByCategory(categoryQuery);
     }
 }

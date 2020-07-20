@@ -108,11 +108,19 @@ export class DetailCard extends React.Component{
         });
     }
 
-    openNotificationWithIcon = type => {
+    openNotificationBeyondStock = type => {
         notification[type]({
             message: 'Notification Title',
             description:
                 '余票不足，请减少购票量',
+        });
+    };
+
+    openNotificationWithoutLogin = type => {
+        notification[type]({
+            message: 'Notification Title',
+            description:
+                '未登录，请先登录',
         });
     };
 
@@ -121,8 +129,10 @@ export class DetailCard extends React.Component{
     }
 
     handlePurchase = () =>{
-        if(this.state.chosenNum > this.state.number)
-            this.openNotificationWithIcon('warning')
+        if(window.localStorage.getItem("userId")===null)
+            this.openNotificationWithoutLogin("warning")
+        else if(this.state.chosenNum > this.state.number)
+            this.openNotificationBeyondStock('warning')
         else{
             const callback = data => {
                 console.log("result:"+data);

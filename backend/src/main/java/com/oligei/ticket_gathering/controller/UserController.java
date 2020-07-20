@@ -39,4 +39,9 @@ public class UserController {
     public boolean existsByUsername(@RequestParam(name = "username") String username) {
         return userService.existsByUsername(username);
     }
+
+    @RequestMapping("/FindByUserId")
+    public User findUserByUserId(Integer userId){
+        return userService.findUserByUserId(userId);
+    }
 }

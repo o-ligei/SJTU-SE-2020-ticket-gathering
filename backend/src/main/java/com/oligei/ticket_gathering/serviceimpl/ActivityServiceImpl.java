@@ -112,12 +112,22 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-    public List<Activity> findActivityByCategory(CategoryQuery categoryQuery) {
-        if (categoryQuery.getType().equals("category"))
-            return activityDao.findActivityByCategory(categoryQuery.getName());
-        else if (categoryQuery.getType().equals("subcategory"))
-            return activityDao.findActivityBySubcategory(categoryQuery.getName());
+    public List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery) {
+        if (categoryQuery.getType().equals("category")) {
+            List<Integer> activities = activityDao.findActivityByCategory(categoryQuery.getName());
+            List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+            for (Integer activity : activities)
+                activitySortpages.add(findActivityAndActitem(activity));
+            return activitySortpages;
+        }
+        else if (categoryQuery.getType().equals("subcategory")) {
+            List<Integer> activities = activityDao.findActivityBySubcategory(categoryQuery.getName());
+            List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+            for (Integer activity : activities)
+                activitySortpages.add(findActivityAndActitem(activity));
+            System.out.println(activitySortpages);
+            return activitySortpages;
+        }
         else return null;
     }
-
 }

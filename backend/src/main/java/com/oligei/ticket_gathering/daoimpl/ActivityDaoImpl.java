@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,23 +51,23 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
-    public List<Activity> findActivityByCategory(String name) {
+    public List<Integer> findActivityByCategory(String name) {
         List<ActivityNeo4j> activityNeo4js = activityNeo4jRepository.findActivityByCategory(name);
-        List<Activity> activities = new ArrayList<Activity>();
+        List<Integer> activities = new ArrayList<Integer>();
         for (Object activityNeo4j: activityNeo4js) {
             ActivityNeo4j now_activityNeo4j = (ActivityNeo4j) activityNeo4j;
-            activities.add(findOneById(now_activityNeo4j.getActivityId()));
+            activities.add(Integer.valueOf(now_activityNeo4j.getActivityId()));
         }
         return activities;
     }
 
     @Override
-    public List<Activity> findActivityBySubcategory(String name) {
-        List<ActivityNeo4j> activityNeo4js = activityNeo4jRepository.findActivityBySubcategory(name);
-        List<Activity> activities = new ArrayList<Activity>();
+    public List<Integer> findActivityBySubcategory(String name) {
+        Collection<ActivityNeo4j> activityNeo4js = activityNeo4jRepository.findActivityBySubcategory(name);
+        List<Integer> activities = new ArrayList<Integer>();
         for (Object activityNeo4j: activityNeo4js) {
             ActivityNeo4j now_activityNeo4j = (ActivityNeo4j) activityNeo4j;
-            activities.add(findOneById(now_activityNeo4j.getActivityId()));
+            activities.add(Integer.valueOf(now_activityNeo4j.getActivityId()));
         }
         return activities;
     }

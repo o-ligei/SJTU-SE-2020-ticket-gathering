@@ -8,6 +8,6 @@ import java.util.List;
 public interface ActivityDao {
     Activity findOneById(Integer id);
     List<Activity> findAllByTitleOrVenueOrActor(String title,String venue,String actor);
-    List<Activity> findActivityByCategory(String name);
-    List<Activity> findActivityBySubcategory(String name);
+    List<Integer> findActivityByCategory(String name);
+    List<Integer> findActivityBySubcategory(String name);
 }

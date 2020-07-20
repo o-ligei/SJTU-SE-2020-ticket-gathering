@@ -5,3 +5,10 @@ export const search = (value,callback) => {
     const url = '/Activity/search';
     postRequest(url, data, callback);
 };
+
+export const category_search = (value,callback) => {
+    const data = value;
+    const url = '/Activity/FindActivityByCategory';
+    console.log(value);
+    fetchPost1(url,data,callback);
+}
