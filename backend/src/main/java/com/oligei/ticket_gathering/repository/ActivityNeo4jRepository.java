@@ -13,14 +13,15 @@ import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
 public interface ActivityNeo4jRepository extends Neo4jRepository<ActivityNeo4j,Long> {
 
-    @Query("MATCH (sub:subcategory)-[:INCLUDES]->(activities) WHERE sub.name={name} RETURN activities")
-    List<ActivityNeo4j> findActivityBySubcategory(@Param("name") String name);
+    @Query("MATCH (sub:subcategory)-[:INCLUDES]->(activities) WHERE sub.name=$name RETURN activities LIMIT 50")
+    List<ActivityNeo4j> findActivityBySubcategory(String name);
 
-    @Query("match (cate:category)-[:CONTAINS]->(:subcategory)-[:INCLUDES]->(activities) where cate.name={name} return activities")
-    List<ActivityNeo4j> findActivityByCategory(@Param("name") String name);
+    @Query("match (cate:category)-[:CONTAINS]->(:subcategory)-[:INCLUDES]->(activities) where cate.name=$name return activities LIMIT 50")
+    List<ActivityNeo4j> findActivityByCategory(String name);
 }

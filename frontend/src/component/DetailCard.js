@@ -35,34 +35,37 @@ export class DetailCard extends React.Component{
         }
     }
 
-    renderDetail = () =>{
-        const callback = data =>{
+    renderDetail = async () => {
+        const callback = data => {
             this.setState({
-                info:data,
-                tickets:data.prices
+                info: data,
+                tickets: data.prices
             });
             let times = [];
-            this.state.tickets.map(function (value,key) {
+            this.state.tickets.map(function (value, key) {
                 times.push(value.time);
             })
-            let prices=[];
-            let numbers=[];
-            this.state.tickets[0].class.map(function (value,key) {
+            let prices = [];
+            let numbers = [];
+            this.state.tickets[0].class.map(function (value, key) {
                 prices.push(value.price.toString());
                 numbers.push(value.num.toString());
             })
             this.setState({
-                times:times,
-                time:times[0],
-                prices:prices,
-                numbers:numbers,
-                price:prices[0],
-                number:numbers[0],
+                times: times,
+                time: times[0],
+                prices: prices,
+                numbers: numbers,
+                price: prices[0],
+                number: numbers[0],
             });
             console.log(this.state);
         }
-        let id = window.localStorage.getItem("actitemid");
-        getDetail(id,callback);
+        let id = await window.localStorage.getItem("actitemid");
+        // let id2=this.props.location.query.id;
+        console.log(JSON.stringify(this.props));
+        console.log(id);
+        getDetail(id, callback);
     }
 
 
@@ -135,6 +138,7 @@ export class DetailCard extends React.Component{
                 console.log("result:"+data);
                 this.setState({success:true});
             }
+            console.log(parseInt(this.state.price));
             addOrder(parseInt(localStorage.getItem("userId")),parseInt(localStorage.getItem("actitemid")),parseInt(this.state.price),
                 parseInt(this.state.chosenNum),this.state.time,moment().format('YYYY-MM-DD HH:mm:ss'),callback);
         }

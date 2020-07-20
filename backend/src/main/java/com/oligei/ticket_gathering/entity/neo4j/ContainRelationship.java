@@ -22,6 +22,8 @@ public class ContainRelationship {
     @EndNode
     private SubcategoryNeo4j subcategoryNeo4j;
 
+    public ContainRelationship() {}
+
     public Long getId() {return id;}
     public void setId(Long id) {this.id=id;}
     public CategoryNeo4j getCategoryNeo4j() {return categoryNeo4j;}

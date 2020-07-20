@@ -60,4 +60,13 @@ class OrderControllerTest {
         assertEquals(3,test.get(1).getOrderId());
     }
 
+    @Test
+    @Rollback
+    void addOrder() throws Exception {
+        MvcResult result = mockMvc.perform(get("/Order/addOrder?userId=2&actitemId=10&price=180&amount=2&showtime=2020-12-30&orderTime=2020-02-15 15:00:00").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        String resultContent = result.getResponse().getContentAsString();
+        assertEquals("true",resultContent);
+    }
+
 }

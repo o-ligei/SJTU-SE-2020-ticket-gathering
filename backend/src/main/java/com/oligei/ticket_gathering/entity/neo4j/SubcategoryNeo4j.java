@@ -12,7 +12,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
-@NodeEntity(label = "category")
+@NodeEntity(label = "subcategory")
 public class SubcategoryNeo4j {
 
     @Id

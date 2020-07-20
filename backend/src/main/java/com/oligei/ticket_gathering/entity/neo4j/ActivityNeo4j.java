@@ -12,7 +12,7 @@ import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Property;
 
-@NodeEntity(label = "category")
+@NodeEntity(label = "activity")
 public class ActivityNeo4j {
 
     @Id
@@ -20,7 +20,7 @@ public class ActivityNeo4j {
     private Long id;
 
     @Property(name = "activityId")
-    private Integer activityId;
+    private String activityId;
 
     @Property(name = "category")
     private String category;
@@ -35,8 +35,8 @@ public class ActivityNeo4j {
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id=id;}
-    public Integer getActivityId() {return activityId;}
-    public void setActivityId(Integer activityId) {this.activityId=activityId;}
+    public String getActivityId() {return activityId;}
+    public void setActivityId(String activityId) {this.activityId=activityId;}
     public String getCategory() {return category;}
     public void setCategory(String category) {this.category=category;}
     public String getSubcategory() {return subcategory;}

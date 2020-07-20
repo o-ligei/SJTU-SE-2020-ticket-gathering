@@ -1,5 +1,5 @@
 import React from 'react';
-import {Layout, Input, Dropdown, Menu, Avatar, Button, message} from 'antd';
+import {Layout, Input, Dropdown, Menu, Avatar, Button, message,Result} from 'antd';
 import "../css/headerInfo.css"
 import { UserOutlined } from '@ant-design/icons';
 import Redirect from "react-router-dom/es/Redirect";
@@ -13,6 +13,7 @@ export class HeaderInfo extends React.Component {
         super(props);
         this.state={
             login:false,
+            logout:false,
             username:null,
             ifsearch:false
         }
@@ -37,7 +38,8 @@ export class HeaderInfo extends React.Component {
 
     logOut(){
         localStorage.clear();
-        this.setState({login:false,username:null});
+        message.success("登出成功");
+        this.setState({login:false,username:null,logout:true});
 
     }
 
@@ -46,6 +48,9 @@ export class HeaderInfo extends React.Component {
         if(this.state.ifsearch){
             console.log("jumping...");
             return <Redirect to={{pathname: "/sortPage"}}/>;
+        }
+        if(this.state.logout){
+            return <Redirect to={{pathname: "/"}}/>;
         }
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
