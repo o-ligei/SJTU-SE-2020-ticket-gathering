@@ -20,6 +20,7 @@ export class SortPageView extends React.Component{
             search:null,
             login:false,
             username:null,
+            usertype:null
         }
     }
 
@@ -39,7 +40,7 @@ export class SortPageView extends React.Component{
 
     logOut(){
         localStorage.clear();
-        this.setState({login:false,username:null});
+        this.setState({login:false,username:null,usertype:null});
     }
 
     handleCategoryClick = (key) => {
@@ -67,7 +68,9 @@ export class SortPageView extends React.Component{
         let username=localStorage.getItem("username");
         if(username!=null){
             this.setState({username:username,login:true});
+            this.setState({usertype:localStorage.getItem("usertype")})
         }
+        console.log(this.state.usertype);
 
         this.setState({activity: sports});
         const value = await localStorage.getItem("search");
@@ -180,6 +183,24 @@ export class SortPageView extends React.Component{
                                 <Button id="profileOperate" href="/profile">{this.state.username}</Button>
                             )}
                         </Dropdown>
+
+                        {this.state.usertype==="Admin" &&
+                        <div style={{paddingLeft:1100}}>
+                            <Dropdown
+                                overlay={(
+                                    <Menu visible={false}>
+                                        <Menu.Item>
+                                            <a href="/admin">添加活动</a>
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            <a href= "/login">订单管理</a>
+                                        </Menu.Item>
+                                    </Menu>
+                                )}>
+                                <Button> Admin </Button>
+                            </Dropdown>
+                        </div>
+                        }
                     </div>
                 </Header>
                 <Divider plain className="divider"> </Divider>
@@ -219,7 +240,7 @@ export class SortPageView extends React.Component{
                         dataSource={this.state.activity}
                         renderItem={item => (
                             <List.Item>
-                                <SortPageCard info={item}/>
+                                <SortPageCard info={item} usertype={this.state.usertype}/>
                             </List.Item>
                         )}
                     />

@@ -15,14 +15,17 @@ export class HeaderInfo extends React.Component {
             login:false,
             logout:false,
             username:null,
+            usertype:null,
             ifsearch:false
         }
     }
 
     componentDidMount() {
         let username=localStorage.getItem("username");
+        let usertype=localStorage.getItem("usertype");
         if(username!=null){
             this.setState({username:username,login:true});
+            this.setState({usertype:usertype})
         }
         console.log(username);
     }
@@ -39,8 +42,7 @@ export class HeaderInfo extends React.Component {
     logOut(){
         localStorage.clear();
         message.success("登出成功");
-        this.setState({login:false,username:null,logout:true});
-
+        this.setState({login:false,username:null,logout:true,usertype:null});
     }
 
 
@@ -95,7 +97,28 @@ export class HeaderInfo extends React.Component {
                                     <Button id="profileOperate" href="/profile">{this.state.username}</Button>
                                 )}
                     </Dropdown>
-                </div>
+
+                    {this.state.usertype==="Admin" &&
+                    <div style={{paddingLeft:1100}}>
+                        <Dropdown
+                            overlay={(
+                                <Menu visible={false}>
+                                    <Menu.Item>
+                                        <a href="/admin">添加活动</a>
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        <a href= "/login">订单管理</a>
+                                    </Menu.Item>
+                                </Menu>
+                            )}>
+                            <Button> Admin </Button>
+                        </Dropdown>
+                    </div>
+                    }
+
+
+                    </div>
+
             </Header>
         )
     }

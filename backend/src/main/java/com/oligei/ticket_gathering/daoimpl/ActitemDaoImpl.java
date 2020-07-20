@@ -34,7 +34,8 @@ public class ActitemDaoImpl implements ActitemDao {
         List<Actitem> actitems=actitemRepository.findAllByActivityId(id);
         for(int i=0;i<actitems.size();++i){
             ActitemMongoDB actitemMongoDB = actitemMongoDBRepository.findByActitemId(actitems.get(i).getActitemId());
-            actitems.get(i).setPrice(actitemMongoDB.getPrice());
+            if(actitemMongoDB==null)System.out.println(actitems.get(i).getActitemId()+"null");
+            else actitems.get(i).setPrice(actitemMongoDB.getPrice());
         }
         return actitems;
     }
@@ -52,6 +53,13 @@ public class ActitemDaoImpl implements ActitemDao {
     @Override
     public Actitem add(int activityId, String website) {
         return actitemRepository.save(new Actitem(null,activityId,website));
+    }
+
+    @Override
+    public Boolean deleteActitem(Integer actitemId) {
+        actitemRepository.deleteById(actitemId);
+        actitemMongoDBRepository.deleteByActitemId(actitemId);
+        return true;
     }
 
 }

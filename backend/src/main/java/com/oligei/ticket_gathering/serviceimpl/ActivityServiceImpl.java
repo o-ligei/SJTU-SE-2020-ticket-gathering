@@ -18,6 +18,7 @@ import org.apdplat.word.segmentation.WordRefiner;
 import org.apdplat.word.segmentation.SegmentationAlgorithm;
 import org.apdplat.word.segmentation.impl.AbstractSegmentation;
 import org.apdplat.word.WordSegmenter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -33,11 +34,12 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<ActivitySortpage> search(String value) {
-        if(value==null || value.equals("")){
+        if(value==null || value.equals("")|| value.equals("null")){
             List<ActivitySortpage> activities=new LinkedList<>();
             for(int i=2;i<=50;++i){
                 activities.add(findActivityAndActitem(i));
             }
+            activities.add(findActivityAndActitem(1417));
             return activities;
         }
         List<Word> words= WordSegmenter.seg(value);
@@ -166,6 +168,16 @@ public class ActivityServiceImpl implements ActivityService {
             System.out.println(prices.toString());
             actitemDao.insertActitemInMongo(actitemId,prices);
         }
+        return true;
+    }
+
+    @Override
+    @Transactional
+    public Boolean delete(Integer activityId) {
+        List<Actitem> actitems=actitemDao.findAllByActivityId(activityId);
+        for(Actitem a : actitems)
+            actitemDao.deleteActitem(a.getActitemId());
+        activityDao.delete(activityId);
         return true;
     }
 

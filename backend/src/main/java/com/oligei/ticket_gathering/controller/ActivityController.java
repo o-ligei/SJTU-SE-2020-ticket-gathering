@@ -33,6 +33,13 @@ public class ActivityController {
         return activityService.add(activity);
     }
 
+    @RequestMapping("/delete")
+    public Boolean delete(@RequestParam(name = "activityId") String activityid) {
+        Integer activityId=Integer.parseInt(activityid);
+        System.out.println("delete:"+activityId);
+        return activityService.delete(activityId);
+    }
+
 
     @RequestMapping("/FindActivityByCategory")
     public List<ActivitySortpage> findActivityByCategory(@RequestBody CategoryQuery categoryQuery) {

@@ -79,6 +79,12 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
+    public Boolean delete(Integer activityId) {
+        activityRepository.deleteById(activityId);
+        return true;
+    }
+
+    @Override
     public List<Activity> findAllByTitleOrVenueOrActor(String title, String venue, String actor) {
         return activityRepository.findAllByTitleLikeOrVenueLikeOrActorLike(title, venue, actor);
     }

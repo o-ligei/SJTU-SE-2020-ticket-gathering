@@ -2,12 +2,12 @@
  * @param actitemid {number}
  * @param this.props.info.activityId {String}
  */
-import { Card,Collapse,Menu, Dropdown, Button } from 'antd';
+import {Card, Collapse, Menu, Dropdown, Button, message} from 'antd';
 import React from "react";
 import "../css/HomeCard.css"
 import "../css/sortPage.css"
+import {deleteActivity} from "../service/AdminService";
 import {history} from "../utils/history";
-import Redirect from "react-router-dom/es/Redirect";
 import {Link} from "react-router-dom";
 // import Link from "react-router-dom/modules/Link";
 const { Panel } = Collapse;
@@ -26,6 +26,10 @@ export class SortPageCard extends React.Component{
     requestData = {
         "image": this.props.info.imgurl,
     };
+
+    componentDidMount() {
+        console.log(this.props.usertype);
+    }
 
     handleDetail = id =>{
         // console.log(website);
@@ -47,6 +51,22 @@ export class SortPageCard extends React.Component{
         // })
     }
 
+    handleDelete=(info)=>{
+        console.log("delete:");
+        // console.log(info);
+        console.log(info.activityId);
+        for(let i=0;i<info.actitems.length;++i)
+            console.log(info.actitems[i].actitemId);
+
+        deleteActivity(info.activityId,(res)=>{
+            if(res){
+                message.success("删除成功！");
+            }
+            else message.error("错误，请重试！");
+            console.log("???")
+        })
+    }
+
 
     render(){
         // if(this.state.ifdetail){
@@ -55,6 +75,12 @@ export class SortPageCard extends React.Component{
         // }
         return(
              <div style={{paddingBottom:30}}>
+                 {
+                     this.props.usertype==="Admin" &&
+                     <div style={{float: "right"}}>
+                         <Button onClick={()=>this.handleDelete(this.props.info)} >删除</Button>
+                     </div>
+                 }
                  <div>
                      <img className='image' alt="example" src={this.props.info.activityIcon} />
                      <p id="title">{this.props.info.title}</p>

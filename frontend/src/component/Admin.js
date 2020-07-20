@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Form, Input, InputNumber, Modal, Button, Avatar, Typography,DatePicker } from 'antd';
+import {Form, Input, InputNumber, Modal, Button, Avatar, Typography, DatePicker, message, Result} from 'antd';
 import { SmileOutlined, UserOutlined } from '@ant-design/icons';
 import "../css/admin.css"
 import {addActivity} from "../service/AdminService";
@@ -99,6 +99,8 @@ const ModalForm = ({ daycnt,classcnt,visible, onCancel }) => {
 const Demo = () => {
     const [visible, setVisible] = useState(false);
 
+    const[success,setSuccess]=useState(false);
+
     const [u, setU] = useState([]);
 
     const [daycnt, setDaycnt] = useState(0);
@@ -134,7 +136,10 @@ const Demo = () => {
         }
         // arr=arr.concat(u);
         console.log("activity:"+JSON.stringify(arr));
-        addActivity(JSON.stringify(arr),(res)=>{console.log(res)})
+        addActivity(JSON.stringify(arr),(res)=>{
+            if(res)setSuccess(true);
+            else message.error("错误！请稍后重试")
+        })
     };
 
     const onFinishcnt = values => {
@@ -147,6 +152,7 @@ const Demo = () => {
 
 
 
+    if (!success)
     return (
         <>
             <Form
@@ -260,6 +266,17 @@ const Demo = () => {
             </Form.Provider>
         </>
     );
+    else
+        return <Result
+            status="success"
+            title="Successfully Added!"
+            extra={[
+                <Button type="primary" key="console" href="/sortPage">
+                    回到搜索页面
+                </Button>,
+                <Button key="admin" href="/admin">再次添加</Button>,
+            ]}
+        />
 };
 export class Admin extends React.Component{
 
