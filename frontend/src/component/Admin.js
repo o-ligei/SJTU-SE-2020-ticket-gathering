@@ -212,6 +212,10 @@ const Demo = () => {
                         <Input />
                     </Form.Item>
 
+                    <Form.Item name="imgurl" label="imgurl" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+
                     <Form.Item
                         // rules={[{ required: true }]}
                         // name="users"

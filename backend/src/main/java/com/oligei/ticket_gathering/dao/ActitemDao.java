@@ -11,4 +11,5 @@ public interface ActitemDao {
     List<Actitem> findAllByActivityId(Integer id);
     void deleteMongoDBByActitemId(Integer actitemId);
     ActitemMongoDB insertActitemInMongo(int actitemId,List<JSONObject> price);
+    Actitem add(int activityId,String website);
 }

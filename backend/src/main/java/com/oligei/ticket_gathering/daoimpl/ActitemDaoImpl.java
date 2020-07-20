@@ -49,4 +49,9 @@ public class ActitemDaoImpl implements ActitemDao {
         return actitemMongoDBRepository.save(actitemMongoDB);
     }
 
+    @Override
+    public Actitem add(int activityId, String website) {
+        return actitemRepository.save(new Actitem(null,activityId,website));
+    }
+
 }

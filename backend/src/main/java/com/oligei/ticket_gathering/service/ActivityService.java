@@ -11,4 +11,5 @@ public interface ActivityService {
     List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery);
     List<ActivitySortpage> search(String value);
     ActivitySortpage findActivityAndActitem(Integer id);
+    Boolean add(String activity);
 }

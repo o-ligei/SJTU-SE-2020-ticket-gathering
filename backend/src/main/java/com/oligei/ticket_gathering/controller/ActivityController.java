@@ -30,14 +30,7 @@ public class ActivityController {
 
     @RequestMapping("/add")
     public Boolean add(@RequestParam(name = "activity") String activity) {
-        System.out.println(activity);
-        activity=activity.substring(1,activity.length()-1);
-        String[] arr = activity.split(",");
-        System.out.println(Arrays.toString(arr));
-        for (String s : arr){
-            System.out.println(s);
-        }
-        return true;
+        return activityService.add(activity);
     }
 
 

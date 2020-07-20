@@ -1,6 +1,7 @@
 package com.oligei.ticket_gathering.serviceimpl;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oligei.ticket_gathering.dao.ActitemDao;
 import com.oligei.ticket_gathering.dao.ActivityDao;
@@ -108,6 +109,64 @@ public class ActivityServiceImpl implements ActivityService {
                 activity.getActivityIcon(),
                 actitems
         );
+    }
+
+    @Override
+    public Boolean add(String activity) {
+        System.out.println(activity);
+        activity=activity.substring(1,activity.length()-1);
+        String[] arr = activity.split(",");
+        System.out.println(Arrays.toString(arr));
+        int webcnt=Integer.parseInt(arr[0]);
+        int daycnt=Integer.parseInt(arr[1]);
+        int classcnt=Integer.parseInt(arr[2]);
+
+        Activity savedActivity=activityDao.add(arr[3].substring(1,arr[3].length()-1),arr[4].substring(1,arr[4].length()-1),arr[5].substring(1,arr[5].length()-1),
+                arr[6].substring(1,arr[6].length()-1),arr[7].substring(1,arr[7].length()-1));
+        int activityId=savedActivity.getActivityId();
+        int number=daycnt*classcnt+daycnt;
+
+        for(int i=0;i<webcnt;++i){
+            //website
+            int basic=8+i*(number+1);
+            Actitem savedActitem=actitemDao.add(activityId,arr[basic].substring(1,arr[basic].length()-1));
+            //date
+            basic+=1;
+
+            int actitemId=savedActitem.getActitemId();
+            List<JSONObject> CLASS;
+            List<JSONObject> prices=new ArrayList<>();
+            JSONObject clas;
+
+            for(int k=0;k<daycnt;++k) {
+                //date
+                if(k!=0)basic+=classcnt+1;
+                CLASS=new ArrayList<>();
+                String date=arr[basic].substring(1,arr[basic].length()-1);
+
+                for (int j = 0; j < classcnt; ++j) {
+                    String classPrice = "{price:" + arr[basic+1+j] + ",num:100}";
+                    clas = JSON.parseObject(classPrice);
+                    CLASS.add(clas);
+                }
+                JSONObject day = new JSONObject();
+                day.put("time", date);
+                day.put("classcnt", classcnt);
+                day.put("class", CLASS);
+                prices.add(day);
+            }
+//            JSONObject actitemMongo=new JSONObject();
+//            actitemMongo.put("actitemid",actitemId);
+//            actitemMongo.put("timecnt",daycnt*classcnt);
+//            actitemMongo.put("prices",prices);
+//            System.out.println(actitemMongo.toString());
+//            List<JSONObject> tmp=new LinkedList<>();
+//            tmp.add(actitemMongo);
+            System.out.println("!!!!");
+            System.out.println(prices.toString());
+            actitemDao.insertActitemInMongo(actitemId,prices);
+        }
+        return true;
     }
 
 

@@ -73,6 +73,12 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
+    public Activity add(String title, String actor, String timescale, String venue, String activityicon) {
+        Activity activity=new Activity(null,title,actor,timescale,venue,activityicon);
+        return activityRepository.save(activity);
+    }
+
+    @Override
     public List<Activity> findAllByTitleOrVenueOrActor(String title, String venue, String actor) {
         return activityRepository.findAllByTitleLikeOrVenueLikeOrActorLike(title, venue, actor);
     }
