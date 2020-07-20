@@ -39,7 +39,7 @@ public class ActivityServiceImpl implements ActivityService {
             for(int i=2;i<=50;++i){
                 activities.add(findActivityAndActitem(i));
             }
-            activities.add(findActivityAndActitem(1417));
+//            activities.add(findActivityAndActitem(1417));
             return activities;
         }
         List<Word> words= WordSegmenter.seg(value);

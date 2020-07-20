@@ -1,6 +1,6 @@
 import React from 'react';
 import { sports} from "../const/activity";
-import {Avatar, Button, Divider, Dropdown, Input, Layout, List, Menu} from "antd";
+import {Avatar, Button, Divider, Dropdown, Input, Layout, List, Menu,message} from "antd";
 import {SortPageCard} from "../component/SortPageCard";
 import "../css/sortPage.css"
 import "../css/headerInfo.css"
@@ -81,6 +81,11 @@ export class SortPageView extends React.Component{
             if(res!=null)
                 this.setState({activity: res})
         });
+    }
+
+    componentWillUnmount() {
+        message.error("?????");
+        localStorage.removeItem("search");
     }
 
     render(){
