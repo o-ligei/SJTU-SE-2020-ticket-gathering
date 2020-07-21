@@ -116,7 +116,6 @@ export class HeaderInfo extends React.Component {
                     </div>
                     }
 
-
                     </div>
 
             </Header>

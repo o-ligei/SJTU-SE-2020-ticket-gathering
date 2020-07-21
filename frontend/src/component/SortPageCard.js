@@ -91,22 +91,24 @@ export class SortPageCard extends React.Component{
                      +this.props.info.actitems[0].price[0].class[this.props.info.actitems[0].price[0].class.length-1].price}</p>
                  </div>
                  <div style={{paddingTop:20}}>
-                     <Collapse accordion>
-                         <Panel header="票源">
+                     <Collapse accordion bordered={false}>
+                         <Panel header="票源" className="panel">
                              <ul>
                                  {this.props.info.actitems.map((actitem, index) => (
-                                     <li key={index}>
+                                     <li key={index} style={{clear:"both"}}>
                                          {/*<Avatar icon={<UserOutlined />} />*/}
                                          <a href="/detail" onClick={()=>this.handleDetail(actitem.actitemId).bind(this)}>{actitem.website}</a>
                                          <ul>
                                              {actitem.price.map((day,index)=>(
-                                                 <li key={index}>
+                                                 <li key={index} style={{clear:"both"}}>
                                                      {day.time}
-                                                     <ul>
+                                                     <ul style={{listStyleType:"none"}}>
+                                                         <div style={{clear:"both"}}>
                                                          {day.class.map((price,index)=>(
-                                                             <li key={index}>
-                                                                 {price.price}
+                                                             <li key={index} style={{float:"left",margin:10}}>
+                                                                 ￥{price.price}
                                                              </li>))}
+                                                         </div>
                                                      </ul>
                                                  </li>))}
                                          </ul>
