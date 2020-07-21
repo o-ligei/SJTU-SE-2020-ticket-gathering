@@ -9,9 +9,12 @@ package com.oligei.ticket_gathering.controller;
 
 import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.service.UserService;
+import com.oligei.ticket_gathering.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/User")
@@ -22,12 +25,21 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/Login")
-    public User login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password,
-                      HttpServletResponse response) {
+    public Map<String,Object> login(@RequestParam(name = "username") String username, @RequestParam(name = "password") String password,
+                                    HttpServletResponse response) {
+        Map<String,Object> map = new HashMap<>();
         User existed_user = userService.login(username, password);
-        User blank_user = new User(0,null,null,null,null,null,null,null);
-        if (existed_user == null) {response.setStatus(201);return blank_user;}
-        else return existed_user;
+        if (existed_user == null) {
+            map.put("message","login failure");
+        }
+        else {
+            String token = TokenUtil.sign(existed_user);
+            map.put("message","login success");
+            map.put("token",token);
+            map.put("user",existed_user);
+        }
+        System.out.println(map);
+        return map;
     }
 
     @RequestMapping("/Register")
