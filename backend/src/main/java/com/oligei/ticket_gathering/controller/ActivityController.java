@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -42,7 +43,17 @@ public class ActivityController {
 
 
     @RequestMapping("/FindActivityByCategory")
-    public List<ActivitySortpage> findActivityByCategory(@RequestBody CategoryQuery categoryQuery) {
-        return activityService.findActivityByCategory(categoryQuery);
+//    @RequestBody CategoryQuery categoryQuery
+    public List<ActivitySortpage> findActivityByCategory(@RequestParam(name = "type")String type,
+                                                         @RequestParam(name = "name")String name,
+                                                         @RequestParam(name = "city")String city){
+        CategoryQuery categoryQuery=new CategoryQuery(type,name);
+        System.out.println(categoryQuery.getName());
+        System.out.println(categoryQuery.getType());
+        System.out.println("city:"+city);
+//        List<ActivitySortpage> activitySortpages=new LinkedList<>();
+//        activitySortpages.add(activityService.findActivityAndActitem(5));
+//        return activitySortpages;
+        return activityService.findActivityByCategory(categoryQuery,city);
     }
 }

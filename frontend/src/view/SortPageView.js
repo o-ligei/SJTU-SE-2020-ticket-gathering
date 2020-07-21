@@ -24,7 +24,8 @@ export class SortPageView extends React.Component{
             username:null,
             usertype:null,
             city:"全国",
-            category:"全部"
+            category:"全部",
+            type:"category"
         }
     }
 
@@ -50,9 +51,10 @@ export class SortPageView extends React.Component{
     handleCategoryClick = (key) => {
         return (e) => {
             console.log(key);
-            this.setState({category:key});
-            const data = {type:"category",name:key};
-            category_search(data,(res) => {
+            this.setState({category:key,type:"category"});
+            // const data = {type:"category",name:key};
+            // category_search(data,(res) => {
+            category_search("category",key,this.state.city,(res) => {
                 console.log(res);
                 if (res != null)
                     this.setState({activity: res})
@@ -61,9 +63,10 @@ export class SortPageView extends React.Component{
     };
 
     handleSubcategoryClick = (e) => {
-        this.setState({category:e.key})
-        const data = {type:"subcategory",name:e.key};
-        category_search(data,(res) => {
+        this.setState({category:e.key,type:"subcategory"});
+        // const data = {type:"subcategory",name:e.key};
+        // category_search(data,(res) => {
+        category_search("subcategory",e.key,this.state.city,(res) => {
             console.log(res);
             if (res != null)
                 this.setState({activity: res})
@@ -74,16 +77,31 @@ export class SortPageView extends React.Component{
     onChange=(e)=> {
         console.log(`radio checked:${e.target.value}`);
         this.setState({city:e.target.value});
+        category_search(this.state.type,this.state.category,e.target.value,(res) => {
+            console.log(res);
+            if (res != null)
+                this.setState({activity: res})
+        })
     }
 
     clear1=(e)=>{
         e.stopPropagation();
-        this.setState({category:"全部"})
+        this.setState({category:"全部",type:"category"});
+        category_search("category","全部",this.state.city,(res) => {
+            console.log(res);
+            if (res != null)
+                this.setState({activity: res})
+        })
     }
 
     clear2=(e)=>{
         e.stopPropagation();
-        this.setState({city:"全国"})
+        this.setState({city:"全国"});
+        category_search(this.state.type,this.state.category,"全国",(res) => {
+            console.log(res);
+            if (res != null)
+                this.setState({activity: res})
+        })
     }
 
     async componentDidMount() {

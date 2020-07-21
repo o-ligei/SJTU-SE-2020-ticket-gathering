@@ -85,6 +85,11 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
+    public List<Activity> findAllByTitleOrVenue(String title,String venue) {
+        return activityRepository.findAllByTitleLikeOrVenueLike(title,venue);
+    }
+
+    @Override
     public List<Activity> findAllByTitleOrVenueOrActor(String title, String venue, String actor) {
         return activityRepository.findAllByTitleLikeOrVenueLikeOrActorLike(title, venue, actor);
     }
