@@ -62,10 +62,11 @@ export class DetailCard extends React.Component{
             console.log(this.state);
         }
         let id = await window.localStorage.getItem("actitemid");
+        let userid = await window.localStorage.getItem("userId");
         // let id2=this.props.location.query.id;
         console.log(JSON.stringify(this.props));
         console.log(id);
-        getDetail(id, callback);
+        getDetail(id, userid, callback);
     }
 
 

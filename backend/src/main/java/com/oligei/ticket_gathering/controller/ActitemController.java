@@ -17,6 +17,6 @@ public class ActitemController {
     private ActitemService actitemService;
 
     @RequestMapping("/detail")
-    public JSONObject getDetail(@RequestParam(name = "actitemid") Integer actitemid)
-    {return actitemService.findActivityAndActitemDetail(actitemid);}
+    public JSONObject getDetail(@RequestParam(name = "actitemid") Integer actitemid, @RequestParam(name = "userId") Integer userId)
+    {return actitemService.findActivityAndActitemDetail(actitemid,userId);}
 }

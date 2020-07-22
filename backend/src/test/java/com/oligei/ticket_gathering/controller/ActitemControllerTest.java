@@ -47,7 +47,6 @@ class ActitemControllerTest {
                 .andExpect(status().isOk()).andReturn();
         String resultContent = result.getResponse().getContentAsString();
         JSONObject jsonObject = om.readValue(resultContent, new TypeReference<JSONObject>() {});
-        assertEquals(jsonObject.get("key"),actitemService.findActivityAndActitemDetail(1).get("key"));
-
+        assertEquals(jsonObject.get("key"),actitemService.findActivityAndActitemDetail(1,1).get("key"));
     }
 }

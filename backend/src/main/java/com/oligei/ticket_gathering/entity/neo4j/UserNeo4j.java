@@ -10,6 +10,7 @@ package com.oligei.ticket_gathering.entity.neo4j;
 import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Property;
 
 @NodeEntity(label = "user")
 public class UserNeo4j {
@@ -18,8 +19,22 @@ public class UserNeo4j {
     @GeneratedValue
     private Long id;
 
+    @Property(name = "userId")
+    private Integer userId;
+
+    @Property(name = "username")
+    private String username;
+
     public UserNeo4j() {}
+    public UserNeo4j(Integer userId, String username) {
+        this.userId=userId;
+        this.username=username;
+    }
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id=id;}
+    public Integer getUserId() {return userId;}
+    public void setUserId(Integer userId) {this.userId=userId;}
+    public String getUsername() {return username;}
+    public void setUsername(String username) {this.username=username;}
 }
