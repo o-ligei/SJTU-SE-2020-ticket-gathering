@@ -1,11 +1,14 @@
 package com.oligei.ticket_gathering.controller;
 
+import com.oligei.ticket_gathering.dto.AuctionListItem;
 import com.oligei.ticket_gathering.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/Auction")
@@ -16,9 +19,21 @@ public class AuctionController {
     private AuctionService auctionService;
 
     @RequestMapping("/add")
-    public boolean addAuction(@RequestParam("actitemid")Integer actitemid,@RequestParam("userid")Integer userid,@RequestParam("ddl")String ddl,
+    public boolean addAuction(@RequestParam("actitemid")Integer actitemid,@RequestParam("ddl")String ddl,
                               @RequestParam("showtime")String showtime,@RequestParam("price")Integer price,@RequestParam("amount")Integer amount)
     {
-        return auctionService.save(actitemid,userid,ddl,showtime,price,amount);
+        return auctionService.save(actitemid,ddl,showtime,price,amount);
+    }
+
+
+    @RequestMapping("/get")
+    public List<AuctionListItem> getAuctions(){
+        return auctionService.getAvailableAuctions();
+    }
+
+    @RequestMapping("/join")
+    public Integer joinAuction(@RequestParam("auctionid")Integer auctionid,@RequestParam("userid")Integer userid,@RequestParam("price")Integer price)
+    {
+        return auctionService.joinAuction(auctionid,userid,price);
     }
 }
