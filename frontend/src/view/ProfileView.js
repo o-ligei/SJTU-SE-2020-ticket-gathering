@@ -1,31 +1,39 @@
 import React from 'react';
-import {Descriptions,Badge} from "antd";
+import {Descriptions, Badge, message} from "antd";
 import "../css/profile.css"
 import {HeaderInfo} from "../component/Header";
 import {getPersonInfo} from "../service/userService";
+import {Redirect} from "react-router-dom";
 
 export class ProfileView extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            userInfo:null
+            userInfo:null,
+            ifauthen:false
         }
     }
 
     componentDidMount() {
         const callback=(data)=>{
-            this.setState({userInfo:data})
+            if(data.message==="authentication failure"){this.setState({ifauthen:true});localStorage.clear();}
+            else this.setState({userInfo:data})
         };
         let userId=localStorage.getItem("userId");
-        getPersonInfo(userId,callback);
+        getPersonInfo(userId,localStorage.getItem("token"),callback);
     }
 
     render() {
-        if (this.state.userInfo == null) {
+        if(this.state.ifauthen){
+            message.error("请先登录");
+            return <Redirect to={{pathname: "/login"}}/>;
+        }
+        else if (this.state.userInfo == null) {
             return (
                 <p>404</p>
             )
-        } else {
+        }
+        else {
             return (
                 <div>
                     <HeaderInfo/>

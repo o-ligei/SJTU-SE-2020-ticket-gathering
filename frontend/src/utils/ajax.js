@@ -70,4 +70,41 @@ let fetchPost1=(apiUrl, json,callback) =>{
         });
 };
 
-export {postRequest,fetchPost1};
+let authRequest = (apiUrl, data, token,callback) => {
+    const url=baseUrl+apiUrl;
+    let formData = new FormData();
+
+    for (let p in data){
+        if(data.hasOwnProperty(p))
+            formData.append(p, data[p]);
+    }
+    let opts = {
+        method: "POST",
+        body: formData,
+        credentials: "omit",
+        headers:{
+            token:token
+        }
+    };
+
+    fetch(url,opts)
+        .then((response) => {
+            if(response.status===201){
+                console.log("empty response");
+                callback(null);
+            }
+            else {
+                return response.json()
+            }
+        })
+        .then((data) => {
+            console.log(data);
+            callback(data);
+        })
+        .catch((error) => {
+            callback(null);
+            // console.log(error);
+        });
+};
+
+export {postRequest,fetchPost1,authRequest};

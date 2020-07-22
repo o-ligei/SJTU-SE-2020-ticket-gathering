@@ -9,7 +9,7 @@
  *
  */
 
-import { Card,Collapse,Menu, Dropdown, Button,Radio, notification, Space,InputNumber } from 'antd';
+import {Card, Collapse, Menu, Dropdown, Button, Radio, notification, Space, InputNumber, message} from 'antd';
 import React from "react";
 // import "../css/sortPage.css";
 import "../css/Detail.css"
@@ -32,41 +32,53 @@ export class DetailCard extends React.Component{
             number:"",
             success:false,
             chosenNum:1,
+            authentication:false,
         }
     }
 
     renderDetail = async () => {
-        const callback = data => {
-            this.setState({
-                info: data,
-                tickets: data.prices
-            });
-            let times = [];
-            this.state.tickets.map(function (value, key) {
-                times.push(value.time);
-            })
-            let prices = [];
-            let numbers = [];
-            this.state.tickets[0].class.map(function (value, key) {
-                prices.push(value.price.toString());
-                numbers.push(value.num.toString());
-            })
-            this.setState({
-                times: times,
-                time: times[0],
-                prices: prices,
-                numbers: numbers,
-                price: prices[0],
-                number: numbers[0],
-            });
-            console.log(this.state);
+        const callback = res => {
+            if(res.message==="authentication failure") {
+                message.error("请先登录");
+                localStorage.clear();
+                this.setState({authentication:true})
+            }
+            else {
+                let data = res;
+                this.setState({
+                    info: data,
+                    tickets: data.prices
+                });
+                let times = [];
+                this.state.tickets.map(function (value, key) {
+                    times.push(value.time);
+                })
+                let prices = [];
+                let numbers = [];
+                this.state.tickets[0].class.map(function (value, key) {
+                    prices.push(value.price.toString());
+                    numbers.push(value.num.toString());
+                })
+                this.setState({
+                    times: times,
+                    time: times[0],
+                    prices: prices,
+                    numbers: numbers,
+                    price: prices[0],
+                    number: numbers[0],
+                });
+                console.log(this.state);
+            }
         }
         let id = await window.localStorage.getItem("actitemid");
         let userid = await window.localStorage.getItem("userId");
         // let id2=this.props.location.query.id;
         console.log(JSON.stringify(this.props));
         console.log(id);
-        getDetail(id, userid, callback);
+        const token=localStorage.getItem("token");
+        console.log("token:"+token);
+        getDetail(id,token,callback);
+//         getDetail(id, userid, callback);
     }
 
 
@@ -137,19 +149,24 @@ export class DetailCard extends React.Component{
         else{
             const callback = data => {
                 console.log("result:"+data);
-                this.setState({success:true});
+                if(data.message==="authentication failure") {
+                    message.error("请先登录");
+                    localStorage.clear();
+                    this.setState({authentication:true})
+                }
+                else this.setState({success:true});
             }
             console.log(parseInt(this.state.price));
             addOrder(parseInt(localStorage.getItem("userId")),parseInt(localStorage.getItem("actitemid")),parseInt(this.state.price),
-                parseInt(this.state.chosenNum),this.state.time,moment().format('YYYY-MM-DD HH:mm:ss'),callback);
+                parseInt(this.state.chosenNum),this.state.time,moment().format('YYYY-MM-DD HH:mm:ss'),localStorage.getItem("token"),callback);
         }
     }
 
     render() {
-        if(this.state.success===true) {
-
+        if(this.state.success)
             return <Redirect to={{pathname: "/success"}}/>;
-        }
+        if(this.state.authentication)
+            return <Redirect to={{pathname: "/login"}}/>;
         return(
             <div>
                 <img id='Dimg' alt="example" src={this.state.info.activityicon} />

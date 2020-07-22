@@ -8,7 +8,7 @@ import "../css/HomeCard.css"
 import "../css/sortPage.css"
 import {deleteActivity} from "../service/AdminService";
 import {history} from "../utils/history";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 // import Link from "react-router-dom/modules/Link";
 const { Panel } = Collapse;
 const { Meta } = Card;
@@ -19,7 +19,9 @@ export class SortPageCard extends React.Component{
     constructor(props) {
         super(props);
         this.state={
-            ifdetail:false
+            ifdetail:false,
+            ifauthen:false,
+            ifauthor:false
         }
     }
 
@@ -58,21 +60,28 @@ export class SortPageCard extends React.Component{
         for(let i=0;i<info.actitems.length;++i)
             console.log(info.actitems[i].actitemId);
 
-        deleteActivity(info.activityId,(res)=>{
-            if(res){
+        deleteActivity(info.activityId,localStorage.getItem("token"),(res)=>{
+            console.log(res);
+            if(res===true)
                 message.success("删除成功！");
-            }
+            else if(res.message==="authentication failure"){this.setState({ifauthen:true});localStorage.clear();}
+            else if(res.message==="authorization failure")this.setState({ifauthor:true});
             else message.error("错误，请重试！");
-            console.log("???")
         })
     }
 
 
     render(){
-        // if(this.state.ifdetail){
-        //     console.log("jumping...");
-        //     return <Redirect to={{pathname: "/detail"}}/>;
-        // }
+
+        if(this.state.ifauthen){
+            message.error("请先登录");
+            return <Redirect to={{pathname: "/login"}}/>;
+        }
+        else if(this.state.ifauthor){
+            message.error("无权限");
+            return <Redirect to={{pathname: "/login"}}/>;
+        }
+        else
         return(
              <div style={{paddingBottom:30}}>
                  {

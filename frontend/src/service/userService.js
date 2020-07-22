@@ -1,4 +1,4 @@
-import {postRequest,fetchPost1} from "../utils/ajax";
+import {postRequest,fetchPost1,authRequest} from "../utils/ajax";
 
 export const checkUser = (value,callback) => {
     const data={username:value};
@@ -27,10 +27,10 @@ export const register = (username,password,email,personicon,phone,gender,callbac
     fetchPost1(url, data, callback);
 };
 
-export const getPersonInfo=(userId,callback)=>{
+export const getPersonInfo=(userId,token,callback)=>{
     const url='/User/FindByUserId';
     const data={userId:userId};
-    postRequest(url,data,callback);
+    authRequest(url,data,token,callback);
 };
 
 

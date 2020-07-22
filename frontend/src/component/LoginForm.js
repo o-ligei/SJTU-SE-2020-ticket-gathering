@@ -22,12 +22,13 @@ export class LoginForm extends React.Component {
         this.state = {
             user:null,
             firstLogin:true,
+            token:null,
         };
     }
     onFinish = values => {
         const callback =  (data) => {
-            console.log(data);
-            this.setState({user:data,firstLogin:false});
+            console.log("???"+JSON.stringify(data.token));
+            this.setState({user:data.user,firstLogin:false,token:data.token});
         };
         console.log(values);
         login(values,callback);
@@ -52,6 +53,7 @@ export class LoginForm extends React.Component {
             localStorage.setItem("userId", this.state.user.userId);
             localStorage.setItem("username",this.state.user.username);
             localStorage.setItem("usertype",this.state.user.type);
+            localStorage.setItem("token",this.state.token);
             return <Redirect to={{pathname: "/"}}/>;
         }
         return (
