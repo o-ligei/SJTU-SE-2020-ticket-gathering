@@ -37,8 +37,8 @@ class ActitemServiceTest {
         jsonObject.put("description",null);
         jsonObject.put("website","JuCheng");
         jsonObject.put("prices",list);
-        assertEquals(jsonObject,actitemService.findActivityAndActitemDetail(2));
+        assertEquals(jsonObject,actitemService.findActivityAndActitemDetail(2,1));
 
-        assertEquals(actitemService.findActivityAndActitemDetail(15).get("key"),5);
+        assertEquals(actitemService.findActivityAndActitemDetail(15,1).get("key"),5);
     }
 }

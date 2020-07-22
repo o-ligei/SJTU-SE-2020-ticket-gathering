@@ -14,9 +14,6 @@ import org.apdplat.word.segmentation.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apdplat.word.segmentation.Segmentation;
-import org.apdplat.word.segmentation.WordRefiner;
-import org.apdplat.word.segmentation.SegmentationAlgorithm;
-import org.apdplat.word.segmentation.impl.AbstractSegmentation;
 import org.apdplat.word.WordSegmenter;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -183,22 +180,55 @@ public class ActivityServiceImpl implements ActivityService {
 
 
     @Override
-    public List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery) {
+    public List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery,String city) {
+
+        if(categoryQuery.getName().equals("全部")){
+            List<ActivitySortpage> activitySortpages=new LinkedList<>();
+            String cityLike="%"+city+"%";
+            System.out.println(cityLike);
+            String venueLike=city+"%";
+            List<Activity> activities=activityDao.findAllByTitleOrVenue(cityLike,venueLike);
+            for(Activity a:activities)
+                activitySortpages.add(findActivityAndActitem(a.getActivityId()));
+            return activitySortpages;
+        }
+
+        if(city.equals("全国")) {
+            if (categoryQuery.getType().equals("category")) {
+                List<Integer> activities = activityDao.findActivityByCategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                for (Integer activity : activities)
+                    activitySortpages.add(findActivityAndActitem(activity));
+                return activitySortpages;
+            } else if (categoryQuery.getType().equals("subcategory")) {
+                List<Integer> activities = activityDao.findActivityBySubcategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                for (Integer activity : activities)
+                    activitySortpages.add(findActivityAndActitem(activity));
+//                System.out.println(activitySortpages);
+                return activitySortpages;
+            } else return null;
+        }
+
         if (categoryQuery.getType().equals("category")) {
-            List<Integer> activities = activityDao.findActivityByCategory(categoryQuery.getName());
-            List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
-            for (Integer activity : activities)
-                activitySortpages.add(findActivityAndActitem(activity));
-            return activitySortpages;
-        }
-        else if (categoryQuery.getType().equals("subcategory")) {
-            List<Integer> activities = activityDao.findActivityBySubcategory(categoryQuery.getName());
-            List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
-            for (Integer activity : activities)
-                activitySortpages.add(findActivityAndActitem(activity));
-            System.out.println(activitySortpages);
-            return activitySortpages;
-        }
-        else return null;
+                List<Integer> activities = activityDao.findActivityByCategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                ActivitySortpage a;
+                for (Integer activity : activities) {
+                    a=findActivityAndActitem(activity);
+                    if(a.getTitle().contains(city)||a.getVenue().contains(city)) activitySortpages.add(a);
+                }
+                return activitySortpages;
+            } else if (categoryQuery.getType().equals("subcategory")) {
+                List<Integer> activities = activityDao.findActivityBySubcategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                ActivitySortpage a;
+                for (Integer activity : activities) {
+                    a=findActivityAndActitem(activity);
+                    if(a.getTitle().contains(city)||a.getVenue().contains(city))activitySortpages.add(a);
+                }
+                return activitySortpages;
+            } else return null;
     }
+
 }

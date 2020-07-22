@@ -12,4 +12,5 @@ public interface ActivityDao {
     List<Integer> findActivityBySubcategory(String name);
     Activity add(String title,String actor,String timescale,String venue,String activityicon);
     Boolean delete(Integer activityId);
+    List<Activity> findAllByTitleOrVenue(String title,String venue);
 }

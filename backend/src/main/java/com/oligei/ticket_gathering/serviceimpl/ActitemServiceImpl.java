@@ -19,7 +19,7 @@ public class ActitemServiceImpl implements ActitemService {
     private ActivityDao activityDao;
 
     @Override
-    public JSONObject findActivityAndActitemDetail(Integer id) {
+    public JSONObject findActivityAndActitemDetail(Integer id, Integer userId) {
         Actitem actitem = actitemDao.findOneById(id);
         Activity activity = activityDao.findOneById(actitem.getActivityId());
         JSONObject jsonObject = new JSONObject();

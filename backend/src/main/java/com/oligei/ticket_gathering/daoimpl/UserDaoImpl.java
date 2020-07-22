@@ -10,7 +10,9 @@ package com.oligei.ticket_gathering.daoimpl;
 import com.oligei.ticket_gathering.dao.UserDao;
 import com.oligei.ticket_gathering.entity.mongodb.UserMongoDB;
 import com.oligei.ticket_gathering.entity.mysql.User;
+import com.oligei.ticket_gathering.entity.neo4j.UserNeo4j;
 import com.oligei.ticket_gathering.repository.UserMongoDBRepository;
+import com.oligei.ticket_gathering.repository.UserNeo4jRepository;
 import com.oligei.ticket_gathering.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +28,9 @@ public class UserDaoImpl implements UserDao {
 
     @Autowired
     private UserMongoDBRepository userMongoDBRepository;
+
+    @Autowired
+    private UserNeo4jRepository userNeo4jRepository;
 
     @Autowired
     private BCryptPasswordEncoder encoder;
@@ -50,9 +55,12 @@ public class UserDaoImpl implements UserDao {
         String rawPassword = user.getPassword();
         user.setPassword(encoder.encode(rawPassword));
         User saved_user = userRepository.save(user);
-        int userId = saved_user.getUserId();
+        Integer userId = saved_user.getUserId();
+        String username = saved_user.getUsername();
         UserMongoDB userMongoDB = new UserMongoDB(userId, personIcon);
         userMongoDBRepository.save(userMongoDB);
+        UserNeo4j userNeo4j = new UserNeo4j(userId,username);
+        userNeo4jRepository.save(userNeo4j);
         return true;
     }
 
