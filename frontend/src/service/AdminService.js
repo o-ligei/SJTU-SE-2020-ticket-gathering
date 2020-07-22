@@ -1,13 +1,13 @@
-import {postRequest,fetchPost1} from "../utils/ajax";
+import {authRequest} from "../utils/ajax";
 
-export const addActivity = (value,callback) => {
+export const addActivity = (value,token,callback) => {
     const data={activity:value};
     const url = '/Activity/add';
-    postRequest(url, data, callback);
+    authRequest(url, data,token, callback);
 };
 
-export const deleteActivity=(value,callback)=>{
+export const deleteActivity=(value,token,callback)=>{
     const data={activityId:value};
     const url='/Activity/delete';
-    postRequest(url,data,callback);
+    authRequest(url,data,token,callback);
 }

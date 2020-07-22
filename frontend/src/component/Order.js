@@ -1,9 +1,10 @@
 import React from 'react';
-import { List, Avatar, Space } from 'antd';
+import {List, Avatar, Space, message} from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import "../css/order.css"
 import {getOrderInfoByUser} from "../service/orderServcie";
 import {sports} from "../const/activity";
+import {Redirect} from "react-router-dom";
 
 // const listData = [];
 // for (let i = 0; i < 5; i++) {
@@ -48,24 +49,31 @@ export class Order extends React.Component{
         this.state={
             orderInfo:null,
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            ifauthen:false,
         }
     }
 
     componentDidMount() {
         let userId=localStorage.getItem("userId");
         const callback=(data)=>{
-            this.setState({orderInfo:data});
+            if(data.message==="authentication failure"){this.setState({ifauthen:true});localStorage.clear();}
+            else this.setState({orderInfo:data});
         };
-        getOrderInfoByUser(userId,callback);
+        getOrderInfoByUser(userId,localStorage.getItem("token"),callback);
     }
 
     render() {
+        if(this.state.ifauthen){
+            message.error("请先登录");
+            return <Redirect to={{pathname: "/login"}}/>;
+        }
         // console.log(this.state.orderInfo);
-        if (this.state.orderInfo === null) {
+        else if (this.state.orderInfo === null) {
             return (
                 <p>404 error</p>
             )
-        } else {
+        }
+        else {
             return (
                 <div>
                     <div id="orderDiv">

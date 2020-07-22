@@ -3,10 +3,10 @@
  *
  */
 
-import {postRequest} from "../utils/ajax";
+import {authRequest} from "../utils/ajax";
 
-export const getDetail = (value,callback) => {
+export const getDetail = (value,token,callback) => {
     const data={actitemid:value};
     const url = `/Actitem/detail`;
-    postRequest(url, data, callback);
+    authRequest(url, data,token,callback);
 };

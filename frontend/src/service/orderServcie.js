@@ -3,18 +3,18 @@
  *
  *
  */
-import {postRequest,fetchPost1} from "../utils/ajax";
+import {authRequest} from "../utils/ajax";
 
-export const getOrderInfoByUser=(value,callback)=>{
+export const getOrderInfoByUser=(value,token,callback)=>{
     const apiUrl ='/Order/GetOrderInfoByUser';
     const data={userId:value};
-    postRequest(apiUrl,data,callback);
+    authRequest(apiUrl,data,token,callback);
 }
 
-export const addOrder=(userId,actitemId,price,amount,showtime,orderTime,callback)=>
+export const addOrder=(userId,actitemId,price,amount,showtime,orderTime,token,callback)=>
 {
     const apiUrl='/Order/addOrder';
     const data={userId:userId,actitemId:actitemId,price:price,amount:amount,showtime:showtime,orderTime:orderTime};
     console.log(data);
-    postRequest(apiUrl,data,callback);
+    authRequest(apiUrl,data,token,callback);
 }

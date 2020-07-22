@@ -16,7 +16,7 @@ public class AuthenInterceptor implements HandlerInterceptor {
         System.out.println(request.getRequestURL());
         String token = request.getHeader("token");
         System.out.println(token);
-        if(!token.equals("null")){
+        if(token!=null&&!token.equals("null")){
             boolean result = TokenUtil.authenverify(token);
             System.out.println(result);
             if (result) {
