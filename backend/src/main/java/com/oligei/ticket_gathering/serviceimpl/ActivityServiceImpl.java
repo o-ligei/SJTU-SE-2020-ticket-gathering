@@ -5,9 +5,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oligei.ticket_gathering.dao.ActitemDao;
 import com.oligei.ticket_gathering.dao.ActivityDao;
+import com.oligei.ticket_gathering.dao.UserDao;
 import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.mysql.Actitem;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
+import com.oligei.ticket_gathering.entity.mysql.User;
+import com.oligei.ticket_gathering.entity.neo4j.ActivityNeo4j;
 import com.oligei.ticket_gathering.service.ActivityService;
 import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.apdplat.word.segmentation.Word;
@@ -28,6 +31,8 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActitemDao actitemDao;
 
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public List<ActivitySortpage> search(String value) {
