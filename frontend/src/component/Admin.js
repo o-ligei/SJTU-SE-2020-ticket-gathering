@@ -3,6 +3,7 @@ import {Form, Input, InputNumber, Modal, Button, Avatar, Typography, DatePicker,
 import { SmileOutlined, UserOutlined } from '@ant-design/icons';
 import "../css/admin.css"
 import {addActivity} from "../service/AdminService";
+import {Redirect} from "react-router-dom";
 
 const layout = {
     labelCol: { span: 8 },
@@ -101,6 +102,10 @@ const Demo = () => {
 
     const[success,setSuccess]=useState(false);
 
+    const[authen,setAuthen]=useState(false);
+
+    const[author,setAuthor]=useState(false);
+
     const [u, setU] = useState([]);
 
     const [daycnt, setDaycnt] = useState(0);
@@ -136,9 +141,12 @@ const Demo = () => {
         }
         // arr=arr.concat(u);
         console.log("activity:"+JSON.stringify(arr));
-        addActivity(JSON.stringify(arr),(res)=>{
-            if(res)setSuccess(true);
-            else message.error("错误！请稍后重试")
+        addActivity(JSON.stringify(arr),localStorage.getItem("token"),(res)=>{
+            if(res===true)setSuccess(true);
+            else if(res.message==="authentication failure"){setAuthen(true);localStorage.clear();}
+            else if(res.message==="authorization failure")setAuthor(true);
+            else message.error("错误！请稍后重试");
+            console.log(JSON.stringify(res));
         })
     };
 
@@ -150,140 +158,150 @@ const Demo = () => {
         setDaycnt(values.daycnt);
     };
 
-
-
-    if (!success)
-    return (
-        <>
-            <Form
-                {...layout}
-                name="cnt"
-                initialValues={{ remember: true }}
-                onFinish={onFinishcnt}
-            >
-                <Form.Item
-                    label="day count"
-                    name="daycnt"
-                    rules={[{ required: true}]}
+    if (success) return <Result
+        status="success"
+        title="Successfully Added!"
+        extra={[
+            <Button type="primary" key="console" href="/sortPage">
+                回到搜索页面
+            </Button>,
+            <Button key="admin" href="/admin">再次添加</Button>,
+        ]}
+    />;
+    else if(authen){
+        message.error("请先登录");
+        return <Redirect to={{pathname: "/login"}}/>;
+    }
+    else if(author){
+        message.error("无权限");
+        return <Redirect to={{pathname: "/login"}}/>;
+    }
+    else
+        return (
+            <>
+                <Form
+                    {...layout}
+                    name="cnt"
+                    initialValues={{remember: true}}
+                    onFinish={onFinishcnt}
                 >
-                    <InputNumber min={1} max={10}/>
-                </Form.Item>
-
-                <Form.Item
-                    label="class count"
-                    name="classcnt"
-                    rules={[{ required: true}]}
-                >
-                    <InputNumber min={1} max={5}/>
-                </Form.Item>
-
-                <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-                        SET CNT
-                    </Button>
-                </Form.Item>
-            </Form>
-
-            {/*{value1}*/}
-            <Form.Provider
-                onFormFinish={(name, { values, forms }) => {
-                    if (name === 'userForm') {
-                        const { basicForm } = forms;
-                        let users = basicForm.getFieldValue('users') || [];
-                        // console.log("users:"+JSON.stringify(users));
-                        // console.log("value:"+JSON.stringify(values));
-                        basicForm.setFieldsValue({ users: [...users, values] });
-                        users=basicForm.getFieldValue('users') || [];
-                        console.log("usersNew:"+JSON.stringify(users));
-                        setVisible(false);
-                        setU(users);
-                    }
-                }}
-            >
-                <Form {...layout} name="basicForm" onFinish={onFinish}>
-
-                    <Form.Item name="title" label="title" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item name="actor" label="actor" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item name="timescale" label="timescale" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item name="venue" label="venue" rules={[{ required: true }]}>
-                        <Input />
-                    </Form.Item>
-
-                    <Form.Item name="imgurl" label="imgurl" rules={[{ required: true }]}>
-                        <Input />
+                    <Form.Item
+                        label="day count"
+                        name="daycnt"
+                        rules={[{required: true}]}
+                    >
+                        <InputNumber min={1} max={10}/>
                     </Form.Item>
 
                     <Form.Item
-                        // rules={[{ required: true }]}
-                        // name="users"
-                        label="Website List"
-                        shouldUpdate={(prevValues, curValues) => prevValues.users !== curValues.users}
-                        // shouldUpdate={true}
+                        label="class count"
+                        name="classcnt"
+                        rules={[{required: true}]}
                     >
-                        {({ getFieldValue }) => {
-                            const users = getFieldValue('users') || [];
-                            console.log("user:"+JSON.stringify(users));
-
-                            return users.length ? (
-                                <ul>
-                                    {users.map((user, index) => (
-                                        <li key={index} className="user">
-                                            {/*<Avatar icon={<UserOutlined />} />*/}
-                                            {user.website}
-                                            {/*- {user.day}*/}
-                                        </li>
-                                    ))}
-                                </ul>
-                            ) : (
-                                <Typography.Text className="ant-form-text" type="secondary">
-                                    ( <SmileOutlined /> No website yet. )
-                                </Typography.Text>
-                            );
-                        }}
+                        <InputNumber min={1} max={5}/>
                     </Form.Item>
 
                     <Form.Item {...tailLayout}>
-                        <Button htmlType="submit" type="primary">
-                            Submit
-                        </Button>
-                        <Button htmlType="button" style={{ margin: '0 8px' }} onClick={showUserModal}>
-                            Add Website
+                        <Button type="primary" htmlType="submit">
+                            SET CNT
                         </Button>
                     </Form.Item>
-
                 </Form>
 
-                <ModalForm visible={visible} onCancel={hideUserModal} daycnt={daycnt} classcnt={classcnt}/>
-            </Form.Provider>
-        </>
-    );
-    else
-        return <Result
-            status="success"
-            title="Successfully Added!"
-            extra={[
-                <Button type="primary" key="console" href="/sortPage">
-                    回到搜索页面
-                </Button>,
-                <Button key="admin" href="/admin">再次添加</Button>,
-            ]}
-        />
+                {/*{value1}*/}
+                <Form.Provider
+                    onFormFinish={(name, {values, forms}) => {
+                        if (name === 'userForm') {
+                            const {basicForm} = forms;
+                            let users = basicForm.getFieldValue('users') || [];
+                            // console.log("users:"+JSON.stringify(users));
+                            // console.log("value:"+JSON.stringify(values));
+                            basicForm.setFieldsValue({users: [...users, values]});
+                            users = basicForm.getFieldValue('users') || [];
+                            console.log("usersNew:" + JSON.stringify(users));
+                            setVisible(false);
+                            setU(users);
+                        }
+                    }}
+                >
+                    <Form {...layout} name="basicForm" onFinish={onFinish}>
+
+                        <Form.Item name="title" label="title" rules={[{required: true}]}>
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item name="actor" label="actor" rules={[{required: true}]}>
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item name="timescale" label="timescale" rules={[{required: true}]}>
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item name="venue" label="venue" rules={[{required: true}]}>
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item name="imgurl" label="imgurl" rules={[{required: true}]}>
+                            <Input/>
+                        </Form.Item>
+
+                        <Form.Item
+                            // rules={[{ required: true }]}
+                            // name="users"
+                            label="Website List"
+                            shouldUpdate={(prevValues, curValues) => prevValues.users !== curValues.users}
+                            // shouldUpdate={true}
+                        >
+                            {({getFieldValue}) => {
+                                const users = getFieldValue('users') || [];
+                                console.log("user:" + JSON.stringify(users));
+
+                                return users.length ? (
+                                    <ul>
+                                        {users.map((user, index) => (
+                                            <li key={index} className="user">
+                                                {/*<Avatar icon={<UserOutlined />} />*/}
+                                                {user.website}
+                                                {/*- {user.day}*/}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <Typography.Text className="ant-form-text" type="secondary">
+                                        ( <SmileOutlined/> No website yet. )
+                                    </Typography.Text>
+                                );
+                            }}
+                        </Form.Item>
+
+                        <Form.Item {...tailLayout}>
+                            <Button htmlType="submit" type="primary">
+                                Submit
+                            </Button>
+                            <Button htmlType="button" style={{margin: '0 8px'}} onClick={showUserModal}>
+                                Add Website
+                            </Button>
+                        </Form.Item>
+
+                    </Form>
+
+                    <ModalForm visible={visible} onCancel={hideUserModal} daycnt={daycnt} classcnt={classcnt}/>
+                </Form.Provider>
+            </>
+        );
 };
 export class Admin extends React.Component{
-
     render() {
-        return (
-            <Demo/>
-        );
+        if (localStorage.getItem("usertype") === null) {
+            message.error("请先登录");
+            return <Redirect to={{pathname: "/login"}}/>;
+        } else if (localStorage.getItem("usertype") === "Admin")
+            return (<Demo/>);
+        else {
+            message.error("无权限");
+            return <Redirect to={{pathname: "/login"}}/>;
+        }
     }
 }
 // export class Admin extends React.Component{
