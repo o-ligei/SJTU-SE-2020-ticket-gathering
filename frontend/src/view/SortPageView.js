@@ -1,6 +1,6 @@
 import React from 'react';
 import { sports} from "../const/activity";
-import {Avatar, Button, Divider, Dropdown, Input, Layout, List, Menu,message,Radio,Collapse,Tag} from "antd";
+import {Avatar, Button, Divider, Dropdown, Input, Layout, List, Menu,message,Radio,Collapse,Tag,BackTop} from "antd";
 import {SortPageCard} from "../component/SortPageCard";
 import "../css/sortPage.css"
 import "../css/headerInfo.css"
@@ -31,8 +31,12 @@ export class SortPageView extends React.Component{
 
     toggleSearch=(value)=>{
         console.log("搜索内容："+value+"!!!");
+        this.setState({
+            type:"category",
+            category:"全国"
+        });
         if (value !== this.state.search) {
-            localStorage.setItem("search", value);
+            // localStorage.setItem("search", value);
             this.setState({search: value});
             search(value, (res) => {
                 console.log(value);
@@ -104,7 +108,7 @@ export class SortPageView extends React.Component{
         })
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         let username=localStorage.getItem("username");
         if(username!=null){
             this.setState({username:username,login:true});
@@ -113,10 +117,29 @@ export class SortPageView extends React.Component{
         console.log(this.state.usertype);
 
         this.setState({activity: sports});
-        const value = await localStorage.getItem("search");
-        this.setState({search: value});
-        console.log("!!" + this.state.search);
-        search(this.state.search, (res) => {
+        const value =localStorage.getItem("search");
+        localStorage.removeItem("search");
+        const category=localStorage.getItem("category");
+        localStorage.removeItem("category");
+        this.setState({search: value,type:"category"});
+        if(category!=null)this.setState({category:category});
+        console.log("!" +value);
+        console.log("!!"+category);
+        const cardInfo=localStorage.getItem("cardInfo");
+        if(cardInfo!=null){
+            localStorage.removeItem("cardInfo");
+            console.log(JSON.stringify(cardInfo));
+            let list=[];
+            list.push(JSON.parse(cardInfo));
+            this.setState({activity:list})
+        }
+        else if(category!=null)
+            category_search("category",category,"全国",(res) => {
+                console.log("??123:" + JSON.stringify(res));
+                if(res!=null)
+                    this.setState({activity: res});
+            });
+        else search(value, (res) => {
             console.log("??123:" + JSON.stringify(res));
             if(res!=null)
                 this.setState({activity: res})
@@ -124,8 +147,9 @@ export class SortPageView extends React.Component{
     }
 
     componentWillUnmount() {
-        message.error("?????");
+        // message.error("?????");
         localStorage.removeItem("search");
+        localStorage.removeItem("category");
     }
 
     render(){
@@ -188,10 +212,10 @@ export class SortPageView extends React.Component{
             </Menu>
         );
         const genExtra1 = () => (
-            <a onClick={this.clear1}>clear</a>
+            <a onClick={this.clear1}>清除</a>
         );
         const genExtra2 = () => (
-            <a onClick={this.clear2}>clear</a>
+            <a onClick={this.clear2}>清除</a>
         );
         function onChange(e) {
             console.log(`radio checked:${e.target.value}`);
@@ -369,6 +393,7 @@ export class SortPageView extends React.Component{
                     />
                 </div>
                 <RecommendList/>
+                <BackTop/>
                 {/*<button onClick={()=>search(this.state.search,(res)=>{*/}
                 {/*    console.log("??123:"+JSON.stringify(res));*/}
                 {/*    this.setState({activity:res})*/}

@@ -7,13 +7,13 @@
     text-align: center;
 }
 
-#cardImg{
-    width: 120px;
-    height: 180px;
-    float: left;
-}
+/*#cardImg{*/
+/*    width: 200px;*/
+/*    height: 300px;*/
+/*    float: left;*/
+/*}*/
 
-.box {
+.Box {
     overflow : hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -22,20 +22,17 @@
     font-size: 15px;
     font-family: "HeiTi";
     font-weight: bold;
-    margin-top: -15px;
     /*padding-left: 10px;*/
 }
 
-#venue{
+#Venue{
     font-size: 12px;
     /*padding-left: 130px;*/
-    padding-left: 100px;
 }
 
-#pricestr{
+#Pricestr{
     /*padding-top: 10px;*/
     font-size: 16px;
     color: #fb385f;
     /*padding-left: 125px;*/
-    padding-left: 100px;
 }

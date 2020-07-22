@@ -231,4 +231,59 @@ public class ActivityServiceImpl implements ActivityService {
             } else return null;
     }
 
+    @Override
+    public List<ActivitySortpage> findActivityByCategoryHome() {
+        List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+        int i = 0;
+
+        List<Integer> activities = activityDao.findActivityByCategory("儿童亲子");
+        for (Integer a : activities) {
+            activitySortpages.add(findActivityAndActitem(a));
+            if (++i >= 10) break;
+        }
+
+        activities=activityDao.findActivityByCategory("话剧歌剧");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=20)break;
+        }
+
+        activities=activityDao.findActivityByCategory("旅游展览");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=30)break;
+        }
+
+        activities=activityDao.findActivityByCategory("曲苑杂坛");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=40)break;
+        }
+
+        activities=activityDao.findActivityByCategory("体育");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=50)break;
+        }
+
+        activities=activityDao.findActivityByCategory("舞蹈芭蕾");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=60)break;
+        }
+
+        activities=activityDao.findActivityByCategory("音乐会");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=70)break;
+        }
+
+        activities=activityDao.findActivityByCategory("演唱会");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=80)break;
+        }
+        return activitySortpages;
+    }
+
 }

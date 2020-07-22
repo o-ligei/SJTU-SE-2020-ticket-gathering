@@ -1,7 +1,7 @@
 import React from 'react';
 import {HeaderInfo} from "../component/Header";
 import {FooterInfo} from "../component/Footer";
-import { Carousel,Divider } from 'antd';
+import { Carousel,Divider,BackTop } from 'antd';
 import "../css/home.css"
 import {HomeCategoryPage} from "../component/HomeCategoryPage";
 import {Navigate} from "../component/Navigate";
@@ -31,10 +31,11 @@ export class HomeView extends React.Component{
                 <div id="homeCategoryPageDiv">
                     <HomeCategoryPage/>
                 </div>
-                <RecommendList/>
-                <div style={{paddingTop:1500}}>
+                {/*<RecommendList/>*/}
+                {/*<div style={{paddingTop:1500}}>*/}
                     <FooterInfo/>
-                </div>
+                    <BackTop/>
+                {/*</div>*/}
             </div>
         )
     }

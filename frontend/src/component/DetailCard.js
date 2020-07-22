@@ -77,7 +77,7 @@ export class DetailCard extends React.Component{
         console.log(id);
         const token=localStorage.getItem("token");
         console.log("token:"+token);
-        getDetail(id,token,callback);
+        getDetail(id,userid,token,callback);
 //         getDetail(id, userid, callback);
     }
 

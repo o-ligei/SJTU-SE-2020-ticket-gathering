@@ -21,3 +21,9 @@ export const category_search = (type,name,city,callback) => {
     const url = '/Activity/FindActivityByCategory';
     postRequest(url,data,callback);
 }
+
+export const homeSearch=(callback)=>{
+    const url = '/Activity/FindActivityByCategoryHome';
+    const data={};
+    postRequest(url,data,callback);
+}

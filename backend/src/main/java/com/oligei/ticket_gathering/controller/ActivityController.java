@@ -56,4 +56,11 @@ public class ActivityController {
 //        return activitySortpages;
         return activityService.findActivityByCategory(categoryQuery,city);
     }
+
+    @RequestMapping("/FindActivityByCategoryHome")
+//    @RequestBody CategoryQuery categoryQuery
+    public List<ActivitySortpage> findActivityByCategoryHome(){
+        System.out.println();
+        return activityService.findActivityByCategoryHome();
+    }
 }

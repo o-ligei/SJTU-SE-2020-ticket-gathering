@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface ActivityService {
     List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery,String city);
+    List<ActivitySortpage> findActivityByCategoryHome();
     List<ActivitySortpage> search(String value);
     ActivitySortpage findActivityAndActitem(Integer id);
     Boolean add(String activity);

@@ -5,8 +5,8 @@
 
 import {authRequest} from "../utils/ajax";
 
-export const getDetail = (value,token,callback) => {
-    const data={actitemid:value};
+export const getDetail = (aid,uid,token,callback) => {
+    const data={actitemid:aid,userId:uid};
     const url = `/Actitem/detail`;
     authRequest(url, data,token,callback);
 };
