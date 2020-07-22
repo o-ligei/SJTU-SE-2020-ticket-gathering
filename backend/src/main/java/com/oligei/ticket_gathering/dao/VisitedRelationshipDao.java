@@ -1,5 +1,7 @@
 package com.oligei.ticket_gathering.dao;
 
+import com.oligei.ticket_gathering.entity.neo4j.VisitedRelationship;
+
 public interface VisitedRelationshipDao {
-    void saveVisitedHistory(Integer userId, Integer activityId);
+    VisitedRelationship saveVisitedHistory(Integer userId, Integer activityId);
 }
