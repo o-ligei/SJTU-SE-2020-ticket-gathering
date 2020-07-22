@@ -1,6 +1,7 @@
 package com.oligei.ticket_gathering.dao;
 
 import com.oligei.ticket_gathering.entity.mysql.Activity;
+import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.util.CategoryQuery;
 
 import java.util.List;

@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
         String username = saved_user.getUsername();
         UserMongoDB userMongoDB = new UserMongoDB(userId, personIcon);
         userMongoDBRepository.save(userMongoDB);
-        UserNeo4j userNeo4j = new UserNeo4j(userId,username);
+        UserNeo4j userNeo4j = new UserNeo4j(String.valueOf(userId),username);
         userNeo4jRepository.save(userNeo4j);
         return true;
     }

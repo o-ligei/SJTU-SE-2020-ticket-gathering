@@ -9,7 +9,7 @@
  *
  */
 
-import {Card, Collapse, Menu, Dropdown, Button, Radio, notification, Space, InputNumber, message} from 'antd';
+import {Button, InputNumber, message, notification, Radio} from 'antd';
 import React from "react";
 // import "../css/sortPage.css";
 import "../css/Detail.css"
@@ -75,10 +75,10 @@ export class DetailCard extends React.Component{
         // let id2=this.props.location.query.id;
         console.log(JSON.stringify(this.props));
         console.log(id);
-        const token=localStorage.getItem("token");
-        console.log("token:"+token);
-        getDetail(id,userid,token,callback);
-//         getDetail(id, userid, callback);
+        const token = localStorage.getItem("token");
+        console.log("token:" + token);
+        //getDetail(id,token,callback);
+        getDetail(id, userid, token, callback);
     }
 
 
