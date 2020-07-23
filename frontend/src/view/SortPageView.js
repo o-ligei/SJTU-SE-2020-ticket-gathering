@@ -4,7 +4,6 @@ import {Avatar, Button, Divider, Dropdown, Input, Layout, List, Menu,message,Rad
 import {SortPageCard} from "../component/SortPageCard";
 import "../css/sortPage.css"
 import "../css/headerInfo.css"
-import {RecommendList} from "../component/RecommendList";
 import {category_search, search} from "../service/searchService";
 import { CaretRightOutlined } from '@ant-design/icons';
 import {async} from "fast-glob";
@@ -392,7 +391,6 @@ export class SortPageView extends React.Component{
                         )}
                     />
                 </div>
-                <RecommendList/>
                 <BackTop/>
                 {/*<button onClick={()=>search(this.state.search,(res)=>{*/}
                 {/*    console.log("??123:"+JSON.stringify(res));*/}

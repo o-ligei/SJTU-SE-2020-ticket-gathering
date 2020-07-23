@@ -66,4 +66,9 @@ class ActivityServiceTest {
         activitySortpages = activityService.findActivityByCategory(categoryQuery3,"全国");
         assertNull(activitySortpages);
     }
+
+    @Test
+    void recommendOnContent() {
+        assertEquals(4, activityService.recommendOnContent(1,10).size());
+    }
 }

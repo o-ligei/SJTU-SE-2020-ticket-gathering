@@ -41,6 +41,11 @@ public class ActivityController {
         return activityService.delete(activityId);
     }
 
+    @RequestMapping("/RecommendOnContent")
+    public List<ActivitySortpage> recommendOnContent(@RequestParam(name = "userId") Integer userId,
+                                                     @RequestParam(name = "activityId") Integer activityId) {
+        return activityService.recommendOnContent(userId, activityId);
+    }
 
     @RequestMapping("/FindActivityByCategory")
 //    @RequestBody CategoryQuery categoryQuery
