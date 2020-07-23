@@ -20,13 +20,15 @@ export class ProfileView extends React.Component{
         this.setState({logOut:true});
     }
 
-    componentDidMount() {
-        const callback=(data)=>{
-            if(data.message==="authentication failure"){this.setState({ifauthen:true});localStorage.clear();}
-            else this.setState({userInfo:data})
+    async componentDidMount() {
+        const callback = async (data) => {
+            if (data.message === "authentication failure") {
+                await this.setState({ifauthen: true});
+                localStorage.clear();
+            } else await this.setState({userInfo: data})
         };
-        let userId=localStorage.getItem("userId");
-        getPersonInfo(userId,localStorage.getItem("token"),callback);
+        let userId = localStorage.getItem("userId");
+        await getPersonInfo(userId, localStorage.getItem("token"), callback);
     }
 
     render() {
