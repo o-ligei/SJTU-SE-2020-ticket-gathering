@@ -47,7 +47,9 @@
     ]
   },
   "devDependencies": {
-    "enzyme-adapter-react-16": "^1.15.2"
+    "enzyme-adapter-react-16": "^1.15.2",
+    "cypress": "^4.10.0",
+    "cypress-intellij-reporter": "0.0.4"
   },
   "jest": {
     "setupFiles": [
