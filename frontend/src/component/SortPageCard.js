@@ -33,7 +33,7 @@ export class SortPageCard extends React.Component{
         console.log(this.props.usertype);
     }
 
-    handleDetail = id =>{
+    handleDetail = (id,activityId) =>{
         // console.log(website);
         // let request = {
         //     "imgurl":this.props.info.activityIcon,
@@ -46,6 +46,7 @@ export class SortPageCard extends React.Component{
         //     "website":website,
         // };
         window.localStorage.setItem("actitemid",id);
+        window.localStorage.setItem("activityId",activityId);
         console.log("detail:"+id);
         console.log("???");
         // this.setState({
@@ -106,7 +107,7 @@ export class SortPageCard extends React.Component{
                                  {this.props.info.actitems.map((actitem, index) => (
                                      <li key={index} style={{clear:"both"}}>
                                          {/*<Avatar icon={<UserOutlined />} />*/}
-                                         <a href="/detail" onClick={()=>this.handleDetail(actitem.actitemId).bind(this)}>{actitem.website}</a>
+                                         <a href="/detail" onClick={()=>this.handleDetail(actitem.actitemId,actitem.activityId).bind(this)}>{actitem.website}</a>
                                          <ul>
                                              {actitem.price.map((day,index)=>(
                                                  <li key={index} style={{clear:"both"}}>

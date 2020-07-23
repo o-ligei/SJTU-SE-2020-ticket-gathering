@@ -33,4 +33,10 @@ export const getPersonInfo=(userId,token,callback)=>{
     authRequest(url,data,token,callback);
 };
 
+export const getRecommend=(userId,activityId,token,callback)=>{
+    const url='/Activity/RecommendOnContent';
+    const data={userId:userId,activityId:activityId};
+    authRequest(url,data,token,callback);
+}
+
 
