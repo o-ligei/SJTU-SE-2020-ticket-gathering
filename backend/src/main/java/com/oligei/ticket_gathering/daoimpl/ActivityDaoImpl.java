@@ -79,6 +79,17 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
+    public List<Integer> recommendOnContent(Integer userId, Integer activityId) {
+        List<Integer> activities = new ArrayList<Integer>();
+        List<ActivityNeo4j> activityNeo4js = activityNeo4jRepository.recommendOnContent(String.valueOf(userId), String.valueOf(activityId));
+        for (Object activityNeo4j: activityNeo4js) {
+            ActivityNeo4j now_activityNeo4j = (ActivityNeo4j) activityNeo4j;
+            activities.add(Integer.valueOf(now_activityNeo4j.getActivityId()));
+        }
+        return activities;
+    }
+
+    @Override
     public Activity add(String title, String actor, String timescale, String venue, String activityicon) {
         Activity activity=new Activity(null,title,actor,timescale,venue,activityicon);
         return activityRepository.save(activity);

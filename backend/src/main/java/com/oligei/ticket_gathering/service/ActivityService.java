@@ -14,4 +14,5 @@ public interface ActivityService {
     ActivitySortpage findActivityAndActitem(Integer id);
     Boolean add(String activity);
     Boolean delete(Integer activityId);
+    List<ActivitySortpage> recommendOnContent(Integer userId, Integer activityId);
 }

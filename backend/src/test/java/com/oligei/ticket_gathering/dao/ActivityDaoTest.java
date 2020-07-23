@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -80,5 +81,12 @@ class ActivityDaoTest {
         System.out.println("Wrong Subcategory Name");
         activityNeo4js = activityDao.findActivityBySubcategory("棒球");
         assertEquals(0,activityNeo4js.size());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    void recommendOnContent() {
+        assertEquals(4, activityDao.recommendOnContent(1,10).size());
     }
 }

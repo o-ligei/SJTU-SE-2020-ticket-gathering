@@ -291,4 +291,14 @@ public class ActivityServiceImpl implements ActivityService {
         return activitySortpages;
     }
 
+    @Override
+    public List<ActivitySortpage> recommendOnContent(Integer userId, Integer activityId) {
+        List<Integer> activities = activityDao.recommendOnContent(userId, activityId);
+        List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+        for (Integer activity : activities) {
+            ActivitySortpage activitySortpage = findActivityAndActitem(activity);
+            activitySortpages.add(activitySortpage);
+        }
+        return activitySortpages;
+    }
 }
