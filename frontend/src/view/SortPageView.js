@@ -313,9 +313,7 @@ export class SortPageView extends React.Component{
                                 <Radio.Group onChange={this.onChange}  buttonStyle="solid" >
                                     {/*<Radio.Button value="全国">全国</Radio.Button>*/}
                                     <div><Tag color="volcano">a~g</Tag></div>
-                                    <Radio.Button value="阿坝">阿坝</Radio.Button>
                                     <Radio.Button value="北京">北京</Radio.Button>
-                                    <Radio.Button value="常州">常州</Radio.Button>
                                     <Radio.Button value="成都">成都</Radio.Button>
                                     <Radio.Button value="重庆">重庆</Radio.Button>
                                     <Radio.Button value="长春">长春</Radio.Button>
@@ -323,26 +321,24 @@ export class SortPageView extends React.Component{
                                     <Radio.Button value="大连">大连</Radio.Button>
                                     <Radio.Button value="东莞">东莞</Radio.Button>
                                     <Radio.Button value="佛山">佛山</Radio.Button>
+                                    <Radio.Button value="福州">福州</Radio.Button>
                                     <Radio.Button value="广州">广州</Radio.Button>
                                     <Radio.Button value="贵阳">贵阳</Radio.Button>
                                     <Radio.Button value="国际及港澳台">国际及港澳台</Radio.Button>
                                     <div style={{paddingTop:10}}><Tag color="volcano">h~n</Tag></div>
                                     <Radio.Button value="哈尔滨">哈尔滨</Radio.Button>
                                     <Radio.Button value="海口">海口</Radio.Button>
+                                    <Radio.Button value="杭州">杭州</Radio.Button>
                                     <Radio.Button value="合肥">合肥</Radio.Button>
                                     <Radio.Button value="呼和浩特">呼和浩特</Radio.Button>
                                     <Radio.Button value="济南">济南</Radio.Button>
-                                    <Radio.Button value="江门">江门</Radio.Button>
-                                    <Radio.Button value="金华">金华</Radio.Button>
                                     <Radio.Button value="昆明">昆明</Radio.Button>
-                                    <Radio.Button value="马鞍山">马鞍山</Radio.Button>
+                                    <Radio.Button value="南昌">南昌</Radio.Button>
                                     <Radio.Button value="南京">南京</Radio.Button>
                                     <Radio.Button value="南宁">南宁</Radio.Button>
-                                    <Radio.Button value="南通">南通</Radio.Button>
                                     <Radio.Button value="宁波">宁波</Radio.Button>
                                     <div style={{paddingTop:10}}><Tag color="volcano">q~w</Tag></div>
                                     <Radio.Button value="青岛">青岛</Radio.Button>
-                                    <Radio.Button value="泉州">泉州</Radio.Button>
                                     <Radio.Button value="厦门">厦门</Radio.Button>
                                     <Radio.Button value="上海">上海</Radio.Button>
                                     <Radio.Button value="深圳">深圳</Radio.Button>
@@ -351,19 +347,13 @@ export class SortPageView extends React.Component{
                                     <Radio.Button value="苏州">苏州</Radio.Button>
                                     <Radio.Button value="太原">太原</Radio.Button>
                                     <Radio.Button value="天津">天津</Radio.Button>
-                                    <Radio.Button value="潍坊">潍坊</Radio.Button>
                                     <Radio.Button value="无锡">无锡</Radio.Button>
                                     <Radio.Button value="武汉">武汉</Radio.Button>
                                     <div style={{paddingTop:10}}><Tag color="volcano">x~z</Tag></div>
                                     <Radio.Button value="西安">西安</Radio.Button>
-                                    <Radio.Button value="兴安盟">兴安盟</Radio.Button>
-                                    <Radio.Button value="宜昌">宜昌</Radio.Button>
                                     <Radio.Button value="郑州">郑州</Radio.Button>
                                     <Radio.Button value="中国香港">中国香港</Radio.Button>
-                                    <Radio.Button value="中山">中山</Radio.Button>
                                     <Radio.Button value="珠海">珠海</Radio.Button>
-                                    <Radio.Button value="株洲">株洲</Radio.Button>
-
                                 </Radio.Group>
                             </Panel>
                         </Collapse>

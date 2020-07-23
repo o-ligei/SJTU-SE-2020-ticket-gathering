@@ -61,6 +61,10 @@
     "moduleNameMapper": {
       "^.+\\.(css|scss)$": "identity-obj-proxy"
     },
-    "moduleFileExtensions": ["js", "jsx", "json"]
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }

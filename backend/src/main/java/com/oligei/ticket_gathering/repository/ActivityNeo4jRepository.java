@@ -22,7 +22,10 @@ public interface ActivityNeo4jRepository extends Neo4jRepository<ActivityNeo4j,L
     @Query("MATCH (sub:subcategory)-[:INCLUDES]->(activities) WHERE sub.name=$name RETURN activities LIMIT 50")
     List<ActivityNeo4j> findActivityBySubcategory(String name);
 
-    @Query("match (cate:category)-[:CONTAINS]->(:subcategory)-[:INCLUDES]->(activities) where cate.name=$name return activities LIMIT 50")
+    @Query("MATCH (cate:category)-[:CONTAINS]->(:subcategory)-[:INCLUDES]->(activities)\n" +
+            "WHERE cate.name=$name\n" +
+            "RETURN activities\n" +
+            "LIMIT 50")
     List<ActivityNeo4j> findActivityByCategory(String name);
 
     @Query("MATCH (act:activity) WHERE act.activityId=$activityId RETURN act")
@@ -33,4 +36,19 @@ public interface ActivityNeo4jRepository extends Neo4jRepository<ActivityNeo4j,L
             "RETURN a2\n" +
             "LIMIT 4")
     List<ActivityNeo4j> recommendOnContent(String userId, String activityId);
+
+    @Query("MATCH (c:city)-[:LOCATED]->(activities) WHERE c.name=$city RETURN activities LIMIT 50")
+    List<ActivityNeo4j> findActivityByCity(String city);
+
+    @Query("MATCH (cate:category)-[:CONTAINS]->(:subcategory)-[:INCLUDES]->(activities)<-[:LOCATED]-(c:city)\n" +
+            "WHERE cate.name=$name AND c.name=$city\n" +
+            "RETURN activities\n" +
+            "LIMIT 50")
+    List<ActivityNeo4j> findActivityByCategoryAndCity(String name, String city);
+
+    @Query("MATCH (sub:subcategory)-[:INCLUDES]->(activities)<-[:LOCATED]-(c:city)\n" +
+            "WHERE sub.name=$name AND c.name=$city\n" +
+            "RETURN activities\n" +
+            "LIMIT 50")
+    List<ActivityNeo4j> findActivityBySubcategoryAndCity(String name, String city);
 }

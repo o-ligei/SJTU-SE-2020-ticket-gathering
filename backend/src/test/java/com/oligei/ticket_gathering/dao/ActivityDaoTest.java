@@ -58,35 +58,27 @@ class ActivityDaoTest {
         assertTrue(activityDao.findAllByTitleOrVenueOrActor(searchvalue1, searchvalue3, searchvalue3).size()>0);
     }
 
-    @Test
-    @Transactional
-    @Rollback
-    void findActivityByCategory() {
-        List<Integer> activityNeo4js;
-        System.out.println("Correct Category Name");
-        activityNeo4js = activityDao.findActivityByCategory("展览休闲");
-        assertNotEquals(0,activityNeo4js.size());
-        activityNeo4js = activityDao.findActivityByCategory("你好");
-        assertEquals(0,activityNeo4js.size());
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    void findActivityBySubcategory() {
-        List<Integer> activityNeo4js;
-        System.out.println("Correct Subcategory Name");
-        activityNeo4js = activityDao.findActivityBySubcategory("足球");
-        assertNotEquals(0,activityNeo4js.size());
-        System.out.println("Wrong Subcategory Name");
-        activityNeo4js = activityDao.findActivityBySubcategory("棒球");
-        assertEquals(0,activityNeo4js.size());
-    }
 
     @Test
     @Transactional
     @Rollback
     void recommendOnContent() {
         assertEquals(4, activityDao.recommendOnContent(1,10).size());
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    void findActivityByCategoryAndCity() {
+        assertNotEquals(0,activityDao.findActivityByCategoryAndCity("category","话剧歌剧","成都")
+                .size());
+        assertNotEquals(0,activityDao.findActivityByCategoryAndCity("subcategory","音乐剧","成都")
+                .size());
+        assertNotEquals(0,activityDao.findActivityByCategoryAndCity("123","全部","成都")
+                .size());
+        assertNotEquals(0,activityDao.findActivityByCategoryAndCity("category","话剧歌剧","全国")
+                .size());
+        assertNotEquals(0,activityDao.findActivityByCategoryAndCity("subcategory","音乐剧","全国")
+                .size());
     }
 }

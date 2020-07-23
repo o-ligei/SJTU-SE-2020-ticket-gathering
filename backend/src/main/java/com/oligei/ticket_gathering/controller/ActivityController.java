@@ -6,7 +6,6 @@ import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
 import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.service.ActivityService;
-import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,17 +48,10 @@ public class ActivityController {
 
     @RequestMapping("/FindActivityByCategory")
 //    @RequestBody CategoryQuery categoryQuery
-    public List<ActivitySortpage> findActivityByCategory(@RequestParam(name = "type")String type,
+    public List<ActivitySortpage> selectSearch(@RequestParam(name = "type")String type,
                                                          @RequestParam(name = "name")String name,
-                                                         @RequestParam(name = "city")String city){
-        CategoryQuery categoryQuery=new CategoryQuery(type,name);
-        System.out.println(categoryQuery.getName());
-        System.out.println(categoryQuery.getType());
-        System.out.println("city:"+city);
-//        List<ActivitySortpage> activitySortpages=new LinkedList<>();
-//        activitySortpages.add(activityService.findActivityAndActitem(5));
-//        return activitySortpages;
-        return activityService.findActivityByCategory(categoryQuery,city);
+                                                         @RequestParam(name = "city")String city) {
+        return activityService.selectSearch(type,name,city);
     }
 
     @RequestMapping("/FindActivityByCategoryHome")

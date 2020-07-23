@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.service.ActivityService;
-import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,39 +84,6 @@ class ActivityControllerTest {
         assertTrue(resultLength3 > -1);
     }
 
-    @Test
-    @Rollback
-    void findActivityByCategory() throws Exception{
-        ObjectMapper mapper1 = new ObjectMapper();
-        String category1 = "{\"type\":\"category\",\"name\":\"演唱会\"}";
-        CategoryQuery categoryQuery1 = mapper1.readValue(category1, CategoryQuery.class);
-        MvcResult result1 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(mapper1.writeValueAsString(categoryQuery1)))
-                .andExpect(status().isOk())
-                .andReturn();
-        String resultContent1 = result1.getResponse().getContentAsString();
-        assertNotNull(resultContent1);
-
-        ObjectMapper mapper2 = new ObjectMapper();
-        String category2 = "{\"type\":\"subcategory\",\"name\":\"流行\"}";
-        CategoryQuery categoryQuery2 = mapper2.readValue(category2, CategoryQuery.class);
-        MvcResult result2 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(mapper2.writeValueAsString(categoryQuery2)))
-                .andExpect(status().isOk())
-                .andReturn();
-        String resultContent2 = result2.getResponse().getContentAsString();
-        assertNotNull(resultContent2);
-
-        ObjectMapper mapper3 = new ObjectMapper();
-        String category3 = "{\"type\":\"2345\",\"name\":\"6789\"}";
-        CategoryQuery categoryQuery3 = mapper3.readValue(category3, CategoryQuery.class);
-        MvcResult result3 = mockMvc.perform(post("/Activity/FindActivityByCategory").contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(mapper3.writeValueAsString(categoryQuery3)))
-                .andExpect(status().isOk())
-                .andReturn();
-        String resultContent3 = result3.getResponse().getContentAsString();
-        assertEquals("",resultContent3);
-    }
 
     @Test
     @Rollback
@@ -126,6 +92,47 @@ class ActivityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk()).andReturn();
         String resultContent = result.getResponse().getContentAsString();
+        System.out.println(resultContent);
+        assertNotNull(resultContent);
+    }
+
+    @Test
+    @Rollback
+    void selectSearch() throws Exception{
+        MvcResult result; String resultContent;
+
+        result = mockMvc.perform(get("/Activity/FindActivityByCategory?type=category&name=话剧歌剧&city=成都")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        resultContent = result.getResponse().getContentAsString();
+        System.out.println(resultContent);
+        assertNotNull(resultContent);
+
+        result = mockMvc.perform(get("/Activity/FindActivityByCategory?type=subcategory&name=音乐剧&city=成都")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        resultContent = result.getResponse().getContentAsString();
+        System.out.println(resultContent);
+        assertNotNull(resultContent);
+
+        result = mockMvc.perform(get("/Activity/FindActivityByCategory?type=123&name=全部&city=成都")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        resultContent = result.getResponse().getContentAsString();
+        System.out.println(resultContent);
+        assertNotNull(resultContent);
+
+        result = mockMvc.perform(get("/Activity/FindActivityByCategory?type=category&name=话剧歌剧&city=全国")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        resultContent = result.getResponse().getContentAsString();
+        System.out.println(resultContent);
+        assertNotNull(resultContent);
+
+        result = mockMvc.perform(get("/Activity/FindActivityByCategory?type=subcategory&name=音乐剧&city=全国")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        resultContent = result.getResponse().getContentAsString();
         System.out.println(resultContent);
         assertNotNull(resultContent);
     }

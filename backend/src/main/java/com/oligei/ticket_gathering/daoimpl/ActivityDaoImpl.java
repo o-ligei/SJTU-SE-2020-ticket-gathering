@@ -10,7 +10,6 @@ import com.oligei.ticket_gathering.repository.ActivityMongoDBRepository;
 import com.oligei.ticket_gathering.repository.ActivityNeo4jRepository;
 import com.oligei.ticket_gathering.repository.ActivityRepository;
 import com.oligei.ticket_gathering.repository.VisitedRelationshipRepository;
-import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -57,19 +56,22 @@ public class ActivityDaoImpl implements ActivityDao {
     }
 
     @Override
-    public List<Integer> findActivityByCategory(String name) {
-        List<ActivityNeo4j> activityNeo4js = activityNeo4jRepository.findActivityByCategory(name);
-        List<Integer> activities = new ArrayList<Integer>();
-        for (Object activityNeo4j: activityNeo4js) {
-            ActivityNeo4j now_activityNeo4j = (ActivityNeo4j) activityNeo4j;
-            activities.add(Integer.valueOf(now_activityNeo4j.getActivityId()));
+    public List<Integer> findActivityByCategoryAndCity(String type, String name, String city) {
+        List<ActivityNeo4j> activityNeo4js = new ArrayList<ActivityNeo4j>();
+        if (name.equals("全部"))
+            activityNeo4js = activityNeo4jRepository.findActivityByCity(city);
+        else if (city.equals("全国")) {
+            if (type.equals("category"))
+                activityNeo4js = activityNeo4jRepository.findActivityByCategory(name);
+            else if (type.equals("subcategory"))
+                activityNeo4js = activityNeo4jRepository.findActivityBySubcategory(name);
         }
-        return activities;
-    }
-
-    @Override
-    public List<Integer> findActivityBySubcategory(String name) {
-        Collection<ActivityNeo4j> activityNeo4js = activityNeo4jRepository.findActivityBySubcategory(name);
+        else {
+            if (type.equals("category"))
+                activityNeo4js = activityNeo4jRepository.findActivityByCategoryAndCity(name,city);
+            else if (type.equals("subcategory"))
+                activityNeo4js = activityNeo4jRepository.findActivityBySubcategoryAndCity(name,city);
+        }
         List<Integer> activities = new ArrayList<Integer>();
         for (Object activityNeo4j: activityNeo4js) {
             ActivityNeo4j now_activityNeo4j = (ActivityNeo4j) activityNeo4j;
@@ -99,11 +101,6 @@ public class ActivityDaoImpl implements ActivityDao {
     public Boolean delete(Integer activityId) {
         activityRepository.deleteById(activityId);
         return true;
-    }
-
-    @Override
-    public List<Activity> findAllByTitleOrVenue(String title,String venue) {
-        return activityRepository.findAllByTitleLikeOrVenueLike(title,venue);
     }
 
     @Override

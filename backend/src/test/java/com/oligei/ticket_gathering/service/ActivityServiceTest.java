@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.neo4j.ActivityNeo4j;
-import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,27 +47,27 @@ class ActivityServiceTest {
         assertEquals(0, activityService.search("螺蛳粉肉丸子").size());
     }
 
+
     @Test
     @Transactional
     @Rollback
-    void findActivityByCategory() {
-        List<ActivitySortpage> activitySortpages;
-        CategoryQuery categoryQuery1 = new CategoryQuery("category","舞蹈芭蕾");
-        CategoryQuery categoryQuery2 = new CategoryQuery("subcategory","其他儿童亲子");
-        CategoryQuery categoryQuery3 = new CategoryQuery("1234","5678");
-        System.out.println("Category");
-        activitySortpages = activityService.findActivityByCategory(categoryQuery1,"全国");
-        assertNotEquals(0,activitySortpages.size());
-        System.out.println("Subcategory");
-        activitySortpages = activityService.findActivityByCategory(categoryQuery2,"全国");
-        assertNotEquals(0,activitySortpages.size());
-        System.out.println("Wrong Query");
-        activitySortpages = activityService.findActivityByCategory(categoryQuery3,"全国");
-        assertNull(activitySortpages);
+    void recommendOnContent() {
+        assertEquals(4, activityService.recommendOnContent(1,10).size());
     }
 
     @Test
-    void recommendOnContent() {
-        assertEquals(4, activityService.recommendOnContent(1,10).size());
+    @Transactional
+    @Rollback
+    void selectSearch() {
+        assertNotEquals(0,activityService.selectSearch("category","话剧歌剧","成都")
+                .size());
+        assertNotEquals(0,activityService.selectSearch("subcategory","音乐剧","成都")
+                .size());
+        assertNotEquals(0,activityService.selectSearch("123","全部","成都")
+                .size());
+        assertNotEquals(0,activityService.selectSearch("category","话剧歌剧","全国")
+                .size());
+        assertNotEquals(0,activityService.selectSearch("subcategory","音乐剧","全国")
+                .size());
     }
 }
