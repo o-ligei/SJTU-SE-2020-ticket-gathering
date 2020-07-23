@@ -1,4 +1,4 @@
-
+import fetch,{Response}from 'node-fetch';
 /**用于服务器跨域
  * url:'http://54.83.132.136:8080'
  * 用于跑本地
@@ -7,12 +7,12 @@
 
 const baseUrl='http://localhost:8080';
 
-let postRequest = (apiUrl, data, callback) => {
-    const url=baseUrl+apiUrl;
+let postRequest = async (apiUrl, data, callback) => {
+    const url = baseUrl + apiUrl;
     let formData = new FormData();
 
-    for (let p in data){
-        if(data.hasOwnProperty(p))
+    for (let p in data) {
+        if (data.hasOwnProperty(p))
             formData.append(p, data[p]);
     }
     let opts = {
@@ -21,13 +21,12 @@ let postRequest = (apiUrl, data, callback) => {
         credentials: "omit"
     };
 
-    fetch(url,opts)
+    await fetch(url, opts)
         .then((response) => {
-            if(response.status===201){
+            if (response.status === 201) {
                 console.log("empty response");
                 callback(null);
-            }
-            else {
+            } else {
                 return response.json()
             }
         })
@@ -41,8 +40,8 @@ let postRequest = (apiUrl, data, callback) => {
         });
 };
 
-let fetchPost1=(apiUrl, json,callback) =>{
-    const url=baseUrl+apiUrl;
+let fetchPost1= async (apiUrl, json, callback) => {
+    const url = baseUrl + apiUrl;
     let opts = {
         method: "POST",
         body: JSON.stringify(json),
@@ -51,13 +50,12 @@ let fetchPost1=(apiUrl, json,callback) =>{
         },
     };
 
-    fetch(url,opts)
+    await fetch(url, opts)
         .then((response) => {
-            if(response.status===201){
+            if (response.status === 201) {
                 console.log("empty response");
                 callback(null);
-            }
-            else {
+            } else {
                 return response.json()
             }
         })
@@ -70,30 +68,29 @@ let fetchPost1=(apiUrl, json,callback) =>{
         });
 };
 
-let authRequest = (apiUrl, data, token,callback) => {
-    const url=baseUrl+apiUrl;
+let authRequest = async (apiUrl, data, token, callback) => {
+    const url = baseUrl + apiUrl;
     let formData = new FormData();
 
-    for (let p in data){
-        if(data.hasOwnProperty(p))
+    for (let p in data) {
+        if (data.hasOwnProperty(p))
             formData.append(p, data[p]);
     }
     let opts = {
         method: "POST",
         body: formData,
         credentials: "omit",
-        headers:{
-            token:token
+        headers: {
+            token: token
         }
     };
 
-    fetch(url,opts)
+    await fetch(url, opts)
         .then((response) => {
-            if(response.status===201){
+            if (response.status === 201) {
                 console.log("empty response");
                 callback(null);
-            }
-            else {
+            } else {
                 return response.json()
             }
         })
