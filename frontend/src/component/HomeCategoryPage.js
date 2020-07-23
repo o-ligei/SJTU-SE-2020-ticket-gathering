@@ -303,7 +303,7 @@ export class HomeCategoryPage extends React.Component{
                             </Link>}/>
                 <Row>
                     <Col span={18} push={6}>
-                        <div style={{backgroundColor:"white",height:500,width:900}}>
+                        <div style={{backgroundColor:"white",height:460,width:900}}>
                             <List  grid={{gutter: 64, column: 4}}
                                    dataSource={this.state.children.slice(0,8)}
                                    renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -311,7 +311,7 @@ export class HomeCategoryPage extends React.Component{
                         </div>
                     </Col>
                     <Col span={6} pull={18}>
-                        <div style={{backgroundColor:"white",height:500,}}>
+                        <div style={{backgroundColor:"white",height:460,}}>
                             <BigHomeCard info={this.state.children[8]}/>
                         </div>
                     </Col>
@@ -325,7 +325,7 @@ export class HomeCategoryPage extends React.Component{
                                 </Link>}/>
                     <Row>
                         <Col span={18} push={6}>
-                            <div style={{backgroundColor:"white",height:500,width:900}}>
+                            <div style={{backgroundColor:"white",height:460,width:900}}>
                                 <List  grid={{gutter: 64, column: 4}}
                                        dataSource={this.state.opera.slice(0,8)}
                                        renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -333,7 +333,7 @@ export class HomeCategoryPage extends React.Component{
                             </div>
                         </Col>
                         <Col span={6} pull={18}>
-                            <div style={{backgroundColor:"white",height:500,}}>
+                            <div style={{backgroundColor:"white",height:460,}}>
                                 <BigHomeCard info={this.state.opera[8]}/>
                             </div>
                         </Col>
@@ -347,7 +347,7 @@ export class HomeCategoryPage extends React.Component{
                                 </Link>}/>
                     <Row>
                         <Col span={18} push={6}>
-                            <div style={{backgroundColor:"white",height:500,width:900}}>
+                            <div style={{backgroundColor:"white",height:460,width:900}}>
                                 <List  grid={{gutter: 64, column: 4}}
                                        dataSource={this.state.tour.slice(0,8)}
                                        renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -355,7 +355,7 @@ export class HomeCategoryPage extends React.Component{
                             </div>
                         </Col>
                         <Col span={6} pull={18}>
-                            <div style={{backgroundColor:"white",height:500,}}>
+                            <div style={{backgroundColor:"white",height:460,}}>
                                 <BigHomeCard info={this.state.tour[8]}/>
                             </div>
                         </Col>
@@ -369,7 +369,7 @@ export class HomeCategoryPage extends React.Component{
                                 </Link>}/>
                     <Row>
                         <Col span={18} push={6}>
-                            <div style={{backgroundColor:"white",height:500,width:900}}>
+                            <div style={{backgroundColor:"white",height:460,width:900}}>
                                 <List  grid={{gutter: 64, column: 4}}
                                        dataSource={this.state.song.slice(0,8)}
                                        renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -377,7 +377,7 @@ export class HomeCategoryPage extends React.Component{
                             </div>
                         </Col>
                         <Col span={6} pull={18}>
-                            <div style={{backgroundColor:"white",height:500,}}>
+                            <div style={{backgroundColor:"white",height:460,}}>
                                 <BigHomeCard info={this.state.song[8]}/>
                             </div>
                         </Col>
@@ -391,7 +391,7 @@ export class HomeCategoryPage extends React.Component{
                                 </Link>}/>
                     <Row>
                         <Col span={18} push={6}>
-                            <div style={{backgroundColor:"white",height:500,width:900}}>
+                            <div style={{backgroundColor:"white",height:460,width:900}}>
                                 <List  grid={{gutter: 64, column: 4}}
                                        dataSource={this.state.sports.slice(0,8)}
                                        renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -399,7 +399,7 @@ export class HomeCategoryPage extends React.Component{
                             </div>
                         </Col>
                         <Col span={6} pull={18}>
-                            <div style={{backgroundColor:"white",height:500,}}>
+                            <div style={{backgroundColor:"white",height:460,}}>
                                 <BigHomeCard info={this.state.sports[8]}/>
                             </div>
                         </Col>
@@ -413,7 +413,7 @@ export class HomeCategoryPage extends React.Component{
                                 </Link>}/>
                     <Row>
                         <Col span={18} push={6}>
-                            <div style={{backgroundColor:"white",height:500,width:900}}>
+                            <div style={{backgroundColor:"white",height:460,width:900}}>
                                 <List  grid={{gutter: 64, column: 4}}
                                        dataSource={this.state.dance.slice(0,8)}
                                        renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -421,7 +421,7 @@ export class HomeCategoryPage extends React.Component{
                             </div>
                         </Col>
                         <Col span={6} pull={18}>
-                            <div style={{backgroundColor:"white",height:500,}}>
+                            <div style={{backgroundColor:"white",height:460,}}>
                                 <BigHomeCard info={this.state.dance[8]}/>
                             </div>
                         </Col>
@@ -435,7 +435,7 @@ export class HomeCategoryPage extends React.Component{
                                 </Link>}/>
                     <Row>
                         <Col span={18} push={6}>
-                            <div style={{backgroundColor:"white",height:500,width:900}}>
+                            <div style={{backgroundColor:"white",height:460,width:900}}>
                                 <List  grid={{gutter: 64, column: 4}}
                                        dataSource={this.state.concerts.slice(0,8)}
                                        renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -443,7 +443,7 @@ export class HomeCategoryPage extends React.Component{
                             </div>
                         </Col>
                         <Col span={6} pull={18}>
-                            <div style={{backgroundColor:"white",height:500,}}>
+                            <div style={{backgroundColor:"white",height:460,}}>
                                 <BigHomeCard info={this.state.concerts[8]}/>
                             </div>
                         </Col>
@@ -457,7 +457,7 @@ export class HomeCategoryPage extends React.Component{
                                 </Link>}/>
                     <Row>
                         <Col span={18} push={6}>
-                            <div style={{backgroundColor:"white",height:500,width:900}}>
+                            <div style={{backgroundColor:"white",height:460,width:900}}>
                                 <List  grid={{gutter: 64, column: 4}}
                                        dataSource={this.state.vocal.slice(0,8)}
                                        renderItem={item => (<List.Item><HomeCard info={item} /></List.Item>)}
@@ -465,7 +465,7 @@ export class HomeCategoryPage extends React.Component{
                             </div>
                         </Col>
                         <Col span={6} pull={18}>
-                            <div style={{backgroundColor:"white",height:500,}}>
+                            <div style={{backgroundColor:"white",height:460,}}>
                                 <BigHomeCard info={this.state.vocal[8]}/>
                             </div>
                         </Col>
