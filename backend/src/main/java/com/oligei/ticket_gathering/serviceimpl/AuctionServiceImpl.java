@@ -8,6 +8,7 @@ import com.oligei.ticket_gathering.entity.mysql.Actitem;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
 import com.oligei.ticket_gathering.entity.mysql.Auction;
 import com.oligei.ticket_gathering.service.AuctionService;
+import com.oligei.ticket_gathering.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,16 +31,20 @@ public class AuctionServiceImpl implements AuctionService {
     @Autowired
     private ActivityDao activityDao;
 
+    @Autowired
+    private OrderService orderService;
+
     @Override
     public Boolean save(Integer actitemid, String ddl,String showtime, Integer price, Integer amount) {
         Auction auction = new Auction();
 
         DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date Showtime = null,Ddl = null;
+        Date Showtime = null,Ddl = null,initTime = new Date();
         try{
             Showtime=format1.parse(showtime);
             Ddl=format2.parse(ddl);
+            initTime=format2.parse(initTime.toString());
         } catch (ParseException e){
             e.printStackTrace();
         }
@@ -49,24 +54,33 @@ public class AuctionServiceImpl implements AuctionService {
         auction.setPrice(price);
         auction.setDdl(Ddl);
         auction.setShowtime(Showtime);
-        auction.setOrdertime(null);
+        auction.setOrdertime(initTime);
         auction.setAmount(amount);
         return auctionDao.save(auction);
     }
 
     @Override
     public List<AuctionListItem> getAvailableAuctions() {
-        List<Auction> auctions = auctionDao.getAvailableAuctions();
+        flushActions();
+        List<Auction> auctions = auctionDao.getAvailableAuctionsForNow();
         List<AuctionListItem> auctionListItems = new ArrayList<>();
         DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
         DateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1 = null,d2 = null;
+        String str1 = null, str2 = null;
         for(Auction auction : auctions)
         {
-            System.out.println("another one"+auction.getActitemid());
             Activity activity = activityDao.findOneById(actitemDao.findOneById(auction.getActitemid()).getActivityId());
-            AuctionListItem auctionListItem = new AuctionListItem(auction.getAuctionid(),auction.getDdl(),auction.getPrice(),auction.getShowtime(),auction.getAmount(),
-                    activity.getTitle(),activity.getActor(),activity.getVenue(),activity.getActivityIcon());
-            System.out.println(auctionListItem.getAuctionid());
+            str1 = auction.getShowtime().toString();
+            str2 = auction.getDdl().toString();
+            try {
+                d1 = format1.parse(str1);
+                d2 = format2.parse(str2);
+            }catch (Exception e){
+                e.printStackTrace();;
+            }
+            AuctionListItem auctionListItem = new AuctionListItem(auction.getAuctionid(),d2,auction.getPrice(),d1,auction.getAmount(),
+                    activity.getTitle(),activity.getActor(),activity.getVenue(),auction.getUserid(),activity.getActivityIcon());
             auctionListItems.add(auctionListItem);
         }
         return auctionListItems;
@@ -90,13 +104,39 @@ public class AuctionServiceImpl implements AuctionService {
         {
             auction.setIsover(1);
             auctionDao.save(auction);
+            orderService.addOrder(auction.getUserid(),auction.getActitemid(),auction.getPrice(),
+                    auction.getAmount(),auction.getShowtime().toString(),auction.getOrdertime().toString());
             return -1;
         }
-
         auction.setUserid(userid);
         auction.setPrice(price);
         auction.setOrdertime(new Date());
         auctionDao.save(auction);
         return 1;
+    }
+
+    @Override
+    public void flushActions() {
+        List<Auction> auctions = auctionDao.getAvailableAuctionsForNow();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateNow = df.format(new Date());
+        Date d1 = null,d2 = null;
+        for(Auction auction : auctions)
+        {
+            String dateDdl = auction.getDdl().toString();
+            try {
+                d1 = df.parse(dateNow);
+                d2 = df.parse(dateDdl);
+            }catch (Exception e){
+                e.printStackTrace();;
+            }
+            if(d1.getTime()>d2.getTime())
+            {
+                auction.setIsover(1);
+                auctionDao.save(auction);
+                orderService.addOrder(auction.getUserid(),auction.getActitemid(),auction.getPrice(),
+                        auction.getAmount(),auction.getShowtime().toString(),auction.getOrdertime().toString());
+            }
+        }
     }
 }

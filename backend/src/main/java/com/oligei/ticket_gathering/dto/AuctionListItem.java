@@ -15,6 +15,7 @@ public class AuctionListItem {
     String title;
     String actor;
     String venue;
+    Integer userid;
     String activityIcon;
 
     public AuctionListItem(){}
@@ -27,6 +28,7 @@ public class AuctionListItem {
             String title,
             String actor,
             String venue,
+            Integer userid,
             String activityIcon
     )
     {
@@ -38,6 +40,7 @@ public class AuctionListItem {
         this.title = title;
         this.actor = actor;
         this.venue = venue;
+        this.userid = userid;
         this.activityIcon = activityIcon;
     }
 
@@ -57,6 +60,8 @@ public class AuctionListItem {
     public void setActor(String actor){this.actor = actor;}
     public String getVenue(){return venue;}
     public void setVenue(String venue){this.venue = venue;}
+    public Integer getUserid(){return userid;}
+    public void setUserid(Integer userid){this.userid = userid;}
     public String getActivityIcon(){return activityIcon;}
     public void setActivityIcon(String activityIcon){this.activityIcon = activityIcon;}
 }

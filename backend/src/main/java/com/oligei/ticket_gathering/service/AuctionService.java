@@ -10,4 +10,6 @@ public interface AuctionService {
     List<AuctionListItem> getAvailableAuctions();
 
     Integer joinAuction(Integer auctionid,Integer userid,Integer price);
+
+    void flushActions();
 }

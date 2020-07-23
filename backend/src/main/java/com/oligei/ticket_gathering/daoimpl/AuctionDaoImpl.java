@@ -26,35 +26,13 @@ public class AuctionDaoImpl implements AuctionDao {
     }
 
     @Override
-    public List<Auction> getAvailableAuctions() {
-        List<Auction> auctions = auctionRepository.findAuctionsByIsoverEquals(0);
-        List<Auction> result = new ArrayList<>();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dateNow = df.format(new Date());
-        Date d1 = null,d2 = null;
-        for(Auction auction : auctions)
-        {
-            String dateDdl = auction.getDdl().toString();
-            try {
-                d1 = df.parse(dateNow);
-                d2 = df.parse(dateDdl);
-            }catch (Exception e){
-                e.printStackTrace();;
-            }
-            if(d1.getTime()>d2.getTime())
-            {
-                auction.setIsover(1);
-                auctionRepository.save(auction);
-            }
-            else
-                result.add(auction);
-
-        }
-        return result;
+    public List<Auction> getAvailableAuctionsForNow() {
+        return auctionRepository.findAuctionsByIsoverEquals(0);
     }
 
     @Override
     public Auction findOneById(Integer auctionid) {
         return auctionRepository.getOne(auctionid);
     }
+
 }

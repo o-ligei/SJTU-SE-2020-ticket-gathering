@@ -8,7 +8,8 @@ public interface AuctionDao {
 
     Boolean save(Auction auction);
 
-    List<Auction> getAvailableAuctions();
+    List<Auction> getAvailableAuctionsForNow();
 
     Auction findOneById(Integer auctionid);
+
 }
