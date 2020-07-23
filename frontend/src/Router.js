@@ -9,6 +9,7 @@ import {ProfileView} from "./view/ProfileView";
 import {DetailView} from "./view/DetailView";
 import {SuccessView} from "./view/SuccessView";
 import {AdminView} from "./view/AdminView";
+import {AuctionView} from "./view/AuctionView";
 
 class BasicRoute extends React.Component{
 
@@ -18,6 +19,7 @@ class BasicRoute extends React.Component{
             <Router>
                 <Switch>
                     <Route path="/admin" component={AdminView}/>
+                    <Route path="/auction" component={AuctionView}/>
                     <Route path="/success" component={SuccessView}/>
                     <Route path="/detail" component={DetailView}/>
                     <Route path="/order" component={OrderView}/>
