@@ -1,6 +1,8 @@
 package com.oligei.ticket_gathering.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.service.ActivityService;
 import com.oligei.ticket_gathering.util.CategoryQuery;
@@ -17,6 +19,9 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,6 +40,7 @@ class ActivityControllerTest {
     private  ActivityService activityService;
 
     private MockMvc mockMvc;
+    private ObjectMapper om = new ObjectMapper();
 
     @BeforeEach
     void setUp() {
@@ -111,5 +117,16 @@ class ActivityControllerTest {
                 .andReturn();
         String resultContent3 = result3.getResponse().getContentAsString();
         assertEquals("",resultContent3);
+    }
+
+    @Test
+    @Rollback
+    void recommendOnContent() throws Exception{
+        MvcResult result = mockMvc.perform(get("/Activity/RecommendOnContent?userId=1&activityId=10")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        String resultContent = result.getResponse().getContentAsString();
+        System.out.println(resultContent);
+        assertNotNull(resultContent);
     }
 }

@@ -3,10 +3,16 @@
  *
  */
 
-import {postRequest} from "../utils/ajax";
+import {authRequest} from "../utils/ajax";
 
-export const getDetail = (value,callback) => {
-    const data={actitemid:value};
+
+export const getDetail = (id,userid,token,callback) => {
+    const data={actitemid:id, userId:userid};
     const url = `/Actitem/detail`;
-    postRequest(url, data, callback);
+    authRequest(url, data,token,callback);
 };
+// export const getDetail = (id,userid,callback) => {
+//     const data={actitemid:id, userId: userid};
+//     const url = `/Actitem/detail`;
+//     postRequest(url, data, callback);
+// };

@@ -2,10 +2,10 @@ import React from 'react';
 import {Layout, Input, Dropdown, Menu, Avatar, Button, message,Result} from 'antd';
 import "../css/headerInfo.css"
 import { UserOutlined } from '@ant-design/icons';
-import Redirect from "react-router-dom/es/Redirect";
+import { Redirect } from 'react-router-dom'
+// import Redirect from "react-router-dom/es/Redirect";
 const {Header} = Layout;
 const { Search } = Input;
-// import { Redirect } from 'react-router-dom'
 // import {withRouter} from "react-router-dom";
 
 export class HeaderInfo extends React.Component {
@@ -13,16 +13,18 @@ export class HeaderInfo extends React.Component {
         super(props);
         this.state={
             login:false,
-            logout:false,
             username:null,
+            usertype:null,
             ifsearch:false
         }
     }
 
     componentDidMount() {
         let username=localStorage.getItem("username");
+        let usertype=localStorage.getItem("usertype");
         if(username!=null){
             this.setState({username:username,login:true});
+            this.setState({usertype:usertype})
         }
         console.log(username);
     }
@@ -39,8 +41,10 @@ export class HeaderInfo extends React.Component {
     logOut(){
         localStorage.clear();
         message.success("登出成功");
-        this.setState({login:false,username:null,logout:true});
-
+        this.setState({login:false,username:null,usertype:null});
+        if(this.props.logOut!=null){
+            this.props.logOut();
+        }
     }
 
 
@@ -48,9 +52,6 @@ export class HeaderInfo extends React.Component {
         if(this.state.ifsearch){
             console.log("jumping...");
             return <Redirect to={{pathname: "/sortPage"}}/>;
-        }
-        if(this.state.logout){
-            return <Redirect to={{pathname: "/"}}/>;
         }
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
@@ -81,11 +82,8 @@ export class HeaderInfo extends React.Component {
                             <Menu.Item>
                                 <a href={this.state.login?"/order":"/login"}>订单管理</a>
                             </Menu.Item>
-                            <Menu.Item>
-                                <div onClick={this.logOut.bind(this)}>
+                            <Menu.Item onClick={this.logOut.bind(this)}>
                                     <p className="menuItem" >登出</p>
-                                </div>
-
                             </Menu.Item>
                         </Menu>
                     )}>
@@ -95,7 +93,27 @@ export class HeaderInfo extends React.Component {
                                     <Button id="profileOperate" href="/profile">{this.state.username}</Button>
                                 )}
                     </Dropdown>
-                </div>
+
+                    {this.state.usertype==="Admin" &&
+                    <div style={{paddingLeft:1100}}>
+                        <Dropdown
+                            overlay={(
+                                <Menu visible={false}>
+                                    <Menu.Item>
+                                        <a href="/admin">添加活动</a>
+                                    </Menu.Item>
+                                    <Menu.Item>
+                                        <a href= "/login">订单管理</a>
+                                    </Menu.Item>
+                                </Menu>
+                            )}>
+                            <Button> Admin </Button>
+                        </Dropdown>
+                    </div>
+                    }
+
+                    </div>
+
             </Header>
         )
     }

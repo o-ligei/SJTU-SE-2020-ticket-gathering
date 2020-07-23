@@ -3,10 +3,13 @@ package com.oligei.ticket_gathering.daoimpl;
 import com.oligei.ticket_gathering.dao.ActivityDao;
 import com.oligei.ticket_gathering.entity.mongodb.ActivityMongoDB;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
+import com.oligei.ticket_gathering.entity.mysql.User;
 import com.oligei.ticket_gathering.entity.neo4j.ActivityNeo4j;
+import com.oligei.ticket_gathering.entity.neo4j.VisitedRelationship;
 import com.oligei.ticket_gathering.repository.ActivityMongoDBRepository;
 import com.oligei.ticket_gathering.repository.ActivityNeo4jRepository;
 import com.oligei.ticket_gathering.repository.ActivityRepository;
+import com.oligei.ticket_gathering.repository.VisitedRelationshipRepository;
 import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -27,6 +30,9 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Autowired
     private ActivityNeo4jRepository activityNeo4jRepository;
+
+    @Autowired
+    private VisitedRelationshipRepository visitedRelationshipRepository;
 
     @Override
     public Activity findOneById(Integer id) {
@@ -70,6 +76,34 @@ public class ActivityDaoImpl implements ActivityDao {
             activities.add(Integer.valueOf(now_activityNeo4j.getActivityId()));
         }
         return activities;
+    }
+
+    @Override
+    public List<Integer> recommendOnContent(Integer userId, Integer activityId) {
+        List<Integer> activities = new ArrayList<Integer>();
+        List<ActivityNeo4j> activityNeo4js = activityNeo4jRepository.recommendOnContent(String.valueOf(userId), String.valueOf(activityId));
+        for (Object activityNeo4j: activityNeo4js) {
+            ActivityNeo4j now_activityNeo4j = (ActivityNeo4j) activityNeo4j;
+            activities.add(Integer.valueOf(now_activityNeo4j.getActivityId()));
+        }
+        return activities;
+    }
+
+    @Override
+    public Activity add(String title, String actor, String timescale, String venue, String activityicon) {
+        Activity activity=new Activity(null,title,actor,timescale,venue,activityicon);
+        return activityRepository.save(activity);
+    }
+
+    @Override
+    public Boolean delete(Integer activityId) {
+        activityRepository.deleteById(activityId);
+        return true;
+    }
+
+    @Override
+    public List<Activity> findAllByTitleOrVenue(String title,String venue) {
+        return activityRepository.findAllByTitleLikeOrVenueLike(title,venue);
     }
 
     @Override

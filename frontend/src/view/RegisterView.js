@@ -38,17 +38,16 @@ export class RegisterView extends React.Component{
         this.handleGender=this.handleGender.bind(this);
     }
 
-    handleUsername(e){
-        const value=e.target.value;
-        const callback=(data)=>{
-            if(data){
-                this.setState({usernameErrorVisible:true});
-            }
-            else{
-                this.setState({username:value,usernameErrorVisible:false})
+    async handleUsername(e) {
+        const value = e.target.value;
+        const callback = async (data) => {
+            if (data) {
+                await this.setState({usernameErrorVisible: true});
+            } else {
+                await this.setState({username: value, usernameErrorVisible: false})
             }
         };
-        checkUser(value,callback);
+        await checkUser(value, callback);
 
         /**frontend only*/
         // this.setState({username:value});

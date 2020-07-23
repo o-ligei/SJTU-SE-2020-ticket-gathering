@@ -24,4 +24,13 @@ public interface ActivityNeo4jRepository extends Neo4jRepository<ActivityNeo4j,L
 
     @Query("match (cate:category)-[:CONTAINS]->(:subcategory)-[:INCLUDES]->(activities) where cate.name=$name return activities LIMIT 50")
     List<ActivityNeo4j> findActivityByCategory(String name);
+
+    @Query("MATCH (act:activity) WHERE act.activityId=$activityId RETURN act")
+    ActivityNeo4j findOneByActivityId(String activityId);
+
+    @Query("MATCH (a1:activity {activityId: $activityId})<-[:INCLUDES]-(s:subcategory)-[:INCLUDES]->(a2:activity)\n" +
+            "WHERE NOT EXISTS((:user {userId: $userId})-[:VISITED]->(a2))\n" +
+            "RETURN a2\n" +
+            "LIMIT 4")
+    List<ActivityNeo4j> recommendOnContent(String userId, String activityId);
 }

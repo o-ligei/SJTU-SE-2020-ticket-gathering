@@ -8,7 +8,11 @@ import com.oligei.ticket_gathering.util.CategoryQuery;
 import java.util.List;
 
 public interface ActivityService {
-    List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery);
+    List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery,String city);
+    List<ActivitySortpage> findActivityByCategoryHome();
     List<ActivitySortpage> search(String value);
     ActivitySortpage findActivityAndActitem(Integer id);
+    Boolean add(String activity);
+    Boolean delete(Integer activityId);
+    List<ActivitySortpage> recommendOnContent(Integer userId, Integer activityId);
 }

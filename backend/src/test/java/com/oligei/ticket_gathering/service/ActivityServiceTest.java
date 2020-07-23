@@ -57,13 +57,18 @@ class ActivityServiceTest {
         CategoryQuery categoryQuery2 = new CategoryQuery("subcategory","其他儿童亲子");
         CategoryQuery categoryQuery3 = new CategoryQuery("1234","5678");
         System.out.println("Category");
-        activitySortpages = activityService.findActivityByCategory(categoryQuery1);
+        activitySortpages = activityService.findActivityByCategory(categoryQuery1,"全国");
         assertNotEquals(0,activitySortpages.size());
         System.out.println("Subcategory");
-        activitySortpages = activityService.findActivityByCategory(categoryQuery2);
+        activitySortpages = activityService.findActivityByCategory(categoryQuery2,"全国");
         assertNotEquals(0,activitySortpages.size());
         System.out.println("Wrong Query");
-        activitySortpages = activityService.findActivityByCategory(categoryQuery3);
+        activitySortpages = activityService.findActivityByCategory(categoryQuery3,"全国");
         assertNull(activitySortpages);
+    }
+
+    @Test
+    void recommendOnContent() {
+        assertEquals(4, activityService.recommendOnContent(1,10).size());
     }
 }

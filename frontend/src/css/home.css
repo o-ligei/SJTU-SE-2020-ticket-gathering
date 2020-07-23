@@ -10,13 +10,18 @@
     color: #fff;
 }
 
+.all{
+    font-size: 12px;
+    color: gray;
+}
+
 .category{
     /*width: 50%;*/
     /*padding-left: 50px;*/
     /*margin: auto;*/
-    padding-top: 50px;
-    border-radius: 25px;
-    border: 2px solid #fb9c29;
+    /*padding-top: 10px;*/
+    /*border-radius: 25px;*/
+    /*border: 2px solid #fb9c29;*/
 }
 
 .navigateButton{
@@ -41,15 +46,24 @@
     margin: auto;
 }
 
+.categoryDiv{
+    /*padding-top: 10px;*/
+    /*padding-bottom: 20px;*/
+    width: 80%;
+    margin: auto;
+}
+
 #carouselImg{
     height: 300px;
     width: 1250px;
 }
 
 #homeCategoryPageDiv{
-    padding-left: 60px;
-    width: 78%;
-    float: left;
+    /*padding-left: 60px;*/
+    /*width: 78%;*/
+    /*float: left;*/
+    width: 85%;
+    margin: auto;
 }
 
 

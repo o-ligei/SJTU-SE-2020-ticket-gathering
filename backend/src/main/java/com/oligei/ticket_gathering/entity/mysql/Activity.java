@@ -1,11 +1,13 @@
 package com.oligei.ticket_gathering.entity.mysql;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "TG_ACTIVITIES")
+@Proxy(lazy = false)
 public class Activity {
     private Integer activityId;
     private String title;

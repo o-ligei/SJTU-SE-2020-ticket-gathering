@@ -1,22 +1,24 @@
 package com.oligei.ticket_gathering.serviceimpl;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.oligei.ticket_gathering.dao.ActitemDao;
 import com.oligei.ticket_gathering.dao.ActivityDao;
+import com.oligei.ticket_gathering.dao.UserDao;
 import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.mysql.Actitem;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
+import com.oligei.ticket_gathering.entity.mysql.User;
+import com.oligei.ticket_gathering.entity.neo4j.ActivityNeo4j;
 import com.oligei.ticket_gathering.service.ActivityService;
 import com.oligei.ticket_gathering.util.CategoryQuery;
 import org.apdplat.word.segmentation.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.apdplat.word.segmentation.Segmentation;
-import org.apdplat.word.segmentation.WordRefiner;
-import org.apdplat.word.segmentation.SegmentationAlgorithm;
-import org.apdplat.word.segmentation.impl.AbstractSegmentation;
 import org.apdplat.word.WordSegmenter;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -29,14 +31,17 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private ActitemDao actitemDao;
 
+    @Autowired
+    private UserDao userDao;
 
     @Override
     public List<ActivitySortpage> search(String value) {
-        if(value==null || value.equals("")){
+        if(value==null || value.equals("")|| value.equals("null")){
             List<ActivitySortpage> activities=new LinkedList<>();
             for(int i=2;i<=50;++i){
                 activities.add(findActivityAndActitem(i));
             }
+//            activities.add(findActivityAndActitem(1417));
             return activities;
         }
         List<Word> words= WordSegmenter.seg(value);
@@ -110,24 +115,190 @@ public class ActivityServiceImpl implements ActivityService {
         );
     }
 
+    @Override
+    public Boolean add(String activity) {
+        System.out.println(activity);
+        activity=activity.substring(1,activity.length()-1);
+        String[] arr = activity.split(",");
+        System.out.println(Arrays.toString(arr));
+        int webcnt=Integer.parseInt(arr[0]);
+        int daycnt=Integer.parseInt(arr[1]);
+        int classcnt=Integer.parseInt(arr[2]);
+
+        Activity savedActivity=activityDao.add(arr[3].substring(1,arr[3].length()-1),arr[4].substring(1,arr[4].length()-1),arr[5].substring(1,arr[5].length()-1),
+                arr[6].substring(1,arr[6].length()-1),arr[7].substring(1,arr[7].length()-1));
+        int activityId=savedActivity.getActivityId();
+        int number=daycnt*classcnt+daycnt;
+
+        for(int i=0;i<webcnt;++i){
+            //website
+            int basic=8+i*(number+1);
+            Actitem savedActitem=actitemDao.add(activityId,arr[basic].substring(1,arr[basic].length()-1));
+            //date
+            basic+=1;
+
+            int actitemId=savedActitem.getActitemId();
+            List<JSONObject> CLASS;
+            List<JSONObject> prices=new ArrayList<>();
+            JSONObject clas;
+
+            for(int k=0;k<daycnt;++k) {
+                //date
+                if(k!=0)basic+=classcnt+1;
+                CLASS=new ArrayList<>();
+                String date=arr[basic].substring(1,arr[basic].length()-1);
+
+                for (int j = 0; j < classcnt; ++j) {
+                    String classPrice = "{price:" + arr[basic+1+j] + ",num:100}";
+                    clas = JSON.parseObject(classPrice);
+                    CLASS.add(clas);
+                }
+                JSONObject day = new JSONObject();
+                day.put("time", date);
+                day.put("classcnt", classcnt);
+                day.put("class", CLASS);
+                prices.add(day);
+            }
+//            JSONObject actitemMongo=new JSONObject();
+//            actitemMongo.put("actitemid",actitemId);
+//            actitemMongo.put("timecnt",daycnt*classcnt);
+//            actitemMongo.put("prices",prices);
+//            System.out.println(actitemMongo.toString());
+//            List<JSONObject> tmp=new LinkedList<>();
+//            tmp.add(actitemMongo);
+            System.out.println("!!!!");
+            System.out.println(prices.toString());
+            actitemDao.insertActitemInMongo(actitemId,prices);
+        }
+        return true;
+    }
 
     @Override
-    public List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery) {
+    @Transactional
+    public Boolean delete(Integer activityId) {
+        List<Actitem> actitems=actitemDao.findAllByActivityId(activityId);
+        for(Actitem a : actitems)
+            actitemDao.deleteActitem(a.getActitemId());
+        activityDao.delete(activityId);
+        return true;
+    }
+
+
+    @Override
+    public List<ActivitySortpage> findActivityByCategory(CategoryQuery categoryQuery,String city) {
+
+        if(categoryQuery.getName().equals("全部")){
+            List<ActivitySortpage> activitySortpages=new LinkedList<>();
+            String cityLike="%"+city+"%";
+            System.out.println(cityLike);
+            String venueLike=city+"%";
+            List<Activity> activities=activityDao.findAllByTitleOrVenue(cityLike,venueLike);
+            for(Activity a:activities)
+                activitySortpages.add(findActivityAndActitem(a.getActivityId()));
+            return activitySortpages;
+        }
+
+        if(city.equals("全国")) {
+            if (categoryQuery.getType().equals("category")) {
+                List<Integer> activities = activityDao.findActivityByCategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                for (Integer activity : activities)
+                    activitySortpages.add(findActivityAndActitem(activity));
+                return activitySortpages;
+            } else if (categoryQuery.getType().equals("subcategory")) {
+                List<Integer> activities = activityDao.findActivityBySubcategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                for (Integer activity : activities)
+                    activitySortpages.add(findActivityAndActitem(activity));
+//                System.out.println(activitySortpages);
+                return activitySortpages;
+            } else return null;
+        }
+
         if (categoryQuery.getType().equals("category")) {
-            List<Integer> activities = activityDao.findActivityByCategory(categoryQuery.getName());
-            List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
-            for (Integer activity : activities)
-                activitySortpages.add(findActivityAndActitem(activity));
-            return activitySortpages;
+                List<Integer> activities = activityDao.findActivityByCategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                ActivitySortpage a;
+                for (Integer activity : activities) {
+                    a=findActivityAndActitem(activity);
+                    if(a.getTitle().contains(city)||a.getVenue().contains(city)) activitySortpages.add(a);
+                }
+                return activitySortpages;
+            } else if (categoryQuery.getType().equals("subcategory")) {
+                List<Integer> activities = activityDao.findActivityBySubcategory(categoryQuery.getName());
+                List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+                ActivitySortpage a;
+                for (Integer activity : activities) {
+                    a=findActivityAndActitem(activity);
+                    if(a.getTitle().contains(city)||a.getVenue().contains(city))activitySortpages.add(a);
+                }
+                return activitySortpages;
+            } else return null;
+    }
+
+    @Override
+    public List<ActivitySortpage> findActivityByCategoryHome() {
+        List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+        int i = 0;
+
+        List<Integer> activities = activityDao.findActivityByCategory("儿童亲子");
+        for (Integer a : activities) {
+            activitySortpages.add(findActivityAndActitem(a));
+            if (++i >= 10) break;
         }
-        else if (categoryQuery.getType().equals("subcategory")) {
-            List<Integer> activities = activityDao.findActivityBySubcategory(categoryQuery.getName());
-            List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
-            for (Integer activity : activities)
-                activitySortpages.add(findActivityAndActitem(activity));
-            System.out.println(activitySortpages);
-            return activitySortpages;
+
+        activities=activityDao.findActivityByCategory("话剧歌剧");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=20)break;
         }
-        else return null;
+
+        activities=activityDao.findActivityByCategory("旅游展览");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=30)break;
+        }
+
+        activities=activityDao.findActivityByCategory("曲苑杂坛");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=40)break;
+        }
+
+        activities=activityDao.findActivityByCategory("体育");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=50)break;
+        }
+
+        activities=activityDao.findActivityByCategory("舞蹈芭蕾");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=60)break;
+        }
+
+        activities=activityDao.findActivityByCategory("音乐会");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=70)break;
+        }
+
+        activities=activityDao.findActivityByCategory("演唱会");
+        for(Integer a:activities){
+            activitySortpages.add(findActivityAndActitem(a));
+            if(++i>=80)break;
+        }
+        return activitySortpages;
+    }
+
+    @Override
+    public List<ActivitySortpage> recommendOnContent(Integer userId, Integer activityId) {
+        List<Integer> activities = activityDao.recommendOnContent(userId, activityId);
+        List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+        for (Integer activity : activities) {
+            ActivitySortpage activitySortpage = findActivityAndActitem(activity);
+            activitySortpages.add(activitySortpage);
+        }
+        return activitySortpages;
     }
 }
