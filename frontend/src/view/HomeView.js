@@ -1,40 +1,39 @@
 import React from 'react';
 import {HeaderInfo} from "../component/Header";
 import {FooterInfo} from "../component/Footer";
-import { Carousel } from 'antd';
+import { Carousel,Divider,BackTop } from 'antd';
 import "../css/home.css"
 import {HomeCategoryPage} from "../component/HomeCategoryPage";
 import {Navigate} from "../component/Navigate";
 
 export class HomeView extends React.Component{
     onChange(a,b,c){
-        console.log(a,b,c)
+        // console.log(a,b,c)
     }
 
     render(){
         return(
             <div>
                 <HeaderInfo/>
-
-                <div>
+                <Divider plain className="divider"> </Divider>
+                <div id="carousel">
                     <Carousel autoplay afterChange={this.onChange.bind(this)}>
-                        <div>
-                            <h3>1</h3>
+                        <div id="carouselDiv">
+                            <img src={require('../resources/carousel.png')} alt="carousel1" id="carouselImg"/>
                         </div>
                         <div>
-                            <h3>2</h3>
-                        </div>
-                        <div>
-                            <h3>3</h3>
-                        </div>
-                        <div>
-                            <h3>4</h3>
+                            <img src={require('../resources/carousel2.jpg')} alt="carousel2" id="carouselImg"/>
                         </div>
                     </Carousel>
                 </div>
                 <Navigate/>
-                <HomeCategoryPage/>
-                <FooterInfo/>
+                <div id="homeCategoryPageDiv">
+                    <HomeCategoryPage/>
+                </div>
+                {/*<div style={{paddingTop:1500}}>*/}
+                    <FooterInfo/>
+                    <BackTop/>
+                {/*</div>*/}
             </div>
         )
     }

@@ -5,6 +5,7 @@ import {message} from "antd";
 import "../css/Login.css"
 import {checkUser} from "../service/userService";
 import {userInfo} from "../const/userInfo";
+import {login} from "../service/userService";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const layout = {
@@ -21,18 +22,21 @@ export class LoginForm extends React.Component {
         this.state = {
             user:null,
             firstLogin:true,
+            token:null,
         };
     }
     onFinish = values => {
-        // const callback =  (data) => {
-        //     this.setState({user:data,firstLogin:false});
-        // };
-        // checkUser(values,callback);
+        const callback =  (data) => {
+            console.log("???"+JSON.stringify(data.token));
+            this.setState({user:data.user,firstLogin:false,token:data.token});
+        };
+        console.log(values);
+        login(values,callback);
         // console.log(values);
-        if(values.username===userInfo.username && values.password===userInfo.password){
-            this.setState({firstLogin:false,user:userInfo})
-        }
-        this.setState({firstLogin:false});
+        // if(values.username===userInfo.username && values.password===userInfo.password){
+        //      this.setState({firstLogin:false,user:userInfo});
+        // }
+        // this.setState({firstLogin:false});
     };
 
     onFinishFailed = errorInfo => {
@@ -48,6 +52,8 @@ export class LoginForm extends React.Component {
             // console.log(this.state.user.userId);
             localStorage.setItem("userId", this.state.user.userId);
             localStorage.setItem("username",this.state.user.username);
+            localStorage.setItem("usertype",this.state.user.type);
+            localStorage.setItem("token",this.state.token);
             return <Redirect to={{pathname: "/"}}/>;
         }
         return (
@@ -66,7 +72,8 @@ export class LoginForm extends React.Component {
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large" />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large"
+                           style={{fontFamily:"BookMan Old Style",borderRadius: 10,width:400}}/>
                 </Form.Item>
                 <Form.Item
                     // label="Password"
@@ -78,23 +85,23 @@ export class LoginForm extends React.Component {
                         type="password"
                         placeholder="Password"
                         size="large"
+                        style={{fontFamily:"BookMan Old Style",borderRadius: 10,width:400}}
                     />
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" size="large" id="loginBtn">
+                        登 录
+                    </Button>
+                    <p> </p>
+                    <Link to={{pathname: "/register"}}>
+                        <Button size="large" id="regBtn">
+                            注册
+                        </Button>
+                    </Link>
                 </Form.Item>
             </Form>
 
                 <div id="buttonDiv">
-                    <div id="loginDiv">
-                        <Button type="primary" htmlType="submit" size="large" id="loginBtn">
-                            登   录
-                        </Button>
-                    </div>
-                    <div id="regDiv">
-                        <Link to={{pathname: "/register"}}>
-                            <Button size="large" id="regBtn">
-                                注册
-                            </Button>
-                        </Link>
-                    </div>
                 </div>
 
             </div>

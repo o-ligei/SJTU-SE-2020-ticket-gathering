@@ -7,15 +7,29 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.4.1",
+    "babel-loader": "^8.1.0",
+    "history": "^5.0.0",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "@ant-design/icons": "latest",
+    "babel-jest": "^24.9.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "node-fetch": "^2.6.0",
+    "enzyme": "^3.11.0",
+    "enzyme-to-json": "^3.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -33,6 +47,25 @@
     ]
   },
   "devDependencies": {
-    "react-router-dom": "^5.2.0"
+    "cypress": "^4.11.0",
+    "cypress-intellij-reporter": "0.0.4",
+    "enzyme-adapter-react-16": "^1.15.2"
+  },
+  "jest": {
+    "setupFiles": [
+      "./_tests_/jestsetup.js"
+    ],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(css|scss)$": "identity-obj-proxy",
+      "[./a-zA-Z0-9$_-]+\\.png$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ]
   }
 }

@@ -3,7 +3,7 @@ import '../App.css'
 import '../css/register.css'
 import {Button, Input, Layout, message, Alert, Result, Card,Radio} from 'antd';
 import {  UserOutlined } from '@ant-design/icons';
-import {findUser,addUser} from "../service/userService";
+import {register, checkUser} from "../service/userService";
 import {UploadImage} from "../component/UploadImage";
 import {Link}  from 'react-router-dom';
 
@@ -38,20 +38,19 @@ export class RegisterView extends React.Component{
         this.handleGender=this.handleGender.bind(this);
     }
 
-    handleUsername(e){
-        const value=e.target.value;
-        // const callback=(data)=>{
-        //     if(data){
-        //         this.setState({usernameErrorVisible:true});
-        //     }
-        //     else{
-        //         this.setState({username:value,usernameErrorVisible:false})
-        //     }
-        // }
-        // findUser(value,callback);
+    async handleUsername(e) {
+        const value = e.target.value;
+        const callback = async (data) => {
+            if (data) {
+                await this.setState({usernameErrorVisible: true});
+            } else {
+                await this.setState({username: value, usernameErrorVisible: false})
+            }
+        };
+        await checkUser(value, callback);
 
         /**frontend only*/
-        this.setState({username:value});
+        // this.setState({username:value});
     }
 
     handlePassword(e){
@@ -94,17 +93,27 @@ export class RegisterView extends React.Component{
     }
 
     handleSubmit(){
-        // const callback =  (data) => {
-        //     this.setState({registered:true});
-        // };
-        // if(this.state.username!=null &&this.state.password!=null &&this.state.email!=null){
-        //     if(!this.state.usernameErrorVisible && !this.state.passwordErrorVisible && !this.state.emailErrorVisible){
-        //         addUser(this.state.username,this.state.password,this.state.address,callback);
-        //     }
-        // }
+        const callback =  (data) => {
+            this.setState({registered:data});
+        };
+        console.log(this.state);
+        if(this.state.username!=null &&this.state.password!=null &&this.state.email!=null
+            &&this.state.personicon!=null &&this.state.phone!=null&&this.state.gender!=null)
+        {
+            if(!this.state.usernameErrorVisible && !this.state.passwordErrorVisible && !this.state.emailErrorVisible){
+                register(this.state.username,this.state.password,
+                    this.state.email,this.state.personicon,this.state.phone,this.state.gender,callback);
+            }
+            else{
+                message.error("注册信息存在错误");
+            }
+        }
+        else{
+            message.error("请填写将信息填写完整");
+        }
 
         /**frontend only*/
-        this.setState({registered:true});
+        // this.setState({registered:true});
     }
 
     handleCommitImage(data){
@@ -117,6 +126,8 @@ export class RegisterView extends React.Component{
     render(){
         if(this.state.registered){
             return(
+                <div id="bg">
+                <div id="regDiv">
                 <Result
                     status="success"
                     title="注册成功"
@@ -132,10 +143,13 @@ export class RegisterView extends React.Component{
                         </Link>
                     ]}
                 />
+                </div>
+                </div>
             )
         }
         return(
-            <div>
+            <div id="bg">
+            <div id="regDiv">
                 <p>请输入用户名:</p>
                 <Input
                     placeholder="Enter your username"
@@ -163,16 +177,16 @@ export class RegisterView extends React.Component{
                 >
                 </Input.Password>
                 <div>
-                    <p>性别：</p>
-                    <Radio.Group onChange={this.handleGender} value={this.state.gender}>
-                        <Radio value={0}>男</Radio>
-                        <Radio value={1}>女</Radio>
-                    </Radio.Group>
-                </div>
-                <div>
                     {this.state.passwordErrorVisible?(
                         <Alert message="请输入相同的密码" type="error"/>
                     ):null}
+                </div>
+                <div>
+                    <p>性别：</p>
+                    <Radio.Group onChange={this.handleGender} value={this.state.gender}>
+                        <Radio value="Male">男</Radio>
+                        <Radio value="Female">女</Radio>
+                    </Radio.Group>
                 </div>
                 <p>请输入手机号:</p>
                 <Input
@@ -204,7 +218,7 @@ export class RegisterView extends React.Component{
                     )}
                 </div>
             </div>
-
+            </div>
         )
     }
 }

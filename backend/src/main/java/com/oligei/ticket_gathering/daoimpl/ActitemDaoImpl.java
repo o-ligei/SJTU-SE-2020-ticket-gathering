@@ -1,0 +1,65 @@
+package com.oligei.ticket_gathering.daoimpl;
+
+import com.alibaba.fastjson.JSONObject;
+import com.oligei.ticket_gathering.dao.ActitemDao;
+import com.oligei.ticket_gathering.entity.mongodb.ActitemMongoDB;
+import com.oligei.ticket_gathering.entity.mysql.Actitem;
+import com.oligei.ticket_gathering.repository.ActitemMongoDBRepository;
+import com.oligei.ticket_gathering.repository.ActitemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository
+public class ActitemDaoImpl implements ActitemDao {
+
+    @Autowired
+    private ActitemRepository actitemRepository;
+
+    @Autowired
+    private ActitemMongoDBRepository actitemMongoDBRepository;
+
+    @Override
+    public Actitem findOneById(Integer id) {
+        Actitem actitem = actitemRepository.getOne(id);
+        ActitemMongoDB actitemMongoDB = actitemMongoDBRepository.findByActitemId(id);
+        actitem.setPrice(actitemMongoDB.getPrice());
+        return actitem;
+    }
+
+    @Override
+    public List<Actitem> findAllByActivityId(Integer id) {
+        List<Actitem> actitems=actitemRepository.findAllByActivityId(id);
+        for(int i=0;i<actitems.size();++i){
+            ActitemMongoDB actitemMongoDB = actitemMongoDBRepository.findByActitemId(actitems.get(i).getActitemId());
+            if(actitemMongoDB==null)System.out.println(actitems.get(i).getActitemId()+"null");
+            else actitems.get(i).setPrice(actitemMongoDB.getPrice());
+        }
+        return actitems;
+    }
+    @Override
+    public void deleteMongoDBByActitemId(Integer actitemId){
+        actitemMongoDBRepository.deleteByActitemId(actitemId);
+    }
+
+    @Override
+    public ActitemMongoDB insertActitemInMongo(int actitemId,List<JSONObject> price){
+        ActitemMongoDB actitemMongoDB = new ActitemMongoDB(actitemId,price);
+        return actitemMongoDBRepository.save(actitemMongoDB);
+    }
+
+    @Override
+    public Actitem add(int activityId, String website) {
+        return actitemRepository.save(new Actitem(null,activityId,website));
+    }
+
+    @Override
+    public Boolean deleteActitem(Integer actitemId) {
+        actitemRepository.deleteById(actitemId);
+        actitemMongoDBRepository.deleteByActitemId(actitemId);
+        return true;
+    }
+
+}
