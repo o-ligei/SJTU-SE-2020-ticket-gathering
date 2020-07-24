@@ -1,15 +1,12 @@
 package com.oligei.ticket_gathering.daoimpl;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.oligei.ticket_gathering.dao.ActivityDao;
 import com.oligei.ticket_gathering.entity.mongodb.ActivityMongoDB;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
 import com.oligei.ticket_gathering.entity.mysql.User;
-import com.oligei.ticket_gathering.entity.neo4j.ActivityNeo4j;
-import com.oligei.ticket_gathering.entity.neo4j.VisitedRelationship;
-import com.oligei.ticket_gathering.repository.ActivityMongoDBRepository;
-import com.oligei.ticket_gathering.repository.ActivityNeo4jRepository;
-import com.oligei.ticket_gathering.repository.ActivityRepository;
-import com.oligei.ticket_gathering.repository.VisitedRelationshipRepository;
+import com.oligei.ticket_gathering.entity.neo4j.*;
+import com.oligei.ticket_gathering.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +28,16 @@ public class ActivityDaoImpl implements ActivityDao {
     private ActivityNeo4jRepository activityNeo4jRepository;
 
     @Autowired
-    private VisitedRelationshipRepository visitedRelationshipRepository;
+    private LocatedRelationshipRepository locatedRelationshipRepository;
+
+    @Autowired
+    private CityNeo4jRepository cityNeo4jRepository;
+
+    @Autowired
+    private SubcategoryNeo4jRepository subcategoryNeo4jRepository;
+
+    @Autowired
+    private IncludeRelationshipRepository includeRelationshipRepository;
 
     @Override
     public Activity findOneById(Integer id) {
@@ -106,5 +112,18 @@ public class ActivityDaoImpl implements ActivityDao {
     @Override
     public List<Activity> findAllByTitleOrVenueOrActor(String title, String venue, String actor) {
         return activityRepository.findAllByTitleLikeOrVenueLikeOrActorLike(title, venue, actor);
+    }
+
+    @Override
+    public ActivityNeo4j addActivityNeo4j(String activityId, String category, String subcategory, String city) {
+        ActivityNeo4j activityNeo4j = new ActivityNeo4j(activityId,category,subcategory,city);
+        activityNeo4jRepository.save(activityNeo4j);
+        CityNeo4j cityNeo4j = cityNeo4jRepository.findByName(city);
+        if (cityNeo4j != null)
+            locatedRelationshipRepository.save(new LocatedRelationship(cityNeo4j,activityNeo4j));
+        SubcategoryNeo4j subcategoryNeo4j = subcategoryNeo4jRepository.findByName(subcategory);
+        if (subcategoryNeo4j != null)
+            includeRelationshipRepository.save(new IncludeRelationship(subcategoryNeo4j,activityNeo4j));
+        return activityNeo4j;
     }
 }

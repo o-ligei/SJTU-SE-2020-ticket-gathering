@@ -32,6 +32,12 @@ public class ActivityNeo4j {
     private String city;
 
     public ActivityNeo4j() {}
+    public ActivityNeo4j(String activityId, String category, String subcategory, String city) {
+        this.activityId=activityId;
+        this.category=category;
+        this.subcategory=subcategory;
+        this.city=city;
+    }
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id=id;}

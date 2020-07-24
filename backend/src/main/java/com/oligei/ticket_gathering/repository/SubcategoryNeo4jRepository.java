@@ -13,4 +13,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SubcategoryNeo4jRepository extends Neo4jRepository<SubcategoryNeo4j,Long> {
+    SubcategoryNeo4j findByName(String subcategory);
 }
