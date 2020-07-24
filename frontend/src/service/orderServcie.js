@@ -5,10 +5,10 @@
  */
 import {authRequest} from "../utils/ajax";
 
-export const getOrderInfoByUser=(value,token,callback)=>{
-    const apiUrl ='/Order/GetOrderInfoByUser';
-    const data={userId:value};
-    authRequest(apiUrl,data,token,callback);
+export const getOrderInfoByUser= async (value, token, callback) => {
+    const apiUrl = '/Order/GetOrderInfoByUser';
+    const data = {userId: value};
+    await authRequest(apiUrl, data, token, callback);
 }
 
 export const addOrder=(userId,actitemId,price,amount,showtime,orderTime,token,callback)=>

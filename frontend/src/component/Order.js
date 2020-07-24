@@ -53,13 +53,15 @@ export class Order extends React.Component{
         }
     }
 
-    componentDidMount() {
-        let userId=localStorage.getItem("userId");
-        const callback=(data)=>{
-            if(data.message==="authentication failure"){this.setState({ifauthen:true});localStorage.clear();}
-            else this.setState({orderInfo:data});
+    async componentDidMount() {
+        let userId = localStorage.getItem("userId");
+        const callback = async (data) => {
+            if (data.message === "authentication failure") {
+                await this.setState({ifauthen: true});
+                localStorage.clear();
+            } else await this.setState({orderInfo: data});
         };
-        getOrderInfoByUser(userId,localStorage.getItem("token"),callback);
+        await getOrderInfoByUser(userId, localStorage.getItem("token"), callback);
     }
 
     render() {
