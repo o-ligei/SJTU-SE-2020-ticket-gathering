@@ -1,19 +1,19 @@
-import {postRequest} from "../utils/ajax";
+import {authRequest, postRequest} from "../utils/ajax";
 
-export const getAuctions = (callback) => {
+export const getAuctions = (token,callback) => {
     const data={searching:null};
     const url = `/Auction/get`;
-    postRequest(url, data, callback);
+    authRequest(url, data,token, callback);
 };
 
-export const addAuction = (actitemid,ddl,showtime,price,amount,callback) => {
+export const addAuction = (actitemid,ddl,showtime,price,amount,token,callback) => {
     const data={actitemid:actitemid,ddl:ddl,showtime:showtime,price:price,amount:amount};
     const url = `/Auction/add`;
-    postRequest(url, data, callback);
+    authRequest(url, data,token, callback);
 };
 
-export const joinAuctions = (auctionid,userid,price,callback) => {
+export const joinAuctions = (auctionid,userid,price,token,callback) => {
     const data={auctionid:auctionid,userid:userid,price:price};
     const url = `/Auction/join`;
-    postRequest(url, data, callback);
+    postRequest(url, data,token, callback);
 };

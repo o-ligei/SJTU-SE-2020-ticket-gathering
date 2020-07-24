@@ -5,9 +5,6 @@ import {addOrder} from "../service/orderServcie";
 import moment from "moment";
 import {joinAuctions} from "../service/AuctionService";
 
-function AuctionButton(props) {
-    return <Button>竞价1</Button>;
-}
 export class AuctionCard extends React.Component{
 
     constructor(props) {
@@ -37,7 +34,7 @@ export class AuctionCard extends React.Component{
                 this.setState({visible: false});
                 this.props.getRenderCallback(1);
             }
-            joinAuctions(this.props.info.auctionid,parseInt(localStorage.getItem("userId")),this.state.price,callback);
+            joinAuctions(this.props.info.auctionid,parseInt(localStorage.getItem("userId")),this.state.price,localStorage.getItem("token"),callback);
         }
     };
 
