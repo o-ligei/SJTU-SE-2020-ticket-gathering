@@ -10,6 +10,7 @@ describe("test register",()=>{
     const wrapper=shallow(<RegisterView/>);
     it("test initialized state",()=>{
         expect(wrapper.state().username).toBeNull();
+        expect(wrapper.state().password).toBeNull();
         expect(wrapper.state().gender).toEqual(0);
         expect(wrapper.state().usernameErrorVisible).toBeFalsy();
         expect(wrapper.state().registered).toBeFalsy();
