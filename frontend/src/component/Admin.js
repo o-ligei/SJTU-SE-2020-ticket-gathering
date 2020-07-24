@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {Form, Input, InputNumber, Modal, Button, Avatar, Typography, DatePicker, message, Result} from 'antd';
+import {Form, Input, InputNumber, Modal, Button, Avatar, Typography, DatePicker, message, Result,Cascader} from 'antd';
 import { SmileOutlined, UserOutlined } from '@ant-design/icons';
 import "../css/admin.css"
 import {addActivity} from "../service/AdminService";
@@ -108,6 +108,8 @@ const Demo = () => {
 
     const [u, setU] = useState([]);
 
+    const [c, setC] = useState([]);
+
     const [daycnt, setDaycnt] = useState(0);
 
     const [classcnt, setClasscnt] = useState(0);
@@ -123,6 +125,7 @@ const Demo = () => {
     const onFinish = values => {
         console.log('Finish:', values);
         console.log('users:',u);
+        console.log('category:',c);
         // let activity=[];
         // activity.push(values);
         // activity.push(u);
@@ -133,6 +136,9 @@ const Demo = () => {
         for (let i in values) {
             arr.push(values[i]); //属性
             //arr.push(obj[i]); //值
+        }
+        for(let i in c){
+            arr.push(c[i])
         }
         for(let i in u){
             for(let j in u[i]){
@@ -149,6 +155,166 @@ const Demo = () => {
             console.log(JSON.stringify(res));
         })
     };
+
+    const options = [
+        {
+            value: '展览休闲',
+            label: '展览休闲',
+            children: [
+                {
+                    value: '展会',
+                    label: '展会',
+                },
+                {
+                    value: '特色体验',
+                    label: '特色体验',
+                },
+                {
+                    value: '其他展览休闲',
+                    label: '其他展览休闲',
+                },
+            ],
+        },
+        {
+            value: '话剧歌剧',
+            label: '话剧歌剧',
+            children: [
+                {
+                    value: '话剧',
+                    label: '话剧',
+                },
+                {
+                    value: '音乐剧',
+                    label: '音乐剧',
+                },
+                {
+                    value: '其他话剧歌剧',
+                    label: '其他话剧歌剧',
+                },
+            ],
+        },
+        {
+            value: '演唱会',
+            label: '演唱会',
+            children: [
+                {
+                    value: '摇滚',
+                    label: '摇滚',
+                },
+                {
+                    value: '流行',
+                    label: '流行',
+                },
+                {
+                    value: '音乐节',
+                    label: '音乐节',
+                },
+                {
+                    value: '其他演唱会',
+                    label: '其他演唱会',
+                },
+            ],
+        },
+        {
+            value: '音乐会',
+            label: '音乐会',
+            children: [
+                {
+                    value: '室内乐及古乐',
+                    label: '室内乐及古乐',
+                },
+                {
+                    value: '独奏',
+                    label: '独奏',
+                },
+                {
+                    value: '管弦乐',
+                    label: '管弦乐',
+                },
+                {
+                    value: '其他音乐会',
+                    label: '其他音乐会',
+                },
+            ],
+        },
+        {
+            value: '曲苑杂坛',
+            label: '曲苑杂坛',
+            children: [
+                {
+                    value: '戏曲',
+                    label: '戏曲',
+                },
+                {
+                    value: '相声',
+                    label: '相声',
+                },
+                {
+                    value: '魔术',
+                    label: '魔术',
+                },
+                {
+                    value: '其他曲苑杂坛',
+                    label: '其他曲苑杂坛',
+                },
+            ],
+        },
+        {
+            value: '体育',
+            label: '体育',
+            children: [
+                {
+                    value: '球类运动',
+                    label: '球类运动',
+                },
+                {
+                    value: '田径',
+                    label: '田径',
+                },
+                {
+                    value: '篮球',
+                    label: '篮球',
+                },
+                {
+                    value: '足球',
+                    label: '足球',
+                },
+                {
+                    value: '其他体育',
+                    label: '其他体育',
+                }
+            ],
+        },
+        {
+            value: '舞蹈芭蕾',
+            label: '舞蹈芭蕾',
+            children: [
+                {
+                    value: '舞蹈',
+                    label: '舞蹈',
+                },
+                {
+                    value: '其他舞蹈芭蕾',
+                    label: '其他舞蹈芭蕾',
+                }
+            ],
+        },
+        {
+            value: '儿童亲子',
+            label: '儿童亲子',
+            children: [
+                {
+                    value: '其他儿童亲子',
+                    label: '其他儿童亲子',
+                }
+            ],
+        }
+    ];
+
+    function onChange(value) {
+        console.log(value);
+        setC(value);
+    }
 
     const onFinishcnt = values => {
         console.log('Success:', values);
@@ -245,6 +411,22 @@ const Demo = () => {
                         <Form.Item name="imgurl" label="imgurl" rules={[{required: true}]}>
                             <Input/>
                         </Form.Item>
+
+                        <Form.Item name="city" label="city" rules={[{required: true}]}>
+                            <Input/>
+                        </Form.Item>
+
+                        <div style={{paddingLeft:510}}>
+                        <Cascader options={options} onChange={onChange} placeholder="Please select category" />
+                        </div>
+
+                        {/*<Form.Item name="category" label="category" rules={[{required: true}]}>*/}
+                        {/*    <Input/>*/}
+                        {/*</Form.Item>*/}
+
+                        {/*<Form.Item name="subcategory" label="subcategory" rules={[{required: true}]}>*/}
+                        {/*    <Input/>*/}
+                        {/*</Form.Item>*/}
 
                         <Form.Item
                             // rules={[{ required: true }]}

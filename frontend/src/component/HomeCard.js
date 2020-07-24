@@ -22,7 +22,7 @@ export class HomeCard extends React.Component{
             <Link to="/sortPage" onClick={()=>localStorage.setItem("cardInfo",JSON.stringify(this.props.info))}>
             <Card  bordered={false} hoverable={true} style={{width:240,height:200}}>
                 <img alt="example" src={this.props.info.activityIcon} id="cardImg" style={{marginLeft:-20,marginTop:-20}}/>
-                <div >
+                <div id="fontDiv">
                     <p className="box">{this.props.info.title}</p>
                     <p id="venue">{this.props.info.venue}</p>
                     <p id="venue">{this.props.info.timescale}</p>

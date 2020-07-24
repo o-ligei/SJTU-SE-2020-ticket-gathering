@@ -107,7 +107,7 @@ export class SortPageCard extends React.Component{
                                  {this.props.info.actitems.map((actitem, index) => (
                                      <li key={index} style={{clear:"both"}}>
                                          {/*<Avatar icon={<UserOutlined />} />*/}
-                                         <a href="/detail" onClick={()=>this.handleDetail(actitem.actitemId,actitem.activityId).bind(this)}>{actitem.website}</a>
+                                         <a href="/detail" onClick={()=>this.handleDetail(actitem.actitemId,actitem.activityId)}>{actitem.website}</a>
                                          <ul>
                                              {actitem.price.map((day,index)=>(
                                                  <li key={index} style={{clear:"both"}}>

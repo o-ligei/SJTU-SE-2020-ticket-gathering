@@ -123,6 +123,10 @@ public class ActivityServiceImpl implements ActivityService {
         int webcnt=Integer.parseInt(arr[0]);
         int daycnt=Integer.parseInt(arr[1]);
         int classcnt=Integer.parseInt(arr[2]);
+        String city=arr[8].substring(1,arr[8].length()-1);
+        String category=arr[9].substring(1,arr[9].length()-1);
+        String subcategory=arr[10].substring(1,arr[10].length()-1);
+        System.out.println(city+category+subcategory);
 
         Activity savedActivity=activityDao.add(arr[3].substring(1,arr[3].length()-1),arr[4].substring(1,arr[4].length()-1),arr[5].substring(1,arr[5].length()-1),
                 arr[6].substring(1,arr[6].length()-1),arr[7].substring(1,arr[7].length()-1));
@@ -131,7 +135,7 @@ public class ActivityServiceImpl implements ActivityService {
 
         for(int i=0;i<webcnt;++i){
             //website
-            int basic=8+i*(number+1);
+            int basic=11+i*(number+1);
             Actitem savedActitem=actitemDao.add(activityId,arr[basic].substring(1,arr[basic].length()-1));
             //date
             basic+=1;
