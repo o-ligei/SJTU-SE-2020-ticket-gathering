@@ -7,6 +7,7 @@
 
 package com.oligei.ticket_gathering.entity.neo4j;
 
+import com.oligei.ticket_gathering.entity.mysql.Activity;
 import org.neo4j.ogm.annotation.*;
 
 @RelationshipEntity(type = "INCLUDES")
@@ -23,6 +24,10 @@ public class IncludeRelationship {
     private ActivityNeo4j activityNeo4j;
 
     public IncludeRelationship() {}
+    public IncludeRelationship(SubcategoryNeo4j subcategoryNeo4j, ActivityNeo4j activityNeo4j) {
+        this.subcategoryNeo4j=subcategoryNeo4j;
+        this.activityNeo4j=activityNeo4j;
+    }
 
     public Long getId() {return id;}
     public void setId(Long id) {this.id=id;}

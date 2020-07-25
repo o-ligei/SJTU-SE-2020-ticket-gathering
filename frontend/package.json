@@ -50,7 +50,7 @@
     ]
   },
   "devDependencies": {
-    "cypress": "^4.10.0",
+    "cypress": "^4.11.0",
     "cypress-intellij-reporter": "0.0.4",
     "enzyme-adapter-react-16": "^1.15.2"
   },
@@ -62,7 +62,8 @@
       "enzyme-to-json/serializer"
     ],
     "moduleNameMapper": {
-      "^.+\\.(css|scss)$": "identity-obj-proxy"
+      "^.+\\.(css|scss)$": "identity-obj-proxy",
+      "[./a-zA-Z0-9$_-]+\\.png$": "identity-obj-proxy"
     },
     "moduleFileExtensions": [
       "js",

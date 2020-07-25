@@ -146,6 +146,7 @@ public class ActivityServiceImpl implements ActivityService {
                 arr[6].substring(1,arr[6].length()-1),arr[7].substring(1,arr[7].length()-1));
         int activityId=savedActivity.getActivityId();
         int number=daycnt*classcnt+daycnt;
+        activityDao.addActivityNeo4j(String.valueOf(activityId),category,subcategory,city);
 
         for(int i=0;i<webcnt;++i){
             //website

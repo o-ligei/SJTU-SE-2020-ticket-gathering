@@ -1,3 +1,4 @@
+DROP TABLE if EXISTS tg_auctions;
 DROP TABLE if EXISTS tg_orders;
 DROP TABLE IF EXISTS tg_users;
 DROP TABLE if EXISTS tg_actitems;
@@ -53,3 +54,18 @@ create table tg_orders
     FOREIGN KEY(actitemid) REFERENCES tg_actitems(actitemid)
 );
 
+create table tg_auctions
+(
+    auctionid INT NOT NULL AUTO_INCREMENT,
+    actitemid INT,
+    userid INT,
+    isover BIT DEFAULT 0,
+    price INT,
+    ddl DATETIME,
+    showtime DATE,
+    ordertime DATETIME,
+    amount INT,
+
+    PRIMARY KEY(auctionid),
+    FOREIGN KEY(actitemid) REFERENCES tg_actitems(actitemid)
+);

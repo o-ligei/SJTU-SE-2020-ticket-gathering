@@ -81,4 +81,11 @@ class ActivityDaoTest {
         assertNotEquals(0,activityDao.findActivityByCategoryAndCity("subcategory","音乐剧","全国")
                 .size());
     }
+
+    @Test
+    @Transactional
+    @Rollback
+    void addActivityNeo4j() {
+
+    }
 }

@@ -22,6 +22,8 @@ export class AuctionView extends React.Component{
             search:null,
             login:false,
             username:null,
+            ifauthen:false,
+            ifauthor:false
         }
     }
 
@@ -66,7 +68,7 @@ export class AuctionView extends React.Component{
             console.log("数据："+data);
             this.setState({auctions:data});
         }
-        getAuctions(callback);
+        getAuctions(localStorage.getItem("token"),callback);
     }
 
     getRenderCallback = (value) =>{
