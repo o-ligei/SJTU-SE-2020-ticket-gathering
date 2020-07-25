@@ -32,7 +32,8 @@ export class SortPageView extends React.Component{
         console.log("搜索内容："+value+"!!!");
         this.setState({
             type:"category",
-            category:"全国"
+            category:"全部",
+            city:"全国"
         });
         if (value !== this.state.search) {
             // localStorage.setItem("search", value);

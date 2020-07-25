@@ -7,6 +7,7 @@ import com.oligei.ticket_gathering.dao.ActitemDao;
 import com.oligei.ticket_gathering.dao.ActivityDao;
 import com.oligei.ticket_gathering.dao.UserDao;
 import com.oligei.ticket_gathering.dto.ActivitySortpage;
+import com.oligei.ticket_gathering.entity.info.Cache;
 import com.oligei.ticket_gathering.entity.mysql.Actitem;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
 import com.oligei.ticket_gathering.entity.mysql.User;
@@ -33,14 +34,24 @@ public class ActivityServiceImpl implements ActivityService {
     @Autowired
     private UserDao userDao;
 
+//    @Autowired
+    private Cache<List<ActivitySortpage>> cache=new Cache<>();
+
     @Override
     public List<ActivitySortpage> search(String value) {
         if(value==null || value.equals("")|| value.equals("null")){
+            List<ActivitySortpage> result=cache.getValue("searchNull");
+            if(result!=null){
+                System.out.println("search null get from cache");
+                return result;
+            }
             List<ActivitySortpage> activities=new LinkedList<>();
             for(int i=2;i<=50;++i){
                 activities.add(findActivityAndActitem(i));
             }
 //            activities.add(findActivityAndActitem(1417));
+            cache.addOrUpdateCache("searchNull",activities);
+            System.out.println("search null add into cache");
             return activities;
         }
         List<Word> words= WordSegmenter.seg(value);
@@ -76,15 +87,18 @@ public class ActivityServiceImpl implements ActivityService {
             }
 
         List<ActivitySortpage> activities=new LinkedList<>();
-        int basic=0;
-        if(n>2)basic=1;
-        if(n>5)basic=2;
-        if(n>10)basic=n-5;
-        for(int i=idSet.size();i>basic;--i){
+//        int basic=0;
+//        if(n>2)basic=1;
+//        if(n>5)basic=2;
+//        if(n>10)basic=n-5;
+        int basic=Math.max(0,n-2);
+        int resultCount=0;
+        for(int i=idSet.size();i>=basic||resultCount<=20;--i){
             for(int j=0;j<idSet.size();++j){
                 if(cntArray[j]==i) {
                         ActivitySortpage activitySortpage = findActivityAndActitem(idArray[j]);
                         activities.add(activitySortpage);
+                        resultCount++;
                 }
             }
         }
@@ -190,65 +204,123 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<ActivitySortpage> selectSearch(String type,String name,String city) {
         if (name.equals("全部") && city.equals("全国")) return search("");
-        List<Integer> activities = new ArrayList<Integer>();
-        List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
+
+        String cacheName=name+city;
+        List<Integer> activities ;
+        List<ActivitySortpage> activitySortpages = cache.getValue(cacheName);
+        if(activitySortpages!=null){
+            System.out.println(cacheName+"get from cache");
+            return activitySortpages;
+        }
+        activitySortpages = new ArrayList<ActivitySortpage>();
         activities = activityDao.findActivityByCategoryAndCity(type,name,city);
         for (Integer activity : activities)
-            activitySortpages.add(findActivityAndActitem(activity));
+                activitySortpages.add(findActivityAndActitem(activity));
+        cache.addOrUpdateCache(cacheName,activitySortpages);
+        System.out.println(cacheName+"add into cache");
         return activitySortpages;
     }
 
     @Override
     public List<ActivitySortpage> findActivityByCategoryHome() {
+        List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>(findActivityByOneCategoryHome("儿童亲子"));
+        activitySortpages.addAll(findActivityByOneCategoryHome("话剧歌剧"));
+        activitySortpages.addAll(findActivityByOneCategoryHome("展览休闲"));
+        activitySortpages.addAll(findActivityByOneCategoryHome("曲苑杂坛"));
+        activitySortpages.addAll(findActivityByOneCategoryHome("体育"));
+        activitySortpages.addAll(findActivityByOneCategoryHome("舞蹈芭蕾"));
+        activitySortpages.addAll(findActivityByOneCategoryHome("音乐会"));
+        activitySortpages.addAll(findActivityByOneCategoryHome("演唱会"));
+
+//        int i = 0;
+//        List<Integer> activities;
+//        List<ActivitySortpage> cacheResult=new LinkedList<>();
+//        List<ActivitySortpage> cacheTmp=new LinkedList<>();
+//
+//        cacheResult=cache.getValue("儿童亲子");
+//        if(cacheResult!=null){
+//            System.out.println("儿童亲子 get from cache");
+//            activitySortpages.addAll(cacheResult);
+//        }
+//        else {
+//            activities = activityDao.findActivityByCategoryAndCity("category", "儿童亲子", "全国");
+//            for (Integer a : activities) {
+//                activitySortpages.add(findActivityAndActitem(a));
+//                if (++i >= 10) break;
+//            }
+//            cache.addOrUpdateCache("儿童亲子",activitySortpages);
+//        }
+//
+//        cacheResult=cache.getValue("话剧歌剧");
+//        if(cacheResult!=null){
+//            System.out.println("话剧歌剧 get from cache");
+//            activitySortpages.addAll(cacheResult);
+//        }
+//        else {
+//            activities = activityDao.findActivityByCategoryAndCity("category", "话剧歌剧", "全国");
+//            for (Integer a : activities) {
+//                activitySortpages.add(findActivityAndActitem(a));
+//                if (++i >= 20) break;
+//            }
+//        }
+//
+//        activities=activityDao.findActivityByCategoryAndCity("category","旅游展览","全国");
+//        for(Integer a:activities){
+//            activitySortpages.add(findActivityAndActitem(a));
+//            if(++i>=30)break;
+//        }
+//
+//        activities=activityDao.findActivityByCategoryAndCity("category","曲苑杂坛","全国");
+//        for(Integer a:activities){
+//            activitySortpages.add(findActivityAndActitem(a));
+//            if(++i>=40)break;
+//        }
+//
+//        activities=activityDao.findActivityByCategoryAndCity("category","体育","全国");
+//        for(Integer a:activities){
+//            activitySortpages.add(findActivityAndActitem(a));
+//            if(++i>=50)break;
+//        }
+//
+//        activities=activityDao.findActivityByCategoryAndCity("category","舞蹈芭蕾","全国");
+//        for(Integer a:activities){
+//            activitySortpages.add(findActivityAndActitem(a));
+//            if(++i>=60)break;
+//        }
+//
+//        activities=activityDao.findActivityByCategoryAndCity("category","音乐会","全国");
+//        for(Integer a:activities){
+//            activitySortpages.add(findActivityAndActitem(a));
+//            if(++i>=70)break;
+//        }
+//
+//        activities=activityDao.findActivityByCategoryAndCity("category","演唱会","全国");
+//        for(Integer a:activities){
+//            activitySortpages.add(findActivityAndActitem(a));
+//            if(++i>=80)break;
+//        }
+        return activitySortpages;
+    }
+
+    public List<ActivitySortpage> findActivityByOneCategoryHome(String name){
         List<ActivitySortpage> activitySortpages = new ArrayList<ActivitySortpage>();
         int i = 0;
+        List<Integer> activities;
+        List<ActivitySortpage> cacheResult=new LinkedList<>();
 
-        List<Integer> activities = activityDao.findActivityByCategoryAndCity("category","儿童亲子","全国");
-        for (Integer a : activities) {
-            activitySortpages.add(findActivityAndActitem(a));
-            if (++i >= 10) break;
+        cacheResult=cache.getValue(name);
+        if(cacheResult!=null&&cacheResult.size()!=0){
+            System.out.println(name+" get from cache");
+            activitySortpages.addAll(cacheResult);
         }
-
-        activities=activityDao.findActivityByCategoryAndCity("category","话剧歌剧","全国");
-        for(Integer a:activities){
-            activitySortpages.add(findActivityAndActitem(a));
-            if(++i>=20)break;
-        }
-
-        activities=activityDao.findActivityByCategoryAndCity("category","旅游展览","全国");
-        for(Integer a:activities){
-            activitySortpages.add(findActivityAndActitem(a));
-            if(++i>=30)break;
-        }
-
-        activities=activityDao.findActivityByCategoryAndCity("category","曲苑杂坛","全国");
-        for(Integer a:activities){
-            activitySortpages.add(findActivityAndActitem(a));
-            if(++i>=40)break;
-        }
-
-        activities=activityDao.findActivityByCategoryAndCity("category","体育","全国");
-        for(Integer a:activities){
-            activitySortpages.add(findActivityAndActitem(a));
-            if(++i>=50)break;
-        }
-
-        activities=activityDao.findActivityByCategoryAndCity("category","舞蹈芭蕾","全国");
-        for(Integer a:activities){
-            activitySortpages.add(findActivityAndActitem(a));
-            if(++i>=60)break;
-        }
-
-        activities=activityDao.findActivityByCategoryAndCity("category","音乐会","全国");
-        for(Integer a:activities){
-            activitySortpages.add(findActivityAndActitem(a));
-            if(++i>=70)break;
-        }
-
-        activities=activityDao.findActivityByCategoryAndCity("category","演唱会","全国");
-        for(Integer a:activities){
-            activitySortpages.add(findActivityAndActitem(a));
-            if(++i>=80)break;
+        else {
+            System.out.println(name+" put into cache");
+            activities = activityDao.findActivityByCategoryAndCity("category", name, "全国");
+            for (Integer a : activities) {
+                activitySortpages.add(findActivityAndActitem(a));
+                if (++i >= 10) break;
+            }
+            cache.addOrUpdateCache(name,activitySortpages);
         }
         return activitySortpages;
     }

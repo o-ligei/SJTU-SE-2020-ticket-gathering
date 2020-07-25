@@ -16,8 +16,8 @@ export class HomeView extends React.Component{
             <div>
                 <HeaderInfo/>
                 <Divider plain className="divider"> </Divider>
-                <div id="carousel">
-                    <Carousel autoplay afterChange={this.onChange.bind(this)}>
+                <div id="carousel" className="animated flip">
+                    <Carousel autoplay afterChange={this.onChange.bind(this)} className="animated pulse infinite slower">
                         <div id="carouselDiv">
                             <img src={require('../resources/carousel.png')} alt="carousel1" id="carouselImg"/>
                         </div>

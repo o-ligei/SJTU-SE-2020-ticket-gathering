@@ -56,7 +56,7 @@ export class HeaderInfo extends React.Component {
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
                 <div id="header-content">
-                    <div id="oligei">
+                    <div id="oligei" className="animated rollIn">
                         <img src={require('../resources/oligei.png')} width="200px" height="80px"/>
                     </div>
                     <div id="menusortDiv">
