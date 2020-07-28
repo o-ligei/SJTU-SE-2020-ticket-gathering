@@ -10,13 +10,10 @@ import com.oligei.ticket_gathering.dto.ActivitySortpage;
 import com.oligei.ticket_gathering.entity.info.Cache;
 import com.oligei.ticket_gathering.entity.mysql.Actitem;
 import com.oligei.ticket_gathering.entity.mysql.Activity;
-import com.oligei.ticket_gathering.entity.mysql.User;
-import com.oligei.ticket_gathering.entity.neo4j.ActivityNeo4j;
 import com.oligei.ticket_gathering.service.ActivityService;
 import org.apdplat.word.segmentation.Word;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.apdplat.word.segmentation.Segmentation;
 import org.apdplat.word.WordSegmenter;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +36,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     private Cache<ActivitySortpage> oneCache=new Cache<>();
 
-    private Cache<List<Activity>> activityCache=new Cache<>();
+    private Cache<List<Integer>> idSetCache=new Cache<>();
 
     private  int searchResultMax=50;
 
@@ -53,10 +50,9 @@ public class ActivityServiceImpl implements ActivityService {
                 return cacheResult;
             }
             List<ActivitySortpage> activities=new LinkedList<>();
-            for(int i=2;i<=50;++i){
+            for(int i=10;i<=451;i+=9){
                 activities.add(findActivityAndActitem(i));
             }
-//            activities.add(findActivityAndActitem(1417));
             cache.addOrUpdateCache("searchNull",activities);
             System.out.println("search null add into cache");
             return activities;
@@ -64,7 +60,7 @@ public class ActivityServiceImpl implements ActivityService {
         List<Word> words= WordSegmenter.seg(value);
         System.out.println("words:"+words+words.size());
         int n=words.size();
-        if(n==1){
+        if(n==1||n==2){
             String cacheName="search"+value;
             List<ActivitySortpage> cacheResult=cache.getValue(cacheName);
             if(cacheResult!=null) {
@@ -73,18 +69,30 @@ public class ActivityServiceImpl implements ActivityService {
             }
         }
 
-        List<List<Activity>> activityList=new LinkedList<>();
+//        List<List<Activity>> activityList=new LinkedList<>();
+        List<List<Integer>> activityIdList=new LinkedList<>();
         Set<Integer> idSet=new LinkedHashSet<>();
         for(int i=0;i<n;++i){
             String word=words.get(i).getText();
-//            String cacheName="search"+word;
-//            List<Activity> result=activityCache.getValue(cacheName);
-//
-            word="%"+word+"%";
-            List<Activity>  result=activityDao.findAllByTitleOrVenueOrActor(word,word,word);
-            activityList.add(result);
-            for(int j=0;j<activityList.get(i).size();++j)
-                idSet.add(activityList.get(i).get(j).getActivityId());
+
+//            word="%"+word+"%";
+//            List<Activity>  result=activityDao.findAllByTitleOrVenueOrActor(word,word,word);
+//            activityList.add(result);
+//            for(int j=0;j<activityList.get(i).size();++j)
+//                idSet.add(activityList.get(i).get(j).getActivityId());
+
+            String cacheName="idSet"+word;
+            List<Integer> result= idSetCache.getValue(cacheName);
+            if(result!=null)
+                System.out.println(cacheName+" get from cache");
+            else {
+                word = "%" + word + "%";
+                result = activityDao.findAllIdByTitleOrVenueOrActor(word, word, word);
+                idSetCache.addOrUpdateCache(cacheName,result);
+                System.out.println(cacheName+" add into cache");
+            }
+                activityIdList.add(result);
+                idSet.addAll(activityIdList.get(i));
         }
 
         int[] idArray=new int[idSet.size()];
@@ -98,9 +106,14 @@ public class ActivityServiceImpl implements ActivityService {
         }
         Arrays.sort(idArray);
 
+//        for(int i=0;i<n;++i)
+//            for(int j=0;j<activityList.get(i).size();++j){
+//                int index=Arrays.binarySearch(idArray,activityList.get(i).get(j).getActivityId());
+//                cntArray[index]++;
+//            }
         for(int i=0;i<n;++i)
-            for(int j=0;j<activityList.get(i).size();++j){
-                int index=Arrays.binarySearch(idArray,activityList.get(i).get(j).getActivityId());
+            for(int j=0;j<activityIdList.get(i).size();++j){
+                int index=Arrays.binarySearch(idArray,activityIdList.get(i).get(j));
                 cntArray[index]++;
             }
 
@@ -110,9 +123,9 @@ public class ActivityServiceImpl implements ActivityService {
 //        if(n>5)basic=2;
 //        if(n>10)basic=n-5;
         int basic=Math.max(0,n-3);
-        int resultCount=0;
-        for(int i=idSet.size();i>basic&&resultCount<=searchResultMax;--i){
-            for(int j=0;j<idSet.size();++j){
+        int resultCount=1;
+        for(int i=idSet.size();i>basic;--i){
+            for(int j=0;j<idSet.size()&&resultCount<=searchResultMax;++j){
                 if(cntArray[j]==i) {
                         ActivitySortpage activitySortpage = findActivityAndActitem(idArray[j]);
                         activities.add(activitySortpage);
@@ -121,7 +134,7 @@ public class ActivityServiceImpl implements ActivityService {
             }
         }
 
-        if(n==1){
+        if(n==1||n==2){
             String cacheName="search"+value;
             cache.addOrUpdateCache(cacheName,activities);
             System.out.println(cacheName+" add into cache");
