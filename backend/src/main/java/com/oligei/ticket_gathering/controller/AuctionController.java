@@ -20,20 +20,21 @@ public class AuctionController {
 
     @RequestMapping("/add")
     public boolean addAuction(@RequestParam("actitemid")Integer actitemid,@RequestParam("ddl")String ddl,
-                              @RequestParam("showtime")String showtime,@RequestParam("price")Integer price,@RequestParam("amount")Integer amount)
+                              @RequestParam("showtime")String showtime,@RequestParam("initprice")Integer initprice,
+                              @RequestParam("orderprice")Integer orderprice, @RequestParam("amount")Integer amount)
     {
-        return auctionService.save(actitemid,ddl,showtime,price,amount);
+        return auctionService.save(actitemid,ddl,showtime,initprice,orderprice,amount);
     }
 
 
-//    @RequestMapping("/get")
-//    public List<AuctionListItem> getAuctions(){
-//        return auctionService.getAvailableAuctions();
-//    }
-//
-//    @RequestMapping("/join")
-//    public Integer joinAuction(@RequestParam("auctionid")Integer auctionid,@RequestParam("userid")Integer userid,@RequestParam("price")Integer price)
-//    {
-//        return auctionService.joinAuction(auctionid,userid,price);
-//    }
+    @RequestMapping("/get")
+    public List<AuctionListItem> getAuctions(){
+        return auctionService.getAvailableAuctions();
+    }
+
+    @RequestMapping("/join")
+    public Integer joinAuction(@RequestParam("auctionid")Integer auctionid,@RequestParam("userid")Integer userid,@RequestParam("price")Integer price)
+    {
+        return auctionService.joinAuction(auctionid,userid,price);
+    }
 }
