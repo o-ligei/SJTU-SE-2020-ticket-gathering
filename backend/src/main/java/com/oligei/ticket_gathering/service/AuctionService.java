@@ -7,9 +7,9 @@ import java.util.List;
 public interface AuctionService {
     Boolean save(Integer actitemid ,String ddl,String showtime, Integer price,Integer amount);
 
-    List<AuctionListItem> getAvailableAuctions();
+//    List<AuctionListItem> getAvailableAuctions();
 
-    Integer joinAuction(Integer auctionid,Integer userid,Integer price);
-
-    void flushActions();
+//    Integer joinAuction(Integer auctionid,Integer userid,Integer price);
+//
+//    void flushActions();
 }

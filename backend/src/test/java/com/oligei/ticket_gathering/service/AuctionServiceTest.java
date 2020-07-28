@@ -25,15 +25,15 @@ class AuctionServiceTest {
         assertEquals(true,auctionService.save(1,"2020-10-1 12:12:12","2020-1-1",1000,5));
     }
 
-    @Test
-    @Rollback
-    void getAvailableAuctions() {
-        assertEquals(5,auctionService.getAvailableAuctions().size());
-    }
-
-    @Test
-    @Rollback
-    void joinAuction() {
-        assertEquals(1,auctionService.joinAuction(9,2,5000));
-    }
+//    @Test
+//    @Rollback
+//    void getAvailableAuctions() {
+//        assertEquals(5,auctionService.getAvailableAuctions().size());
+//    }
+//
+//    @Test
+//    @Rollback
+//    void joinAuction() {
+//        assertEquals(1,auctionService.joinAuction(9,2,5000));
+//    }
 }
