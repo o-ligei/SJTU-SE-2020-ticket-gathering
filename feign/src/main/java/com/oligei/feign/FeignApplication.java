@@ -20,9 +20,4 @@ public class FeignApplication {
         SpringApplication.run(FeignApplication.class, args);
     }
 
-//    @FeignClient(value = "ticketGathering")
-//    public interface SchedualServiceHi {
-//        @RequestMapping(value = "/hi",method = RequestMethod.GET)
-//        String home(@RequestParam(value = "name") String name);
-//    }
 }
