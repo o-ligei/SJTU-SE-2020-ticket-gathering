@@ -45,7 +45,6 @@ class AuctionDaoTest {
         assertEquals(true,auctionDao.save(auction));
 
     }
-    //在目前只有4个竞价产品时才成立
     @Test
     @Rollback
     void getAvailableAuctionsForNow() {
