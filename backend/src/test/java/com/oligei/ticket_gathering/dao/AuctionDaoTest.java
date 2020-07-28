@@ -35,7 +35,8 @@ class AuctionDaoTest {
         auction.setActitemid(1);
         auction.setUserid(0);
         auction.setIsover(0);
-        auction.setPrice(500);
+        auction.setInitprice(500);
+        auction.setOrderprice(500);
         auction.setDdl(Ddl);
         auction.setShowtime(Showtime);
         auction.setOrdertime(null);
@@ -44,7 +45,6 @@ class AuctionDaoTest {
         assertEquals(true,auctionDao.save(auction));
 
     }
-    //在目前只有4个竞价产品时才成立
     @Test
     @Rollback
     void getAvailableAuctionsForNow() {

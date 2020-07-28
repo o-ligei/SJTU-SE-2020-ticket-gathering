@@ -23,6 +23,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         excludePath.add("/Activity/FindActivityByCategory");
         excludePath.add("/index.html");
         excludePath.add("/Activity/FindActivityByCategoryHome");
+        excludePath.add("/hi");
+        excludePath.add("/");
         //excludePath.add("/Actitem/detail");
         registry.addInterceptor(new AuthenInterceptor()).addPathPatterns("/**")
                                                         .excludePathPatterns(excludePath);
