@@ -69,7 +69,8 @@ public class ActitemDaoImpl implements ActitemDao {
     public boolean modifyRepository(int actitemId, int price, int amount, String showtime) {
         Actitem actitem = findOneById(actitemId);
         List<JSONObject> prices = actitem.getPrice();
-
+//        showtime =  showtime.substring(0,9);
+        System.out.println(showtime);
         int i, j, repository = 0;
         for (i = 0; i < prices.size(); i++) {
             if (Objects.equals(showtime, prices.get(i).getString("time"))) {
@@ -96,6 +97,10 @@ public class ActitemDaoImpl implements ActitemDao {
                     break;
                 }
             }
+        }
+        if(j==tickets.size()){
+            System.out.println("no actitem found");
+            return false;
         }
         tmp.put("class", tickets);
         prices.set(i, tmp);

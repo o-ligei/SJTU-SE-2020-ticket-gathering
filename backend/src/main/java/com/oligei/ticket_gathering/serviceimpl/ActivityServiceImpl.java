@@ -93,7 +93,7 @@ public class ActivityServiceImpl implements ActivityService {
 //        if(n>10)basic=n-5;
         int basic=Math.max(0,n-2);
         int resultCount=0;
-        for(int i=idSet.size();i>=basic||resultCount<=20;--i){
+        for(int i=idSet.size();i>0||resultCount<=20;--i){
             for(int j=0;j<idSet.size();++j){
                 if(cntArray[j]==i) {
                         ActivitySortpage activitySortpage = findActivityAndActitem(idArray[j]);
