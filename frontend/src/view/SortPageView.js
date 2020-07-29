@@ -84,10 +84,11 @@ export class SortPageView extends React.Component{
     }
 
     componentWillUpdate(nextProps, nextState, nextContext) {
-        if(this.state.search!==nextState.search){
+        if(this.state.search!==nextState.search&&nextState.search!==""){
+            // console.log(this.state.search);
+            // console.log(nextState.search==="");
             this.setState({search: nextState.search});
             search(nextState.search, (res) => {
-                console.log(nextState.search);
                 console.log("??res:" + JSON.stringify(res));
                 if (res != null)
                     this.setState({
