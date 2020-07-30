@@ -11,8 +11,10 @@ import { UserOutlined } from '@ant-design/icons';
 import {getAuctions} from "../service/AuctionService";
 import {SortPageCard} from "../component/SortPageCard";
 import {AuctionCard} from "../component/AuctionCard";
+import {HeaderInfo} from "../component/Header";
 const {Header} = Layout;
 const { Search } = Input;
+
 
 export class AuctionView extends React.Component{
     constructor(props) {
@@ -39,11 +41,6 @@ export class AuctionView extends React.Component{
                     this.setState({activity: res})
             });
         }
-    }
-
-    logOut(){
-        localStorage.clear();
-        this.setState({login:false,username:null});
     }
 
     componentDidMount() {
@@ -80,47 +77,7 @@ export class AuctionView extends React.Component{
     render() {
         return(
             <div >
-                <Header className="site-layout-background" style={{padding: 0}}>
-                    <div id="header-content">
-                        <div id="oligei">
-                            <img src={require('../resources/oligei.png')} width="200px" height="80px"/>
-                        </div>
-                        <div id="menusortDiv">
-                            <Button id="menuButton" href="/" type={"primary"}>首页</Button>
-                            <Button id="sortButton" href="/sortPage" type={"primary"}>分类</Button>
-                        </div>
-                        <div id="searchDiv">
-                            <Search
-                                id="searchInput"
-                                placeholder="搜索明星、演出、体育赛事"
-                                onSearch={value => this.toggleSearch(value)}
-                                enterButton="搜索"
-                                size="large"
-                            />
-                        </div>
-                        <Avatar id="profileOperate" icon={<UserOutlined />} />
-                        <Dropdown
-                            overlay={(
-                                <Menu>
-                                    <Menu.Item>
-                                        <a href={this.state.login?"/profile":"/login"}>个人信息</a>
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        <a href={this.state.login?"/order":"/login"}>订单管理</a>
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        <p className="menuItem" onClick={this.logOut.bind(this)}>登出</p>
-                                    </Menu.Item>
-                                </Menu>
-                            )}>
-                            {!this.state.login?(
-                                <Button id="profileOperate" href="/login">登录</Button>
-                            ):(
-                                <Button id="profileOperate" href="/profile">{this.state.username}</Button>
-                            )}
-                        </Dropdown>
-                    </div>
-                </Header>
+                <HeaderInfo search={value => this.toggleSearch(value)}/>
                 <Divider plain className="divider"> </Divider>
                 <div id="sortPageDiv" style={{paddingBottom:100}}>
                     <List
