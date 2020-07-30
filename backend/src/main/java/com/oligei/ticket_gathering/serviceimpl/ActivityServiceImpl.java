@@ -386,6 +386,11 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Boolean initActivity() {
+
+        String init="初始化分词";
+        List<Word> words=WordSegmenter.seg(init);
+        System.out.println(words.toString());
+        
         initActivityById(1000);
         initActivityById(2000);
         initActivityById(3000);
@@ -398,6 +403,7 @@ public class ActivityServiceImpl implements ActivityService {
         initActivityById(10000);
         initActivityById(11000);
         initActivityById(12000);
+
 
         String[] citys = {"北京","天津","河北","山西","内蒙古","辽宁","吉林","黑龙江","上海","江苏","浙江","安徽","福建","江西","山东","河南","湖北",
                 "湖南","广东","广西", "海南","重庆","四川","贵州","云南","西藏","陕西","甘肃","青海","宁夏","新疆","台湾","澳门","香港",
