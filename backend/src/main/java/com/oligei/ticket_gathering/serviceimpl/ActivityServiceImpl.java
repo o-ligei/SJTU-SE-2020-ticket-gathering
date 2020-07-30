@@ -38,7 +38,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     private Cache<List<Integer>> idSetCache=new Cache<>();
 
-    private  int searchResultMax=50;
+    private  int searchResultMax=30;
 
 
     @Override
@@ -80,7 +80,6 @@ public class ActivityServiceImpl implements ActivityService {
 //            activityList.add(result);
 //            for(int j=0;j<activityList.get(i).size();++j)
 //                idSet.add(activityList.get(i).get(j).getActivityId());
-
             String cacheName="idSet"+word;
             List<Integer> result= idSetCache.getValue(cacheName);
             if(result!=null)
@@ -99,7 +98,7 @@ public class ActivityServiceImpl implements ActivityService {
         int[] cntArray=new int[idSet.size()];
         int cnt=0;
         for(Integer i:idSet) {
-            System.out.println("id:"+i);
+//            System.out.println("id:"+i);
             idArray[cnt] = i;
             cntArray[cnt]=0;
             ++cnt;
@@ -149,7 +148,7 @@ public class ActivityServiceImpl implements ActivityService {
         String cacheName="ActivitySortpage"+id.toString();
         ActivitySortpage cacheResult=oneCache.getValue(cacheName);
         if(cacheResult!=null){
-            System.out.println(cacheName+"get from cache");
+            System.out.println(cacheName+" get from cache");
             return cacheResult;
         }
 
@@ -384,4 +383,198 @@ public class ActivityServiceImpl implements ActivityService {
         }
         return activitySortpages;
     }
+
+    @Override
+    public Boolean initActivity() {
+        initActivityById(1000);
+        initActivityById(2000);
+        initActivityById(3000);
+        initActivityById(4000);
+        initActivityById(5000);
+        initActivityById(6000);
+        initActivityById(7000);
+        initActivityById(8000);
+        initActivityById(9000);
+        initActivityById(10000);
+        initActivityById(11000);
+        initActivityById(12000);
+
+        String[] citys = {"北京","天津","河北","山西","内蒙古","辽宁","吉林","黑龙江","上海","江苏","浙江","安徽","福建","江西","山东","河南","湖北",
+                "湖南","广东","广西", "海南","重庆","四川","贵州","云南","西藏","陕西","甘肃","青海","宁夏","新疆","台湾","澳门","香港",
+                "北京","成都","重庆","长春","长沙","大连","东莞","佛山","福州","广州","贵阳","哈尔滨","海口","杭州","合肥","呼和浩特","济南",
+                "昆明","南昌","南京","南宁","宁波","青岛","厦门","上海","深圳","沈阳","石家庄","苏州","太原","天津","无锡","武汉","西安","郑州", "珠海"
+        };
+        for(String s :citys)
+            initActivityByCity(s);
+        return true;
+    }
+
+    public void initActivityById(int cnt) {
+        int basic=Math.max(1,cnt-1000);
+        for(int i=basic;i<cnt;++i){
+            findActivityAndActitem(i);
+            System.out.println("size:"+oneCache.getSize());
+        }
+    }
+
+    public void initActivityByCity(String city) {
+        String cacheName = "idSet" + city;
+        city = "%" + city + "%";
+        List<Integer> result = activityDao.findAllIdByTitleOrVenueOrActor(city, city, city);
+        idSetCache.addOrUpdateCache(cacheName, result);
+        System.out.println(cacheName + " add into cache");
+    }
+
+    @Override
+    public Boolean clear(String cacheName) {
+        if(cacheName==null||cacheName.equals("")||cacheName.equals("null"))
+            idSetCache.evictCache();
+        idSetCache.evictCache(cacheName);
+        cache.evictCache();
+        return true;
+    }
+
+
+
+
+
+
+//
+//    @Override
+//    public List<ActivitySortpage> search1(String value) {
+//        if(value==null || value.equals("")|| value.equals("null")){
+//            List<ActivitySortpage> cacheResult=cache.getValue("searchNull");
+//            if(cacheResult!=null){
+//                System.out.println("search null get from cache");
+//                return cacheResult;
+//            }
+//            List<ActivitySortpage> activities=new LinkedList<>();
+//            for(int i=10;i<=451;i+=9){
+//                activities.add(findActivityAndActitem(i));
+//            }
+//            cache.addOrUpdateCache("searchNull",activities);
+//            System.out.println("search null add into cache");
+//            return activities;
+//        }
+//        List<Word> words= WordSegmenter.seg(value);
+//        System.out.println("words:"+words+words.size());
+//        int n=words.size();
+//        if(n==1||n==2){
+//            String cacheName="search"+value;
+//            List<ActivitySortpage> cacheResult=cache.getValue(cacheName);
+//            if(cacheResult!=null) {
+//                System.out.println(cacheName+" get from cache");
+//                return cacheResult;
+//            }
+//        }
+//
+////        List<List<Activity>> activityList=new LinkedList<>();
+//        List<List<Integer>> activityIdList=new LinkedList<>();
+//        Set<Integer> idSet=new LinkedHashSet<>();
+//        for(int i=0;i<n;++i){
+//            String word=words.get(i).getText();
+//
+////            word="%"+word+"%";
+////            List<Activity>  result=activityDao.findAllByTitleOrVenueOrActor(word,word,word);
+////            activityList.add(result);
+////            for(int j=0;j<activityList.get(i).size();++j)
+////                idSet.add(activityList.get(i).get(j).getActivityId());
+//            String cacheName="idSet"+word;
+//            List<Integer> result= idSetCache.getValue(cacheName);
+//            if(result!=null)
+//                System.out.println(cacheName+" get from cache");
+//            else {
+//                word = "%" + word + "%";
+//                result = activityDao.findAllIdByTitleOrVenueOrActor(word, word, word);
+//                idSetCache.addOrUpdateCache(cacheName,result);
+//                System.out.println(cacheName+" add into cache");
+//            }
+//            activityIdList.add(result);
+//            idSet.addAll(activityIdList.get(i));
+//        }
+//
+//        return new LinkedList<>();
+//    }
+//
+//
+//    @Override
+//    public List<ActivitySortpage> search2(String value) {
+//        if(value==null || value.equals("")|| value.equals("null")){
+//            List<ActivitySortpage> cacheResult=cache.getValue("searchNull");
+//            if(cacheResult!=null){
+//                System.out.println("search null get from cache");
+//                return cacheResult;
+//            }
+//            List<ActivitySortpage> activities=new LinkedList<>();
+//            for(int i=10;i<=451;i+=9){
+//                activities.add(findActivityAndActitem(i));
+//            }
+//            cache.addOrUpdateCache("searchNull",activities);
+//            System.out.println("search null add into cache");
+//            return activities;
+//        }
+//        List<Word> words= WordSegmenter.seg(value);
+//        System.out.println("words:"+words+words.size());
+//        int n=words.size();
+//        if(n==1||n==2){
+//            String cacheName="search"+value;
+//            List<ActivitySortpage> cacheResult=cache.getValue(cacheName);
+//            if(cacheResult!=null) {
+//                System.out.println(cacheName+" get from cache");
+//                return cacheResult;
+//            }
+//        }
+//
+////        List<List<Activity>> activityList=new LinkedList<>();
+//        List<List<Integer>> activityIdList=new LinkedList<>();
+//        Set<Integer> idSet=new LinkedHashSet<>();
+//        for(int i=0;i<n;++i){
+//            String word=words.get(i).getText();
+//
+////            word="%"+word+"%";
+////            List<Activity>  result=activityDao.findAllByTitleOrVenueOrActor(word,word,word);
+////            activityList.add(result);
+////            for(int j=0;j<activityList.get(i).size();++j)
+////                idSet.add(activityList.get(i).get(j).getActivityId());
+//            String cacheName="idSet"+word;
+//            List<Integer> result= idSetCache.getValue(cacheName);
+//            if(result!=null)
+//                System.out.println(cacheName+" get from cache");
+//            else {
+//                word = "%" + word + "%";
+//                result = activityDao.findAllIdByTitleOrVenueOrActor(word, word, word);
+//                idSetCache.addOrUpdateCache(cacheName,result);
+//                System.out.println(cacheName+" add into cache");
+//            }
+//            activityIdList.add(result);
+//            idSet.addAll(activityIdList.get(i));
+//        }
+//
+//        int[] idArray=new int[idSet.size()];
+//        int[] cntArray=new int[idSet.size()];
+//        int cnt=0;
+//        for(Integer i:idSet) {
+////            System.out.println("id:"+i);
+//            idArray[cnt] = i;
+//            cntArray[cnt]=0;
+//            ++cnt;
+//        }
+//        Arrays.sort(idArray);
+//
+////        for(int i=0;i<n;++i)
+////            for(int j=0;j<activityList.get(i).size();++j){
+////                int index=Arrays.binarySearch(idArray,activityList.get(i).get(j).getActivityId());
+////                cntArray[index]++;
+////            }
+//        for(int i=0;i<n;++i)
+//            for(int j=0;j<activityIdList.get(i).size();++j){
+//                int index=Arrays.binarySearch(idArray,activityIdList.get(i).get(j));
+//                cntArray[index]++;
+//            }
+//
+//        List<ActivitySortpage> activities=new LinkedList<>();
+//            return activities;
+//    }
+
+
 }
