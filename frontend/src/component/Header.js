@@ -15,7 +15,6 @@ export class HeaderInfo extends React.Component {
             login:false,
             username:null,
             usertype:null,
-            ifsearch:false
         }
     }
 
@@ -30,12 +29,17 @@ export class HeaderInfo extends React.Component {
     }
 
     toggleSearch=(value)=>{
-        console.log("搜索内容："+value+"!!!");
-        localStorage.setItem("search",value);
-        this.setState({
-            ifsearch:true
-        })
-    }
+        // console.log("搜索内容："+value+"!!!");
+        // localStorage.setItem("search",value);
+        // this.setState({
+        //     ifsearch:true,
+        //     search:value
+        // });
+        // console.log(this.props.search);
+        if(this.props.search!=null){
+            this.props.search(value);
+        }
+    };
 
 
     logOut(){
@@ -49,19 +53,16 @@ export class HeaderInfo extends React.Component {
 
 
     render() {
-        if(this.state.ifsearch){
-            console.log("jumping...");
-            return <Redirect to={{pathname: "/sortPage"}}/>;
-        }
         return (
             <Header className="site-layout-background" style={{padding: 0}}>
                 <div id="header-content">
-                    <div id="oligei">
+                    <div id="oligei" className="animated rollIn">
                         <img src={require('../resources/oligei.png')} width="200px" height="80px"/>
                     </div>
                     <div id="menusortDiv">
                         <Button id="menuButton" href="/" type={"primary"}>首页</Button>
                         <Button id="sortButton" href="/sortPage" type={"primary"}>分类</Button>
+                        <Button id="auctionButton" href="/auction" type={"primary"}>竞价</Button>
                     </div>
                     <div id="searchDiv">
                         <Search

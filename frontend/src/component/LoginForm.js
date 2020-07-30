@@ -7,7 +7,17 @@ import {checkUser} from "../service/userService";
 import {userInfo} from "../const/userInfo";
 import {login} from "../service/userService";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {VelocityComponent} from "velocity-react";
 
+const VelocityLetter = ({ letter }) => (
+    <VelocityComponent
+        runOnMount
+        animation={{ opacity: 1, marginTop: 0 }}
+        duration={500}
+    >
+        <p style={styles.letter}>{letter}</p>
+    </VelocityComponent>
+);
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
@@ -23,6 +33,7 @@ export class LoginForm extends React.Component {
             user:null,
             firstLogin:true,
             token:null,
+            letters: [],
         };
     }
     onFinish = values => {
@@ -42,6 +53,14 @@ export class LoginForm extends React.Component {
     onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
+    onChange = (e) => {
+        const letters = e.target.value.split('');
+        const arr = []
+        letters.forEach((l, i) => {
+            arr.push(<VelocityLetter letter={l} />)
+        })
+        this.setState(() => ({ letters: arr }))
+    };
 
     render(){
         if(this.state.user==null &&this.state.firstLogin===false){
@@ -57,7 +76,7 @@ export class LoginForm extends React.Component {
             return <Redirect to={{pathname: "/"}}/>;
         }
         return (
-            <div>
+            <div className="animated rotateIn">
             <Form
                 id = "login_form"
                 {...layout}
@@ -73,8 +92,12 @@ export class LoginForm extends React.Component {
                     rules={[{required: true, message: 'Please input your username!'}]}
                 >
                     <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" size="large"
-                           style={{fontFamily:"BookMan Old Style",borderRadius: 10,width:400}}/>
+                           // style={{fontFamily:"BookMan Old Style",borderRadius: 10,width:400}}
+                           onChange={this.onChange} style={styles.input}/>
                 </Form.Item>
+                {this.state.letters.length>0 && <div style={styles.letters}>
+                    name:{this.state.letters}
+                </div>}
                 <Form.Item
                     // label="Password"
                     name="password"
@@ -89,15 +112,17 @@ export class LoginForm extends React.Component {
                     />
                 </Form.Item>
                 <Form.Item>
+                    <div style={{paddingLeft:50}}>
                     <Button type="primary" htmlType="submit" size="large" id="loginBtn">
                         登 录
                     </Button>
-                    <p> </p>
+                    <div style={{height:40}}> </div>
                     <Link to={{pathname: "/register"}}>
                         <Button size="large" id="regBtn">
                             注册
                         </Button>
                     </Link>
+                    </div>
                 </Form.Item>
             </Form>
 
@@ -108,5 +133,29 @@ export class LoginForm extends React.Component {
         );
     }
 }
+
+const styles = {
+    input: {
+        width: 400,
+        border: 'none',
+        outline: 'none',
+        // fontSize: 22,
+        fontFamily:"BookMan Old Style",
+        borderRadius: 10,
+    },
+    letters: {
+        fontFamily:"BookMan Old Style",
+        // paddingLeft:35,
+        marginTop: -20,
+        display: 'flex',
+        height: 10,
+    },
+    letter: {
+        opacity: 0,
+        marginTop: 100,
+        fontSize: 16,
+        whiteSpace: 'pre',
+    }
+};
 
 

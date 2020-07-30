@@ -445,6 +445,11 @@ const Demo = () => {
                                             <li key={index} className="user">
                                                 {/*<Avatar icon={<UserOutlined />} />*/}
                                                 {user.website}
+                                                <Button type="primary" size="small" onClick={()=>{
+                                                    u.splice(index,1);
+                                                    console.log(u);
+                                                    setVisible(false);
+                                                }}>delete</Button>
                                                 {/*- {user.day}*/}
                                             </li>
                                         ))}
@@ -475,15 +480,15 @@ const Demo = () => {
 };
 export class Admin extends React.Component{
     render() {
-        if (localStorage.getItem("usertype") === null) {
-            message.error("请先登录");
-            return <Redirect to={{pathname: "/login"}}/>;
-        } else if (localStorage.getItem("usertype") === "Admin")
+    //     if (localStorage.getItem("usertype") === null) {
+    //         message.error("请先登录");
+    //         return <Redirect to={{pathname: "/login"}}/>;
+    //     } else if (localStorage.getItem("usertype") === "Admin")
             return (<Demo/>);
-        else {
-            message.error("无权限");
-            return <Redirect to={{pathname: "/login"}}/>;
-        }
+        // else {
+        //     message.error("无权限");
+        //     return <Redirect to={{pathname: "/login"}}/>;
+        // }
     }
 }
 // export class Admin extends React.Component{

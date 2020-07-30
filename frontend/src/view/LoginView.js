@@ -11,7 +11,7 @@ let sectionStyle = {
 export class LoginView extends React.Component{
     render(){
         return(
-            <div id="container"style={sectionStyle}>
+            <div id="container" style={sectionStyle}>
                 <LoginForm/>
             </div>
         )

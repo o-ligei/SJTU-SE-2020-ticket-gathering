@@ -20,14 +20,15 @@ public class OrderController {
 
     @RequestMapping("/GetOrderInfoByUser")
     public List<OrderInfo> getOrderInfoByUser(@RequestParam("userId")int userId){
-        return orderService.getOrderInfoByUser(userId);
+//        return orderService.getOrderInfoByUser(userId);
+        return orderService.getUserOrder(userId);
     }
 
     @RequestMapping("/addOrder")
     public boolean addOrder(@RequestParam("userId")int userId, @RequestParam("actitemId")int actitemId,
-                            @RequestParam("price")int price, @RequestParam("amount")int amount,
+                            @RequestParam("initPrice")int initPrice, @RequestParam("orderPrice")int orderPrice, @RequestParam("amount")int amount,
                             @RequestParam("showtime")String showtime,@RequestParam("orderTime")String orderTime){
         System.out.println(userId);
-        return orderService.addOrder(userId,actitemId,price,amount,showtime,orderTime);
+        return orderService.addOrder(userId,actitemId,initPrice,orderPrice,amount,showtime,orderTime);
     }
 }

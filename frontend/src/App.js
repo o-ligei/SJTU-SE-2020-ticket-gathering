@@ -5,7 +5,9 @@ import {HeaderInfo} from "./component/Header";
 
 
 const App = () => (
+    <div className='animate-route'>
     <BasicRoute/>
+    </div>
 );
 
 export default App;
