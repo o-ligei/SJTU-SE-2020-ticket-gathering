@@ -1,9 +1,11 @@
 package com.oligei.ticket_gathering.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.oligei.ticket_gathering.entity.mysql.Auction;
-import com.oligei.ticket_gathering.service.AuctionService;
+import com.oligei.ticket_gathering.entity.mysql.Actitem;
+import com.oligei.ticket_gathering.entity.mysql.User;
+import com.oligei.ticket_gathering.service.ActitemService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +19,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @Transactional
-class AuctionControllerTest {
+class ActitemControllerTest {
 
     private MockMvc mockMvc;
     private ObjectMapper om = new ObjectMapper();
 
     @Autowired
-    AuctionService auctionService;
+    ActitemService actitemService;
 
     @Autowired
     private WebApplicationContext context;
@@ -40,23 +42,11 @@ class AuctionControllerTest {
 
     @Test
     @Rollback
-    void addAuction() throws Exception {
-//        ObjectMapper mapper = new ObjectMapper();
-//        String auction_string = "{\"actitemid\":8,\"ddl\":\"2020-07-28 08:57:00\",\"showtime\":\"2020-02-22\",\"initprice\":680\"\",\"orderprice\":1000,\"amount\":5}";
-//        Auction auction = mapper.readValue(auction_string,Auction.class);
-//        MvcResult result = mockMvc.perform(post("/Auction/add").contentType(MediaType.APPLICATION_JSON_VALUE)
-//                .content(mapper.writeValueAsString(auction)))
-//                .andExpect(status().isOk())
-//                .andReturn();
-//        String resultContent = result.getResponse().getContentAsString();
-//        assertEquals(true,resultContent);
-    }
-
-    @Test
-    void getAuctions() throws Exception{
-    }
-
-    @Test
-    void joinAuction() throws Exception{
+    void getDetail() throws Exception{
+        MvcResult result = mockMvc.perform(get("/Actitem/detail?actitemid=1").contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk()).andReturn();
+        String resultContent = result.getResponse().getContentAsString();
+        JSONObject jsonObject = om.readValue(resultContent, new TypeReference<JSONObject>() {});
+        assertEquals(jsonObject.get("key"),actitemService.findActivityAndActitemDetail(1,1).get("key"));
     }
 }

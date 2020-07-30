@@ -86,7 +86,6 @@ class ActitemDaoTest {
         assertEquals(mongoData.getPrice(),tmp);
     }
 
-    
     @Test
     @Rollback
     void modifyRepository(){
