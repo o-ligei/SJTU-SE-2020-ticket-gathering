@@ -24,7 +24,6 @@ public class VisitedRelationshipDaoImpl implements VisitedRelationshipDao {
 
     @Override
     public VisitedRelationship saveVisitedHistory(Integer userId, Integer activityId) {
-        /*return visitedRelationshipRepository.saveVisitedHistory(userId.toString(),activityId.toString());*/
-        return null;
+        return visitedRelationshipRepository.saveVisitedHistory(userId.toString(),activityId.toString());
     }
 }
